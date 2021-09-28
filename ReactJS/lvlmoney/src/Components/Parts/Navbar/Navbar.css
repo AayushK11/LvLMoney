@@ -1,0 +1,16 @@
+.navbar-logo{
+    height: 35px;
+    overflow: hidden;
+    
+}
+
+.btn-outline-info {
+    color: #D6DF21;
+    border-color: #D6DF21;
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #D6DF21;
+    border-color: #D6DF21;
+  }
+
