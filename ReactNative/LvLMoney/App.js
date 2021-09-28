@@ -6,6 +6,7 @@ import {
 } from "@react-navigation/stack";
 import SplashScreen from "./Components/Pages/Splash Screen/SplashScreen";
 import LoginPage from "./Components/Pages/Login Page/LoginPage";
+import HomePage from "./Components/Pages/Home Page/HomePage";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -38,6 +39,11 @@ export default class App extends React.Component {
             component={LoginPage}
             options={TransitionScreenOptions}
           />
+          <Stack.Screen
+            name="Home Page"
+            component={HomePage}
+            options={TransitionScreenOptions}
+          ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     );

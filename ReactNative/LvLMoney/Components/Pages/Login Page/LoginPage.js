@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View, StatusBar, PixelRatio, Text } from "react-native";
+import { StyleSheet, View, StatusBar, PixelRatio } from "react-native";
 import LvL_L from "../../Images/Icons/LvL_L.png";
 import LoginFields from "../../Parts/LoginFields/LoginFields";
+import { StackActions } from "@react-navigation/native";
 
 const pixelratio = PixelRatio.get();
 
@@ -29,6 +30,9 @@ export default class LoginPage extends React.Component {
     }
     if (this.state.TwoFA == true) {
       this.setState({ TwoFACode: Input2 });
+      setTimeout(() => {
+        this.props.navigation.dispatch(StackActions.replace("Home Page"));
+      }, 600);
     }
     console.log(this.state);
   }
@@ -59,9 +63,6 @@ export default class LoginPage extends React.Component {
                   link2_link="https://lvlmoney.netlify.app/forgotpassword"
                   handlePress={this.handleLogin}
                 />
-                <Text style={styles.LoginPageCopyright}>
-                  © LvL Money - 2021
-                </Text>
               </View>
             );
           } else if (this.state.TwoFA == true) {
@@ -83,9 +84,6 @@ export default class LoginPage extends React.Component {
                   handlePress={this.handleLogin}
                   goBack={this.changeAccount}
                 />
-                <Text style={styles.LoginPageCopyright}>
-                  © LvL Money - 2021
-                </Text>
               </View>
             );
           }
@@ -102,13 +100,5 @@ const styles = StyleSheet.create({
     paddingLeft: 125 / pixelratio,
     paddingTop: 250 / pixelratio,
     flex: 1,
-  },
-  LoginPageCopyright: {
-    color: "white",
-    position: "absolute",
-    bottom: 10 * pixelratio,
-    zIndex: 1,
-    alignSelf: "center",
-    fontSize: 35 / pixelratio,
   },
 });

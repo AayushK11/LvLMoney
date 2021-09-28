@@ -24,7 +24,7 @@ export default class SplashScreen extends React.Component {
 
   componentDidMount() {
     let TempProgress = [20, 80, 100, 120];
-    interval = setInterval(() => {
+    let interval = setInterval(() => {
       this.onAnimate(TempProgress[0]);
       TempProgress.shift();
       if (TempProgress[0] == 120) {
