@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar, PixelRatio } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Profile from "../Profile/Profile";
+import Account from "../Account/Account";
 
 const Tab = createBottomTabNavigator();
+const pixelratio = PixelRatio.get();
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -17,20 +18,34 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <View style={styles.HomePageBackground}>
+        <StatusBar barStyle="light-content" backgroundColor="#010312" />
         <Tab.Navigator
-          initialRouteName="Stocks"
+          initialRouteName="Account"
           backBehavior="none"
           screenOptions={{
+            tabBarLabelStyle: {
+              margin: 10 / pixelratio,
+              padding: 0,
+            },
             headerShown: false,
+            bottom: "never",
             tabBarActiveTintColor: "#2196F3",
             tabBarInactiveTintColor: "#010312",
             tabBarActiveBackgroundColor: "#010312",
-            tabBarInactiveBackgroundColor: "white",
+            tabBarInactiveBackgroundColor: "#ffffff",
+            safeAreaInsets: {
+              bottom: 0,
+            },
+            tabBarStyle: {
+              borderTopWidth: 0,
+              elevation: 0,
+              height: 45 + 10 / pixelratio,
+            },
           }}
         >
           <Tab.Screen
             name="Stocks"
-            component={Profile}
+            component={Account}
             options={{
               tabBarLabel: "Stocks",
               tabBarIcon: ({ color, size }) => (
@@ -40,7 +55,7 @@ export default class HomePage extends React.Component {
           />
           <Tab.Screen
             name="Mutual Funds"
-            component={Profile}
+            component={Account}
             options={{
               tabBarLabel: "Mutual Funds",
               tabBarIcon: ({ color, size }) => (
@@ -50,7 +65,7 @@ export default class HomePage extends React.Component {
           />
           <Tab.Screen
             name="Personal Finance"
-            component={Profile}
+            component={Account}
             options={{
               tabBarLabel: "Personal Finance",
               tabBarIcon: ({ color, size }) => (
@@ -63,10 +78,10 @@ export default class HomePage extends React.Component {
             }}
           />
           <Tab.Screen
-            name="Profile"
-            component={Profile}
+            name="Account"
+            component={Account}
             options={{
-              tabBarLabel: "Profile",
+              tabBarLabel: "Account",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="face-profile"

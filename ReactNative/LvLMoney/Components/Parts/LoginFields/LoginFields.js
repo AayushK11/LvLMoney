@@ -33,7 +33,9 @@ export default class LoginFields extends React.Component {
   render() {
     return (
       <View>
-        <Image source={this.props.image} style={styles.LoginPageImage} />
+        <View style={styles.LoginPageImageParent}>
+          <Image source={this.props.image} style={styles.LoginPageImage} />
+        </View>
         <Text style={styles.LoginHeadingText}>{this.props.headingtext}</Text>
         {(() => {
           if (this.props.field1_type == "default") {
@@ -124,9 +126,18 @@ export default class LoginFields extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  LoginPageImage: {
-    maxWidth: 250 / pixelratio,
+  LoginPageImageParent: {
+    backgroundColor: "#010312",
+    justifyContent: "center",
+    flex: 1,
+    marginTop: -100 / pixelratio,
+    alignItems: "center",
+    width: "100%",
     maxHeight: 250 / pixelratio,
+  },
+  LoginPageImage: {
+    maxWidth: 300 / pixelratio,
+    maxHeight: 300 / pixelratio,
     resizeMode: "contain",
   },
   LoginHeadingText: {
@@ -134,11 +145,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 70 / pixelratio,
     marginTop: 100 / pixelratio,
-    marginBottom: 120 / pixelratio,
+    marginBottom: 60 / pixelratio,
+    textAlign: "center",
     fontFamily: "Trebuchet",
   },
   LoginInputField: {
-    width: "80%",
+    width: "100%",
     height: 130 / pixelratio,
     paddingLeft: 50 / pixelratio,
     fontSize: 45 / pixelratio,
@@ -150,7 +162,7 @@ const styles = StyleSheet.create({
     fontFamily: "Trebuchet",
   },
   LoginButton: {
-    width: "80%",
+    width: "100%",
     backgroundColor: "#2196F3",
     height: 100 / pixelratio,
     borderRadius: 10 / pixelratio,
@@ -165,7 +177,7 @@ const styles = StyleSheet.create({
     fontFamily: "Trebuchet",
   },
   LoginExternalLink: {
-    width: "80%",
+    width: "100%",
     marginBottom: 20 / pixelratio,
     paddingRight: 20 / pixelratio,
     height: 70 / pixelratio,
@@ -180,8 +192,10 @@ const styles = StyleSheet.create({
   },
   LoginUserText: {
     color: "white",
-    fontSize: 50 / pixelratio,
+    fontSize: 60 / pixelratio,
     fontFamily: "Trebuchet",
     height: 100 / pixelratio,
+    width: "100%",
+    textAlign: "center",
   },
 });
