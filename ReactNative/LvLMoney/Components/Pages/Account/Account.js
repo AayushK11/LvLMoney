@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  PixelRatio,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View, PixelRatio, Text, Image } from "react-native";
 import LvL_L from "../../Images/Icons/LvL_L.png";
-import Feather from "react-native-vector-icons/Feather";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
+import { StackActions } from "@react-navigation/native";
 
 const pixelratio = PixelRatio.get();
 
@@ -18,6 +10,13 @@ export default class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(ClickedItem) {
+    if (ClickedItem === "Log Out") {
+      this.props.navigation.dispatch(StackActions.replace("Login Page"));
+    }
   }
 
   render() {
@@ -32,81 +31,10 @@ export default class Account extends React.Component {
             <Image source={LvL_L} style={styles.AccountImage} />
           </View>
         </View>
-        <TouchableWithoutFeedback>
-          <View style={styles.AccountBox2}>
-            <View style={{ flex: 3, justifyContent: "center" }}>
-              <Text style={styles.AccountHeading}>Edit Profile</Text>
-            </View>
-            <View style={{ flex: 1, width: "100%" }}>
-              <Feather name="edit" style={styles.AccountIcon} />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <View
-          style={{
-            borderBottomColor: "white",
-            marginHorizontal: 50 / pixelratio,
-            marginVertical: 25 / pixelratio,
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableWithoutFeedback>
-          <View style={styles.AccountBox2}>
-            <View style={{ flex: 3, justifyContent: "center" }}>
-              <Text style={styles.AccountHeading}>Support</Text>
-            </View>
-            <View style={{ flex: 1, width: "100%" }}>
-              <Feather name="info" style={styles.AccountIcon} />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <View
-          style={{
-            borderBottomColor: "white",
-            marginHorizontal: 50 / pixelratio,
-            marginVertical: 25 / pixelratio,
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableWithoutFeedback>
-          <View style={styles.AccountBox2}>
-            <View style={{ flex: 3, justifyContent: "center" }}>
-              <Text style={styles.AccountHeading}>Invite Friends</Text>
-            </View>
-            <View style={{ flex: 1, width: "100%" }}>
-              <MaterialIcons name="person-add" style={styles.AccountIcon} />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <View
-          style={{
-            borderBottomColor: "white",
-            marginHorizontal: 50 / pixelratio,
-            marginVertical: 25 / pixelratio,
-            borderBottomWidth: 1,
-          }}
-        />
-        <TouchableWithoutFeedback>
-          <View style={styles.AccountBox2}>
-            <View style={{ flex: 3, justifyContent: "center" }}>
-              <Text style={styles.AccountHeading}>Log Out</Text>
-            </View>
-            <View style={{ flex: 1, width: "100%" }}>
-              <MaterialCommunityIcons
-                name="exit-run"
-                style={styles.AccountIcon}
-              />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <View
-          style={{
-            borderBottomColor: "white",
-            marginHorizontal: 50 / pixelratio,
-            marginVertical: 25 / pixelratio,
-            borderBottomWidth: 1,
-          }}
-        />
+        <BoxedItem Title="Edit Profile" handleClick={this.handleClick} />
+        <BoxedItem Title="Support" handleClick={this.handleClick} />
+        <BoxedItem Title="Invite Friends" handleClick={this.handleClick} />
+        <BoxedItem Title="Log Out" handleClick={this.handleClick} />
       </View>
     );
   }
@@ -152,21 +80,6 @@ const styles = StyleSheet.create({
   AccountImage: {
     flex: 1,
     resizeMode: "contain",
-    width: "100%",
-  },
-  AccountBox2: {
-    flexDirection: "row",
-    marginStart: 50 / pixelratio,
-    marginEnd: 50 / pixelratio,
-    paddingStart: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  AccountIcon: {
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: 80 / pixelratio,
-    textAlign: "center",
     width: "100%",
   },
 });

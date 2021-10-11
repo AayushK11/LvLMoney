@@ -5,6 +5,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Account from "../Account/Account";
+import PersonalFinance from "../PersonalFinance/PersonalFinance";
+import MutualFunds from "../MutualFunds/MutualFunds";
+import Stocks from "../Stocks/Stocks";
 
 const Tab = createBottomTabNavigator();
 const pixelratio = PixelRatio.get();
@@ -20,7 +23,7 @@ export default class HomePage extends React.Component {
       <View style={styles.HomePageBackground}>
         <StatusBar barStyle="light-content" backgroundColor="#010312" />
         <Tab.Navigator
-          initialRouteName="Account"
+          initialRouteName="Stocks"
           backBehavior="none"
           screenOptions={{
             tabBarLabelStyle: {
@@ -45,7 +48,7 @@ export default class HomePage extends React.Component {
         >
           <Tab.Screen
             name="Stocks"
-            component={Account}
+            component={Stocks}
             options={{
               tabBarLabel: "Stocks",
               tabBarIcon: ({ color, size }) => (
@@ -55,7 +58,7 @@ export default class HomePage extends React.Component {
           />
           <Tab.Screen
             name="Mutual Funds"
-            component={Account}
+            component={MutualFunds}
             options={{
               tabBarLabel: "Mutual Funds",
               tabBarIcon: ({ color, size }) => (
@@ -65,7 +68,7 @@ export default class HomePage extends React.Component {
           />
           <Tab.Screen
             name="Personal Finance"
-            component={Account}
+            component={PersonalFinance}
             options={{
               tabBarLabel: "Personal Finance",
               tabBarIcon: ({ color, size }) => (

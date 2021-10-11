@@ -23,7 +23,7 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Splash Screen"
+          initialRouteName="Home Page"
           screenOptions={{
             headerShown: false,
             bottom: "never",
