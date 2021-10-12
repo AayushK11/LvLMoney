@@ -7,6 +7,7 @@ import {
 import SplashScreen from "./Components/Pages/Splash Screen/SplashScreen";
 import LoginPage from "./Components/Pages/Login Page/LoginPage";
 import HomePage from "./Components/Pages/Home Page/HomePage";
+import Forecasting from "./Components/Pages/Forecasting/Forecasting";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -23,7 +24,7 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home Page"
+          initialRouteName="Splash Screen"
           screenOptions={{
             headerShown: false,
             bottom: "never",
@@ -43,7 +44,12 @@ export default class App extends React.Component {
             name="Home Page"
             component={HomePage}
             options={TransitionScreenOptions}
-          ></Stack.Screen>
+          />
+          <Stack.Screen
+            name="Forecasting"
+            component={Forecasting}
+            options={TransitionScreenOptions}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

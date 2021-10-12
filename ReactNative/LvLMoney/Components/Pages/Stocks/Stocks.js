@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, PixelRatio, Text } from "react-native";
 import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { StackActions } from "@react-navigation/native";
 
 const pixelratio = PixelRatio.get();
 
@@ -13,6 +14,9 @@ export default class Stocks extends React.Component {
   }
 
   handleClick(ClickedItem) {
+    if (ClickedItem === "Forecasting") {
+      this.props.navigation.push("Forecasting");
+    }
     console.log(ClickedItem);
   }
 

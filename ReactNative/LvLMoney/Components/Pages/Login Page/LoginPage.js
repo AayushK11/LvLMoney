@@ -96,7 +96,6 @@ export default class LoginPage extends React.Component {
 const styles = StyleSheet.create({
   LoginPageBackground: {
     backgroundColor: "#010312",
-    // backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
