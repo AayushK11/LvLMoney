@@ -17,6 +17,9 @@ export default class Stocks extends React.Component {
     if (ClickedItem === "Forecasting") {
       this.props.navigation.push("Forecasting");
     }
+    if (ClickedItem === "Market Sentiment Analysis") {
+      this.props.navigation.push("Market Sentiment Analysis");
+    }
     console.log(ClickedItem);
   }
 

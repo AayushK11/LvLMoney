@@ -16,14 +16,7 @@
       "userInterfaceStyle": "automatic"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/favicon.png",
-        "backgroundColor": "#010312"
-      }, 
       "package": "com.LvL.Money"
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
     }
   }
 }
