@@ -20,6 +20,9 @@ export default class Stocks extends React.Component {
     if (ClickedItem === "Market Sentiment Analysis") {
       this.props.navigation.push("Market Sentiment Analysis");
     }
+    if (ClickedItem === "Sector Wise Ranking") {
+      this.props.navigation.push("Sector Wise Ranking");
+    }
     console.log(ClickedItem);
   }
 
@@ -43,10 +46,7 @@ export default class Stocks extends React.Component {
           Title="Market Sentiment Analysis"
           handleClick={this.handleClick}
         />
-        <BoxedItem
-          Title="Sector Based Ranking"
-          handleClick={this.handleClick}
-        />
+        <BoxedItem Title="Sector Wise Ranking" handleClick={this.handleClick} />
         <BoxedItem Title="Trading Strategies" handleClick={this.handleClick} />
       </View>
     );

@@ -9,6 +9,7 @@ import LoginPage from "./Components/Pages/Login Page/LoginPage";
 import HomePage from "./Components/Pages/Home Page/HomePage";
 import Forecasting from "./Components/Pages/Forecasting/Forecasting";
 import MarketSentiment from "./Components/Pages/MarketSentiment/MarketSentiment";
+import SectorWiseRanking from "./Components/Pages/SectorWiseRanking/SectorWiseRanking";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -54,6 +55,11 @@ export default class App extends React.Component {
           <Stack.Screen
             name="Market Sentiment Analysis"
             component={MarketSentiment}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Sector Wise Ranking"
+            component={SectorWiseRanking}
             options={TransitionScreenOptions}
           />
         </Stack.Navigator>

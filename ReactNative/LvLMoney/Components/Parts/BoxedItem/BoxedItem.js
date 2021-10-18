@@ -82,7 +82,7 @@ export default class BoxedItem extends React.Component {
         />
       );
     }
-    if (Title === "Sector Based Ranking") {
+    if (Title === "Sector Wise Ranking") {
       return <FontAwesome5 name="medal" style={styles.AccountIcon} />;
     }
     if (Title === "Trading Strategies") {

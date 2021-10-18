@@ -134,7 +134,7 @@ export default class MarketSentiment extends React.Component {
         >
           <View>
             <Text style={styles.MarketSentimentExplanationButton}>
-              How to Interpret the MMI?{"  "}
+              How to Interpret the Market Sentiment?{"  "}
               {this.state.Arrows[this.state.Condition]}
             </Text>
             <View style={{ display: this.state.Display[this.state.Condition] }}>
