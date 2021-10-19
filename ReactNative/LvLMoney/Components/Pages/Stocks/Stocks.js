@@ -23,6 +23,9 @@ export default class Stocks extends React.Component {
     if (ClickedItem === "Sector Wise Ranking") {
       this.props.navigation.push("Sector Wise Ranking");
     }
+    if (ClickedItem === "Trading Strategies") {
+      this.props.navigation.push("Trading Strategies");
+    }
     console.log(ClickedItem);
   }
 

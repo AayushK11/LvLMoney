@@ -17,7 +17,7 @@ export default class MarketSentiment extends React.Component {
     super(props);
     this.state = {
       MMI: 65.36,
-      MMIColor: "",
+      MMIColor: "white",
       Arrows: ["▼", "▲"],
       Flex: [
         [7, 1],
@@ -110,6 +110,7 @@ export default class MarketSentiment extends React.Component {
             ]}
             labelStyle={{
               color: this.state.MMIColor,
+              fontFamily: "Trebuchet",
               marginTop: 20 / pixelratio,
               fontSize: 55 / pixelratio,
               fontWeight: "normal",
@@ -117,6 +118,7 @@ export default class MarketSentiment extends React.Component {
             labelNoteStyle={{
               color: this.state.MMIColor,
               marginTop: 20 / pixelratio,
+              fontFamily: "Trebuchet",
               fontSize: 55 / pixelratio,
               fontWeight: "normal",
             }}
@@ -186,6 +188,7 @@ const styles = StyleSheet.create({
   },
   MarketSentimentingTextHeader: {
     color: "#ffffff",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 50 / pixelratio,
     marginLeft: 25 / pixelratio,
@@ -193,6 +196,7 @@ const styles = StyleSheet.create({
   MarketSentimentExplanationButton: {
     fontSize: 50 / pixelratio,
     color: "white",
+    fontFamily: "Trebuchet",
     textAlign: "center",
     alignItems: "flex-start",
     justifyContent: "flex-start",
@@ -202,10 +206,12 @@ const styles = StyleSheet.create({
     color: "#12be57",
     marginHorizontal: 50 / pixelratio,
     marginTop: 25 / pixelratio,
+    fontFamily: "Trebuchet",
   },
   MarketSentimentExtremeFearDescription: {
     fontSize: 40 / pixelratio,
     color: "#12be57",
+    fontFamily: "Trebuchet",
     marginHorizontal: 100 / pixelratio,
     marginVertical: 25 / pixelratio,
     fontStyle: "italic",
@@ -213,6 +219,7 @@ const styles = StyleSheet.create({
   MarketSentimentFear: {
     fontSize: 40 / pixelratio,
     color: "#ffd9ac",
+    fontFamily: "Trebuchet",
     marginHorizontal: 50 / pixelratio,
   },
   MarketSentimentFearDescription: {
@@ -220,21 +227,25 @@ const styles = StyleSheet.create({
     color: "#ffd9ac",
     marginHorizontal: 100 / pixelratio,
     marginVertical: 25 / pixelratio,
+    fontFamily: "Trebuchet",
     fontStyle: "italic",
   },
   MarketSentimentGreed: {
     fontSize: 40 / pixelratio,
+    fontFamily: "Trebuchet",
     color: "#f57011",
     marginHorizontal: 50 / pixelratio,
   },
   MarketSentimentGreedDescription: {
     fontSize: 40 / pixelratio,
     color: "#f57011",
+    fontFamily: "Trebuchet",
     marginHorizontal: 100 / pixelratio,
     marginVertical: 25 / pixelratio,
     fontStyle: "italic",
   },
   MarketSentimentExtremeGreed: {
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     color: "#d62020",
     marginHorizontal: 50 / pixelratio,
@@ -242,6 +253,7 @@ const styles = StyleSheet.create({
   MarketSentimentExtremeGreedDescription: {
     fontSize: 40 / pixelratio,
     color: "#d62020",
+    fontFamily: "Trebuchet",
     marginHorizontal: 100 / pixelratio,
     marginVertical: 25 / pixelratio,
     fontStyle: "italic",

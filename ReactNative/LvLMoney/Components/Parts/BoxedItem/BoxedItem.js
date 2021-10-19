@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   },
   AccountIcon: {
     color: "#ffffff",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 80 / pixelratio,
     textAlign: "center",

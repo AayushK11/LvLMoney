@@ -82,6 +82,7 @@ export default class Forecasting extends React.Component {
                       fontSize: 45 / pixelratio,
                       paddingVertical: 10 / pixelratio,
                       flex: 1,
+                      fontFamily: "Trebuchet",
                       textAlign: "center",
                     }}
                     onChangeText={(SearchedStock) =>
@@ -128,6 +129,7 @@ export default class Forecasting extends React.Component {
                       fontSize: 45 / pixelratio,
                       paddingVertical: 10 / pixelratio,
                       flex: 1,
+                      fontFamily: "Trebuchet",
                       textAlign: "center",
                     }}
                     onChangeText={(SearchedStock) =>
@@ -193,6 +195,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 50 / pixelratio,
     marginLeft: 25 / pixelratio,
+    fontFamily: "Trebuchet",
   },
   ForecastInputField: {
     alignItems: "center",
@@ -227,6 +230,7 @@ const styles = StyleSheet.create({
   },
   ForecastTextPrompt: {
     color: "white",
+    fontFamily: "Trebuchet",
     fontSize: 45 / pixelratio,
     textAlign: "center",
     lineHeight: 75 / pixelratio,
@@ -239,6 +243,7 @@ const styles = StyleSheet.create({
   },
   ForecastEyes: {
     color: "#2196F3",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 190 / pixelratio,
     textAlign: "center",

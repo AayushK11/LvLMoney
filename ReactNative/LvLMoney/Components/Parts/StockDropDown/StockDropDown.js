@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontWeight: "bold",
     fontSize: 45 / pixelratio,
+    fontFamily: "Trebuchet",
     textAlign: "left",
     marginHorizontal: 50 / pixelratio,
   },

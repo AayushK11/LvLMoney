@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   SectorWiseRankingTextHeader: {
     color: "#ffffff",
     fontWeight: "bold",
+    fontFamily: "Trebuchet",
     fontSize: 50 / pixelratio,
     marginLeft: 25 / pixelratio,
   },
