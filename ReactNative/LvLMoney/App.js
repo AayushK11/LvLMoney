@@ -12,6 +12,7 @@ import MarketSentiment from "./Components/Pages/MarketSentiment/MarketSentiment"
 import SectorWiseRanking from "./Components/Pages/SectorWiseRanking/SectorWiseRanking";
 import TradingStrategies from "./Components/Pages/TradingStrategies/TradingStrategies";
 import ReturnsCalculator from "./Components/Pages/ReturnsCalculator/ReturnsCalculator";
+import RiskProfileTest from "./Components/Pages/RiskProfileTest/RiskProfileTest";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -72,6 +73,11 @@ export default class App extends React.Component {
           <Stack.Screen
             name="Returns Calculator"
             component={ReturnsCalculator}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Risk Profile Test"
+            component={RiskProfileTest}
             options={TransitionScreenOptions}
           />
         </Stack.Navigator>

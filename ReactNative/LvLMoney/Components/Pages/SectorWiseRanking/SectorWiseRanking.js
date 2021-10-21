@@ -110,8 +110,6 @@ export default class SectorWiseRanking extends React.Component {
             Description="The Realty industry companies that are primarily engaged into construction of residential and commercial properties."
             Stocks={this.state.Realty}
           />
-          {/*<ListDropDown Title="Consumer Durables" />
-          <ListDropDown Title="Oil and Gas" /> */}
         </ScrollView>
       </View>
     );

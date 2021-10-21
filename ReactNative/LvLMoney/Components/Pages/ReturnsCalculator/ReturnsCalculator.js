@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   },
   ReturnsCalculatoringTextHeader: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 50 / pixelratio,
     marginLeft: 25 / pixelratio,
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
   },
   ReturnsCalculatorRadioButtonText: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 40 / pixelratio,
     marginLeft: 20 / pixelratio,
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#c0c0c0",
     color: "white",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
   },
   ReturnsCalculatorButton: {
     backgroundColor: "#2196F3",
@@ -399,12 +399,12 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
     fontSize: 35 / pixelratio,
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     marginHorizontal: 20 / pixelratio,
   },
   ReturnsCalculatorMinusTaxText: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 30 / pixelratio,
     marginLeft: 20 / pixelratio,
@@ -423,7 +423,7 @@ const styles = StyleSheet.create({
   },
   ReturnsCalculatorValue: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 40 / pixelratio,
     textAlign: "center",
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   },
   ReturnsCalculatorTaxed: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     textAlign: "center",
     marginTop: 20 / pixelratio,

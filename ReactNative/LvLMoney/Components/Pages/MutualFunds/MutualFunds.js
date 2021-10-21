@@ -13,7 +13,12 @@ export default class MutualFunds extends React.Component {
   }
 
   handleClick(ClickedItem) {
-    console.log(ClickedItem);
+    if (ClickedItem === "Returns Calculator") {
+      this.props.navigation.push("Returns Calculator");
+    }
+    if (ClickedItem === "Risk Profile Test") {
+      this.props.navigation.push("Risk Profile Test");
+    }
   }
 
   render() {
