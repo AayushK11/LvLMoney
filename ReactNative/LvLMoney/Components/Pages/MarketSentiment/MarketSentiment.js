@@ -154,14 +154,14 @@ export default class MarketSentiment extends React.Component {
               </Text>
               <Text style={styles.MarketSentimentGreed}>Greed</Text>
               <Text style={styles.MarketSentimentGreedDescription}>
-                Markets are High but no clear sign of a Bullish Run. Be careful
+                Markets are High, but no clear sign of a Bullish Run. Be careful
                 while opening new positions
               </Text>
               <Text style={styles.MarketSentimentExtremeGreed}>
                 Extreme Greed
               </Text>
               <Text style={styles.MarketSentimentExtremeGreedDescription}>
-                Markets are Overbought. It is Advisable not to open new
+                Markets are Overbought. It is advisable not to open new
                 Positions as the market might fall soon.
               </Text>
             </View>

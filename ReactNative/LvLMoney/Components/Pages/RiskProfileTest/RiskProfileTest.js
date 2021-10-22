@@ -54,31 +54,31 @@ export default class RiskProfileTest extends React.Component {
             Description:
               "You are a Moderate Investor looking for Potential Returns on your capital while taking the least possible risk. You are willing to accept lower returns due to the lower risk you prefer",
             Solution:
-              "A Good Solution would be combining Largecap Equity Funds with Less Volatile Bonds and Riskless Securities usually divided in a 50/50 format. You can find Equity Funds in our 'Funds Ranking'",
+              "A Good Solution would be combining Largecap Equity Funds with Less Volatile Bonds and Riskless Securities, usually divided in a 50/50 format. You can find Equity Funds in our 'Funds Ranking'.",
           });
         } else if (this.state.Score >= 45 || this.state.Score <= 68) {
           this.setState({
             InvestorType: "You are a Balanced Investor",
             Description:
-              "You are a Balanced Investor who preferes a Decent Balance between Capital Growth and Capital Security. You are fine with Short Term Risk as long as you get Long Term Gains",
+              "You are a Balanced Investor who prefers a Decent Balance between Capital Growth and Capital Security. You are fine with Short Term Risk as long as you get Long Term Gains",
             Solution:
               "A Balanced Investor usually goes for a good mix of all the funds such as Largecap Dividend Paying Bluechip Equity funds, Smallcap Funds, AAA Rated Government Bonds, and Investment Grade Corporate Bond usually in a 25/25/25/25 ratio. You can find the Equity Funds and Smallcap Funds in our 'Funds Ranking'",
           });
         } else if (this.state.Score >= 69 || this.state.Score <= 90) {
           this.setState({
-            InvestorType: "You are a Assertive Investor",
+            InvestorType: "You are an Assertive Investor",
             Description:
-              "You are an Assertive Investor who understands the risks before taking decisions and hence looks for Long term gains by taking calculated risks",
+              "You are an Assertive Investor who understands the risks before making decisions and hence looks for Long term gains by taking calculated risks",
             Solution:
-              "Tax Saving Funds, Funds that Invest in Foreign Stocks, Equity Largecap Funds, and Funds of Funds all would be decent solution. You can find the best funds in our 'Funds Ranking'",
+              "Tax Saving Funds, Funds that Invest in Foreign Stocks, Equity Largecap Funds, and Funds of Funds all would be a decent solution. You can find the best funds in our 'Funds Ranking'",
           });
         } else if (this.state.Score >= 91) {
           this.setState({
-            InvestorType: "You are a Agressive Investor",
+            InvestorType: "You are an Aggressive Investor",
             Description:
-              "You are an Aggressive Investor who looks at maximum growth in captial even though there may be performance fluctuations and a very high risk.",
+              "You are an Aggressive Investor who looks at maximum growth in capital even though there may be performance fluctuations and very high risk.",
             Solution:
-              "Smallcap Funds and Tax Saving Funds are the best funds for you. Additionally, Funds that Invest in Foreign Stocks, Equity Largecap Funds, and Funds of Funds all would be decent solution. You can find the best funds in our 'Funds Ranking'",
+              "Smallcap Funds and Tax Saving Funds are the best funds for you. Additionally, Funds that Invest in Foreign Stocks, Equity Largecap Funds, and Funds of Funds all would be a decent solution. You can find the best funds in our 'Funds Ranking'",
           });
         }
       }
@@ -112,9 +112,9 @@ export default class RiskProfileTest extends React.Component {
                 <View>
                   <Questions
                     QuestionNo={this.state.Question}
-                    Text1="This Test Determines the Type of Investor you are by analysing your risk appetite and hence predicts your Risk to Reward Ratio."
+                    Text1="This Test Determines the Type of Investor you are by analyzing your risk appetite and hence predicts your Risk to Reward Ratio."
                     Text2="The Test is a Pre-defined Algorithm developed by studying various types of investors and understanding their Risk Appetite."
-                    Text3="The Test may not be a 100% accuracte. Please consult your Financial Advisor before making any decision."
+                    Text3="The Test may not be 100% accurate. Please consult your Financial Advisor before making any decision."
                     QuestionSwitch={this.QuestionSwitch}
                   />
                 </View>
@@ -154,7 +154,7 @@ export default class RiskProfileTest extends React.Component {
                 <View>
                   <Questions
                     QuestionNo={this.state.Question}
-                    Question="How Much Percent of your Monthly Income Can you put aside for Investing ?"
+                    Question="How Much of your Monthly Income Can you put aside for Investing ?"
                     Option1="31% or more"
                     Option2="21% to 30%"
                     Option3="11% to 20%"
@@ -259,7 +259,7 @@ export default class RiskProfileTest extends React.Component {
                 <View>
                   <Questions
                     QuestionNo={this.state.Question}
-                    Question="How Much Percent of your Income do you Put aside for Repaying liabilities ?"
+                    Question="How Much of your Income do you Put aside for Repaying liabilities ?"
                     Option1="Less than 1%"
                     Option2="Between 2% and 5%"
                     Option3="Between 6% and 15%"

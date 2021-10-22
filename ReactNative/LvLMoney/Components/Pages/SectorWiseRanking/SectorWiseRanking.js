@@ -77,27 +77,27 @@ export default class SectorWiseRanking extends React.Component {
           />
           <ListDropDown
             Title="Financial Services"
-            Description="Financial Services mainly cover the Indian Financial Market which comprises of Banks, Financial Institues, Insurance Companies and so on."
+            Description="Financial Services mainly cover the Indian Financial Market which comprises of Banks, Financial Institutes, Insurance Companies and so on."
             Stocks={this.state.FinancialServices}
           />
           <ListDropDown
             Title="FMCG"
-            Description="FMCG, which stands for Fast Moving Consumer Goods, consists of companies that provide goods that are non-durable and are availabe on and off shelf."
+            Description="FMCG, which stands for Fast Moving Consumer Goods, consists of companies that provide goods that are non-durable and are available on and off the shelf."
             Stocks={this.state.Fmcg}
           />
           <ListDropDown
             Title="Information Technology"
-            Description="Information Technology, often abbreviated as IT, roughly includes companies that provide Technological Solutions and generally deal with creating softwares for clients and customers."
+            Description="Information Technology, often abbreviated as IT, roughly includes companies that provide Technological Solutions and generally deal with creating software for clients and customers."
             Stocks={this.state.InformationTechnology}
           />
           <ListDropDown
             Title="Media"
-            Description="When we talk about the Media Sector, we talk about companies that provide services such as entertainment, printing and publishing."
+            Description="When we talk about the Media Sector, we talk about companies that provide services such as entertainment, printing, and publishing."
             Stocks={this.state.Media}
           />
           <ListDropDown
             Title="Metal"
-            Description="The Metal Sector covers companies that prvodie raw materials and mining services in India."
+            Description="The Metal Sector covers companies that provide raw materials and mining services in India."
             Stocks={this.state.Metal}
           />
           <ListDropDown
@@ -107,7 +107,7 @@ export default class SectorWiseRanking extends React.Component {
           />
           <ListDropDown
             Title="Realty"
-            Description="The Realty industry companies that are primarily engaged into construction of residential and commercial properties."
+            Description="The Realty industry companies that are primarily engaged into the construction of residential and commercial properties."
             Stocks={this.state.Realty}
           />
         </ScrollView>
