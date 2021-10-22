@@ -53,11 +53,29 @@ export default class ListDropDown extends React.Component {
           </View>
         </TouchableOpacity>
         <View style={{ display: this.state.display[this.state.CurrentState] }}>
-          <StockDropdown Stock={this.props.Stocks[0]} />
-          <StockDropdown Stock={this.props.Stocks[1]} />
-          <StockDropdown Stock={this.props.Stocks[2]} />
-          <StockDropdown Stock={this.props.Stocks[3]} />
-          <StockDropdown Stock={this.props.Stocks[4]} />
+          {(() => {
+            if (this.props.Type === "Mutual Fund") {
+              return (
+                <View styles={styles.MutualFundBox2}>
+                  <Text style={styles.MutualFund}>{this.props.Funds[0]}</Text>
+                  <Text style={styles.MutualFund}>{this.props.Funds[1]}</Text>
+                  <Text style={styles.MutualFund}>{this.props.Funds[2]}</Text>
+                  <Text style={styles.MutualFund}>{this.props.Funds[3]}</Text>
+                  <Text style={styles.MutualFund}>{this.props.Funds[4]}</Text>
+                </View>
+              );
+            } else {
+              return (
+                <View>
+                  <StockDropdown Stock={this.props.Stocks[0]} />
+                  <StockDropdown Stock={this.props.Stocks[1]} />
+                  <StockDropdown Stock={this.props.Stocks[2]} />
+                  <StockDropdown Stock={this.props.Stocks[3]} />
+                  <StockDropdown Stock={this.props.Stocks[4]} />
+                </View>
+              );
+            }
+          })()}
         </View>
         <View style={{ display: this.state.display[this.state.CurrentState] }}>
           <Text style={styles.ListDropDownDescription}>
@@ -100,5 +118,15 @@ const styles = StyleSheet.create({
     fontFamily: "Trebuchet",
     marginHorizontal: 100 / pixelratio,
     marginVertical: 20 / pixelratio,
+  },
+  MutualFund: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 45 / pixelratio,
+    fontFamily: "Trebuchet",
+    textAlign: "left",
+    marginHorizontal: 100 / pixelratio,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 });

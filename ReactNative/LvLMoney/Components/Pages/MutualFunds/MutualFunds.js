@@ -19,6 +19,9 @@ export default class MutualFunds extends React.Component {
     if (ClickedItem === "Risk Profile Test") {
       this.props.navigation.push("Risk Profile Test");
     }
+    if (ClickedItem === "Fund Rankings") {
+      this.props.navigation.push("Fund Ranking");
+    }
   }
 
   render() {
