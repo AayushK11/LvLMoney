@@ -22,6 +22,9 @@ export default class MutualFunds extends React.Component {
     if (ClickedItem === "Fund Rankings") {
       this.props.navigation.push("Fund Ranking");
     }
+    if (ClickedItem === "Fund Comparison") {
+      this.props.navigation.push("Fund Comparison");
+    }
   }
 
   render() {

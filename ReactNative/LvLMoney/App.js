@@ -14,6 +14,7 @@ import TradingStrategies from "./Components/Pages/TradingStrategies/TradingStrat
 import ReturnsCalculator from "./Components/Pages/ReturnsCalculator/ReturnsCalculator";
 import RiskProfileTest from "./Components/Pages/RiskProfileTest/RiskProfileTest";
 import FundRanking from "./Components/Pages/FundRanking/FundRanking";
+import FundComparison from "./Components/Pages/FundComparison/FundComparison";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -84,6 +85,11 @@ export default class App extends React.Component {
           <Stack.Screen
             name="Fund Ranking"
             component={FundRanking}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Fund Comparison"
+            component={FundComparison}
             options={TransitionScreenOptions}
           />
         </Stack.Navigator>
