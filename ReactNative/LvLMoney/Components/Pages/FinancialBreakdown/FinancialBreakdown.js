@@ -51,21 +51,17 @@ export default class FinancialBreakdown extends React.Component {
   render() {
     return (
       <View style={styles.FinancialBreakdownBackground}>
-        <StatusBar barStyle="light-content" backgroundColor="#010312" />
+        <StatusBar barStyle="light-content" backgroundColor="#010312" />{" "}
+        <TouchableOpacity
+          style={styles.FinancialBreakdownHeader}
+          onPress={() => this.handleClick("Back")}
+        >
+          <Ionicons name="arrow-back" size={50 / pixelratio} color={"white"} />
+          <Text style={styles.FinancialBreakdowningTextHeader}>
+            Financial Breakdown
+          </Text>
+        </TouchableOpacity>
         <ScrollView>
-          <TouchableOpacity
-            style={styles.FinancialBreakdownHeader}
-            onPress={() => this.handleClick("Back")}
-          >
-            <Ionicons
-              name="arrow-back"
-              size={50 / pixelratio}
-              color={"white"}
-            />
-            <Text style={styles.FinancialBreakdowningTextHeader}>
-              Financial Breakdown
-            </Text>
-          </TouchableOpacity>
           <View style={{ flexDirection: "row" }}>
             <View
               style={{
@@ -277,7 +273,7 @@ const styles = StyleSheet.create({
   },
   FinancialBreakdowningTextHeader: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 50 / pixelratio,
     marginLeft: 25 / pixelratio,
@@ -294,7 +290,7 @@ const styles = StyleSheet.create({
   },
   FinancialBreakdownRadioButtonText: {
     color: "#ffffff",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontWeight: "bold",
     fontSize: 40 / pixelratio,
     marginLeft: 20 / pixelratio,
@@ -311,7 +307,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#c0c0c0",
     color: "white",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
   },
   FinancialBreakdownButton: {
     backgroundColor: "#2196F3",
@@ -325,13 +321,13 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
     fontSize: 35 / pixelratio,
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     marginHorizontal: 20 / pixelratio,
   },
   FinancialBreakdownText: {
     color: "#ffffff",
     fontWeight: "bold",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     marginHorizontal: 50 / pixelratio,
     marginTop: 70 / pixelratio,

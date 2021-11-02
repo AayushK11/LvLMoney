@@ -35,7 +35,6 @@ export default class PersonalFinance extends React.Component {
           </View>
         </View>
         <BoxedItem Title="Financial Breakdown" handleClick={this.handleClick} />
-        <BoxedItem Title="Tax Calculator" handleClick={this.handleClick} />
         <BoxedItem Title="Blogs" handleClick={this.handleClick} />
       </View>
     );

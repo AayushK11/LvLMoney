@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   NameValueFactor: {
     color: "#ffffff",
     fontWeight: "bold",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 35 / pixelratio,
     marginVertical: 25 / pixelratio,
     textAlign: "center",
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   NameValueText: {
     color: "#ffffff",
     fontWeight: "bold",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     marginVertical: 25 / pixelratio,
     textAlign: "center",
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   NameValueTextPositive: {
     color: "green",
     fontWeight: "bold",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     marginVertical: 25 / pixelratio,
     textAlign: "center",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   NameValueTextNegative: {
     color: "red",
     fontWeight: "bold",
-    // fontFamily: "Trebuchet",
+    fontFamily: "Trebuchet",
     fontSize: 40 / pixelratio,
     marginVertical: 25 / pixelratio,
     textAlign: "center",
