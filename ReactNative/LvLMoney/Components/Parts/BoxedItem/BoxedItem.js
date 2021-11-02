@@ -42,11 +42,6 @@ export default class BoxedItem extends React.Component {
         <MaterialCommunityIcons name="call-split" style={styles.AccountIcon} />
       );
     }
-    if (Title === "Investing Strategies") {
-      return (
-        <MaterialCommunityIcons name="strategy" style={styles.AccountIcon} />
-      );
-    }
     if (Title === "Tax Calculator") {
       return (
         <MaterialCommunityIcons name="calculator" style={styles.AccountIcon} />

@@ -13,6 +13,9 @@ export default class PersonalFinance extends React.Component {
   }
 
   handleClick(ClickedItem) {
+    if (ClickedItem === "Financial Breakdown") {
+      this.props.navigation.navigate("Financial Breakdown");
+    }
     console.log(ClickedItem);
   }
 
@@ -32,10 +35,6 @@ export default class PersonalFinance extends React.Component {
           </View>
         </View>
         <BoxedItem Title="Financial Breakdown" handleClick={this.handleClick} />
-        <BoxedItem
-          Title="Investing Strategies"
-          handleClick={this.handleClick}
-        />
         <BoxedItem Title="Tax Calculator" handleClick={this.handleClick} />
         <BoxedItem Title="Blogs" handleClick={this.handleClick} />
       </View>
