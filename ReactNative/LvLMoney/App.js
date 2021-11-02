@@ -7,6 +7,15 @@ import {
 import SplashScreen from "./Components/Pages/Splash Screen/SplashScreen";
 import LoginPage from "./Components/Pages/Login Page/LoginPage";
 import HomePage from "./Components/Pages/Home Page/HomePage";
+import Forecasting from "./Components/Pages/Forecasting/Forecasting";
+import MarketSentiment from "./Components/Pages/MarketSentiment/MarketSentiment";
+import SectorWiseRanking from "./Components/Pages/SectorWiseRanking/SectorWiseRanking";
+import TradingStrategies from "./Components/Pages/TradingStrategies/TradingStrategies";
+import ReturnsCalculator from "./Components/Pages/ReturnsCalculator/ReturnsCalculator";
+import RiskProfileTest from "./Components/Pages/RiskProfileTest/RiskProfileTest";
+import FundRanking from "./Components/Pages/FundRanking/FundRanking";
+import FundComparison from "./Components/Pages/FundComparison/FundComparison";
+import FinancialBreakdown from "./Components/Pages/FinancialBreakdown/FinancialBreakdown";
 import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
@@ -43,7 +52,52 @@ export default class App extends React.Component {
             name="Home Page"
             component={HomePage}
             options={TransitionScreenOptions}
-          ></Stack.Screen>
+          />
+          <Stack.Screen
+            name="Forecasting"
+            component={Forecasting}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Market Sentiment Analysis"
+            component={MarketSentiment}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Sector Wise Ranking"
+            component={SectorWiseRanking}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Trading Strategies"
+            component={TradingStrategies}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Returns Calculator"
+            component={ReturnsCalculator}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Risk Profile Test"
+            component={RiskProfileTest}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Fund Ranking"
+            component={FundRanking}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Fund Comparison"
+            component={FundComparison}
+            options={TransitionScreenOptions}
+          />
+          <Stack.Screen
+            name="Financial Breakdown"
+            component={FinancialBreakdown}
+            options={TransitionScreenOptions}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
