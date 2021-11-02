@@ -14,3 +14,10 @@
     border-color: #D6DF21;
   }
 
+.nav-link:hover{
+ color: #D6DF21 !important;
+}
+.dropdown-item:hover{
+  background-color: #D6DF21 !important;
+  color: black !important;
+}
