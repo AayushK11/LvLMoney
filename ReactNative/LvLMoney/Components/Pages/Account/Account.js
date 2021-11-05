@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, PixelRatio, Text, Image } from "react-native";
 import LvL_L from "../../Images/Icons/LvL_L.png";
 import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackActions } from "@react-navigation/native";
 
 const pixelratio = PixelRatio.get();
@@ -11,11 +12,22 @@ export default class Account extends React.Component {
     super(props);
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
+    this.removeData = this.removeData.bind(this);
+  }
+
+  async removeData() {
+    try {
+      const value = await AsyncStorage.removeItem("@Username:key").then(() => {
+        this.props.navigation.dispatch(StackActions.replace("Login Page"));
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   handleClick(ClickedItem) {
     if (ClickedItem === "Log Out") {
-      this.props.navigation.dispatch(StackActions.replace("Login Page"));
+      this.removeData();
     }
   }
 

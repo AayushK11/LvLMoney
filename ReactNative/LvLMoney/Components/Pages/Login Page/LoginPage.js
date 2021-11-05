@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, View, StatusBar, PixelRatio } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import LvL_L from "../../Images/Icons/LvL_L.png";
 import LoginFields from "../../Parts/LoginFields/LoginFields";
 import { StackActions } from "@react-navigation/native";
+import Server_Path from "../../Parts/Server/Server";
 
 const pixelratio = PixelRatio.get();
 
@@ -17,28 +19,92 @@ export default class LoginPage extends React.Component {
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.changeAccount = this.changeAccount.bind(this);
+    this.storeData = this.storeData.bind(this);
+    this.readData = this.readData.bind(this);
+  }
+
+  componentDidMount() {
+    this.readData();
+  }
+
+  async readData() {
+    try {
+      const value = await AsyncStorage.getItem("@Username:key");
+      if (value != null) {
+        this.props.navigation.dispatch(StackActions.replace("Home Page"));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   handleLogin(Input1, Input2) {
     if (this.state.TwoFA == false) {
-      // Check Username and if 2FA Enabled
-      this.setState({
-        Username: Input1,
-        Password: Input2,
-        TwoFA: true,
-      });
+      fetch(Server_Path.concat("/login/"), {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Username: Input1,
+          Password: Input2,
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          if (json["Status"] == true && json["TwoFA"] == true) {
+            this.setState({ Username: Input1, Password: Input2, TwoFA: true });
+          } else if (json["Status"] == true && json["TwoFA"] == false) {
+            this.setState({ Username: Input1, Password: Input2 });
+            this.storeData();
+          } else if (json["Status"] == false) {
+            alert("Invalid Credentials");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     if (this.state.TwoFA == true) {
-      this.setState({ TwoFACode: Input2 });
-      setTimeout(() => {
-        this.props.navigation.dispatch(StackActions.replace("Home Page"));
-      }, 600);
+      fetch(Server_Path.concat("/login/"), {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Username: this.state.Username,
+          Password: this.state.Password,
+          TwoFA: Input2,
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          if (json["Status"] == true) {
+            this.storeData();
+          } else if (json["Status"] == false) {
+            alert("Invalid TOTP");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    console.log(this.state);
   }
 
   changeAccount() {
     this.setState({ TwoFA: false });
+  }
+
+  storeData() {
+    try {
+      AsyncStorage.setItem("@Username:key", this.state.Username).then(() => {
+        this.props.navigation.dispatch(StackActions.replace("Home Page"));
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
@@ -73,7 +139,7 @@ export default class LoginPage extends React.Component {
                   image={LvL_L}
                   headingtext="2 Factor Authentication"
                   field1_type="UserDetail"
-                  field1_placeholder="AayushK11"
+                  field1_placeholder={this.state.Username}
                   field2_type="numeric"
                   field2_placeholder="TOTP"
                   button_text="Authenticate"

@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, PixelRatio, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { StackActions } from "@react-navigation/native";
@@ -11,6 +12,19 @@ export default class Stocks extends React.Component {
     super(props);
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
+    this.readData = this.readData.bind(this);
+  }
+
+  componentDidMount() {
+    this.readData();
+  }
+
+  async readData() {
+    try {
+      const value = await AsyncStorage.getItem("@Username:key");
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   handleClick(ClickedItem) {
