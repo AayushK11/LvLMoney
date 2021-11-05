@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-import Authentication.check_duplicates
+import Authentication.register
 
 
 @api_view(["POST"])
@@ -8,8 +8,20 @@ def register(request):
     """
     This function takes in User Details and Registers him/her into the database.
     """
-    if len(request.data.keys()) == 4 and "FirstName" in request.data.keys():
-        if Authentication.check_duplicates.register_stage_one(request.data):
+    if len(request.data.keys()) == 2 and "EmailID" in request.data.keys():
+        if Authentication.register.register_stage_one(request.data):
+            return Response("Valid")
+        else:
+            return Response("Invalid")
+    elif len(request.data.keys()) == 6 and "Username" in request.data.keys():
+        if Authentication.register.register_stage_two(request.data):
+            return Response("Valid")
+        else:
+            return Response("Invalid")
+    elif len(request.data.keys()) == 2 and "Username" in request.data.keys():
+        return Response(Authentication.register.register_stage_three(request.data))
+    elif len(request.data.keys()) == 3 and "TOTP" in request.data.keys():
+        if Authentication.register.register_stage_four(request.data):
             return Response("Valid")
         else:
             return Response("Invalid")

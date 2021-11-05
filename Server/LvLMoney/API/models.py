@@ -7,7 +7,7 @@ class AuthenticationDB(models.Model):
 
     FirstName = models.CharField("First Name", max_length=20)
     LastName = models.CharField("Last Name", max_length=20)
-    Email = models.EmailField(max_length=30)
-    PhoneNumber = models.CharField(max_length=10)
+    Email = models.EmailField("Email ID", max_length=30)
+    PhoneNumber = models.CharField("Phone Number", max_length=10)
 
     TwoFactorEnabled = models.BooleanField("Two Factor Enabled?", default=False)
