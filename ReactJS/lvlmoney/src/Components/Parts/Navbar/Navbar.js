@@ -11,7 +11,7 @@ export default class Navbar extends Component {
      
         <nav className="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
           <div className="container">
-            <a className="navbar-brand pe-3" href="https://www.google.com/">
+            <a className="navbar-brand pe-3" href={ window.location.origin.concat("/")}>
             <img src={logo} className="navbar-logo" alt="navbarLogo"/>
            
             </a>
@@ -32,7 +32,7 @@ export default class Navbar extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item px-3">
-                  <a className="nav-link active" aria-current="page" href="https://www.google.com/">
+                  <a className="nav-link active" aria-current="page" href={ window.location.origin.concat("/")}>
                     Home
                   </a>
                 </li>
