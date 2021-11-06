@@ -26,6 +26,7 @@ def register(request):
             return Response("Valid")
         else:
             return Response("Invalid")
+    return Response("Invalid Keys")
 
 
 @api_view(["POST"])
@@ -40,3 +41,4 @@ def login(request):
         if Authentication.login.login_stage_two(request.data):
             return Response({"Status": True})
         return Response({"Status": False})
+    return Response("Invalid Keys")

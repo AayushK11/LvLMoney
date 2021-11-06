@@ -1,5 +1,6 @@
 from API.models import AuthenticationDB
 import Authentication.security
+import Authentication.emails
 
 
 def register_stage_one(request):
@@ -26,6 +27,9 @@ def register_stage_two(request):
             LastName=request["LastName"],
             Email=request["EmailID"],
             PhoneNumber=request["PhoneNumber"],
+        )
+        Authentication.emails.registration_email(
+            request["FirstName"], request["EmailID"]
         )
         return True
     return False
