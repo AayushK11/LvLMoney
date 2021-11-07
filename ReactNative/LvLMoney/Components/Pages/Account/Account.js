@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, View, PixelRatio, Text, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  PixelRatio,
+  Text,
+  Image,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
 import LvL_L from "../../Images/Icons/LvL_L.png";
 import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -10,14 +18,28 @@ const pixelratio = PixelRatio.get();
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { Username: "" };
     this.handleClick = this.handleClick.bind(this);
     this.removeData = this.removeData.bind(this);
+    this.readData = this.readData.bind(this);
+  }
+
+  componentDidMount() {
+    this.readData();
+  }
+
+  async readData() {
+    try {
+      const value = await AsyncStorage.getItem("@Username:key");
+      this.setState({ Username: value });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async removeData() {
     try {
-      const value = await AsyncStorage.removeItem("@Username:key").then(() => {
+      await AsyncStorage.removeItem("@Username:key").then(() => {
         this.props.navigation.dispatch(StackActions.replace("Login Page"));
       });
     } catch (e) {
@@ -29,24 +51,63 @@ export default class Account extends React.Component {
     if (ClickedItem === "Log Out") {
       this.removeData();
     }
+    if (ClickedItem === "Support") {
+      Linking.openURL("https://lvlmoney.netlify.app/faq");
+    }
   }
 
   render() {
     return (
       <View style={styles.AccountBackground}>
-        <View style={styles.AccountBox1}>
-          <View style={{ flex: 3 }}>
-            <Text style={styles.AccountHeading}>Account</Text>
-            <Text style={styles.AccountName}>Aayush Kumaria (AayushK11)</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Image source={LvL_L} style={styles.AccountImage} />
-          </View>
-        </View>
-        <BoxedItem Title="Edit Profile" handleClick={this.handleClick} />
+        {(() => {
+          if (this.state.Username !== null) {
+            return (
+              <View style={styles.AccountBox1}>
+                <View style={{ flex: 3 }}>
+                  <Text style={styles.AccountHeading}>Account</Text>
+                  <Text style={styles.AccountName}>
+                    Aayush Kumaria ({this.state.Username})
+                  </Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Image source={LvL_L} style={styles.AccountImage} />
+                </View>
+              </View>
+            );
+          } else {
+            return (
+              <TouchableOpacity
+                style={styles.AccountBox1}
+                onPress={() => {
+                  this.props.navigation.push("Login Page");
+                }}
+              >
+                <View style={{ flex: 3 }}>
+                  <Text style={styles.AccountHeading}>Account</Text>
+                  <Text style={styles.AccountName}>Not Logged In...Yet</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Image source={LvL_L} style={styles.AccountImage} />
+                </View>
+              </TouchableOpacity>
+            );
+          }
+        })()}
+
+        {(() => {
+          if (this.state.Username !== null) {
+            return (
+              <BoxedItem Title="Edit Profile" handleClick={this.handleClick} />
+            );
+          }
+        })()}
         <BoxedItem Title="Support" handleClick={this.handleClick} />
         <BoxedItem Title="Invite Friends" handleClick={this.handleClick} />
-        <BoxedItem Title="Log Out" handleClick={this.handleClick} />
+        {(() => {
+          if (this.state.Username !== null) {
+            return <BoxedItem Title="Log Out" handleClick={this.handleClick} />;
+          }
+        })()}
       </View>
     );
   }

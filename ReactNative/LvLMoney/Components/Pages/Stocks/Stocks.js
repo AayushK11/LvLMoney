@@ -22,6 +22,7 @@ export default class Stocks extends React.Component {
   async readData() {
     try {
       const value = await AsyncStorage.getItem("@Username:key");
+      console.log(value);
     } catch (e) {
       console.log(e);
     }

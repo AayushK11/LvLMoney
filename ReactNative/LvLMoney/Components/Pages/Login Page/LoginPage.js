@@ -21,10 +21,15 @@ export default class LoginPage extends React.Component {
     this.changeAccount = this.changeAccount.bind(this);
     this.storeData = this.storeData.bind(this);
     this.readData = this.readData.bind(this);
+    this.SkipStep = this.SkipStep.bind(this);
   }
 
   componentDidMount() {
     this.readData();
+  }
+
+  SkipStep() {
+    this.props.navigation.dispatch(StackActions.replace("Home Page"));
   }
 
   async readData() {
@@ -63,7 +68,7 @@ export default class LoginPage extends React.Component {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(error.status);
         });
     }
     if (this.state.TwoFA == true) {
@@ -88,7 +93,7 @@ export default class LoginPage extends React.Component {
           }
         })
         .catch((error) => {
-          console.log(error);
+          alert(error.status);
         });
     }
   }
@@ -127,6 +132,8 @@ export default class LoginPage extends React.Component {
                   link1_link="https://lvlmoney.netlify.app/signup"
                   link2_text="Forgot Password?"
                   link2_link="https://lvlmoney.netlify.app/forgotpassword"
+                  link3_text="Skip this step?"
+                  SkipStep={this.SkipStep}
                   handlePress={this.handleLogin}
                 />
               </View>
@@ -146,7 +153,9 @@ export default class LoginPage extends React.Component {
                   link1_text="Use Another Account"
                   link1_link=""
                   link2_text="Cannot Authenticate?"
-                  link2_link="https://lvlmoney.netlify.app/support"
+                  link2_link="https://lvlmoney.netlify.app/faq"
+                  link3_text="Skip this step?"
+                  SkipStep={this.SkipStep}
                   handlePress={this.handleLogin}
                   goBack={this.changeAccount}
                 />

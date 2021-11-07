@@ -20,10 +20,15 @@ export default class LoginFields extends React.Component {
       Input2: "",
     };
     this.handleClick = this.handleClick.bind(this);
+    this.skip = this.skip.bind(this);
   }
 
   handleClick() {
     this.props.handlePress(this.state.Input1, this.state.Input2);
+  }
+
+  skip() {
+    this.props.SkipStep();
   }
 
   accountSwitch() {
@@ -118,6 +123,14 @@ export default class LoginFields extends React.Component {
         >
           <Text style={styles.LoginExternalLinkText}>
             {this.props.link2_text}
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.LoginExternalLink}
+          onPress={() => this.skip()}
+        >
+          <Text style={styles.LoginExternalLinkText}>
+            {this.props.link3_text}
           </Text>
         </TouchableHighlight>
       </View>
