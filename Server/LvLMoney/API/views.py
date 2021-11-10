@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import Authentication.register
 import Authentication.login
+import Authentication.forgotpassword
 
 
 @api_view(["POST"])
@@ -42,3 +43,24 @@ def login(request):
             return Response({"Status": True})
         return Response({"Status": False})
     return Response("Invalid Keys")
+
+
+@api_view(["POST"])
+def forgotpassword(request):
+    """
+    This funtion takes in User Details and logs him/her in.
+    """
+    if len(request.data.keys()) == 2 and "Email" in request.data.keys():
+        Status = Authentication.forgotpassword.forgot_password_stage_one(request.data)
+        if Status == "2FA":
+            return Response({"Status": Status})
+        elif Status == "Email":
+            return Response({"Status": True})
+        return Response({"Status": False})
+    if len(request.data.keys()) == 3 and "TwoFA" in request.data.keys():
+        Status = Authentication.forgotpassword.forgot_password_stage_two(request.data)
+        return Response({"Status": Status})
+    if len(request.data.keys()) == 3 and "NewPassword" in request.data.keys():
+        Status = Authentication.forgotpassword.forgot_password_stage_three(request.data)
+        return Response({"Status": Status})
+    return Response({"Status": False})
