@@ -1,0 +1,64 @@
+.confirmation_page {
+  background-color: #292727;
+  color: #cccce4;
+  padding: 0px 40px;
+}
+
+.confirmation_page img {
+  max-width: 250px;
+  max-height: 250px;
+  margin: 40px;
+}
+
+.confirmation_page .confirmation_text {
+  text-align: center;
+  margin: 30px 30px 0px 30px;
+}
+
+.confirmation_page .confirmation_text h3 {
+  margin: 0px 0px 20px 0px;
+}
+
+@media only screen and (max-width: 1235px) and (min-width: 993px) {
+  .confirmation_page img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 769px) {
+  .confirmation_page img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 450px) {
+  .confirmation_page img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+  .confirmation_page .confirmation_text h3 {
+    font-size: 1.3rem;
+  }
+  .confirmation_page .confirmation_text h5 {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .confirmation_page {
+    padding: 0px 40px;
+  }
+
+  .confirmation_page img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+  .confirmation_page .confirmation_text h3 {
+    font-size: 1.3rem;
+  }
+  .confirmation_page .confirmation_text h5 {
+    font-size: 1rem;
+  }
+}

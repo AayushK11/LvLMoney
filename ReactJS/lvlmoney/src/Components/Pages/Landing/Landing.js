@@ -8,6 +8,27 @@ import hero3 from "../../Images/hero3.png";
 import "./Landing.css";
 
 export default class Landing extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: window.location.origin,
+    };
+    this.generateURLs = this.generateURLs.bind(this);
+  }
+
+  generateURLs() {
+    this.setState({
+  
+      register: this.state.url.concat("/register"),
+      
+  
+    });
+  }
+
+  componentDidMount() {
+    this.generateURLs();
+  }
   render() {
     return (
       <>
@@ -19,7 +40,7 @@ export default class Landing extends Component {
           subheading1="Place your money where it will grow the most."
           subheading2="Use one app to manage all of your investments, including stocks, mutual funds, and ETFs, as well as expenses."
           button_text="Get Started"
-          button_link="www.google.com"
+          button_link={this.state.register}
           src={hero1}
           />
           
@@ -29,7 +50,7 @@ export default class Landing extends Component {
           button_text="Login"
           subheading1="I'm beggin', beggin' you......"
           subheading2="To invest somewhere other than FDs"
-          button_link="www.google.com"
+          button_link={this.state.register}
           src={hero2}
           />
            <Hero
@@ -38,7 +59,7 @@ export default class Landing extends Component {
           button_text="Login"
           subheading1="But When and Where to Invest?"
           subheading2="Use our strategies and AI Prediction tool to find it Out."
-          button_link="www.google.com"
+          button_link={this.state.register}
           src={hero3}
           />
           </div>

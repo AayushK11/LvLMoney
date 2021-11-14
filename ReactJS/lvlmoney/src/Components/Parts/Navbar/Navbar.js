@@ -5,6 +5,29 @@ import "./Navbar.css";
 
 
 export default class Navbar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: window.location.origin,
+    };
+    this.generateURLs = this.generateURLs.bind(this);
+  }
+
+  generateURLs() {
+    this.setState({
+  
+      register: this.state.url.concat("/register"),
+      login: this.state.url.concat("/login"),
+      
+  
+    });
+  }
+
+  componentDidMount() {
+    this.generateURLs();
+  }
+
   render() {
     return (
       <>
@@ -105,7 +128,7 @@ export default class Navbar extends Component {
                 </li>
               </ul>
             
-              <button type="button" class="btn btn-outline-info ms-3">Login</button>
+              <a class="btn btn-outline-info ms-3" href={this.state.login}>Log In</a>
                 
             </div>
           </div>
