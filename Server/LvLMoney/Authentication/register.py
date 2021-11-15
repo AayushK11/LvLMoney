@@ -88,9 +88,16 @@ def validate_field(Component, Value):
         return False
     elif (
         Component == "TwoFA"
-        and AuthenticationDB.objects.get(
+        and AuthenticationDB.objects.filter(
             Username=Authentication.security.hash_details(Value)
-        ).TwoFactorEnabled
+        ).exists()
     ) == True:
-        return False
-    return True
+        if (
+            AuthenticationDB.objects.get(
+                Username=Authentication.security.hash_details(Value)
+            ).TwoFactorEnabled
+            == True
+        ):
+            return False
+        return True
+    return False
