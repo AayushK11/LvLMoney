@@ -9,6 +9,8 @@ import About from './Components/Pages/About/About';
 import Register from './Components/Pages/Register/Register';
 import Login from './Components/Pages/Login/Login';
 import Twofa from './Components/Pages/TwoFa/Twofa';
+import ForgotPassword from './Components/Pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
 
 function App() {
   return (
@@ -50,7 +52,7 @@ function App() {
               path={"/register"}
               render={(props) => <Register {...props} />}
           />
-        <Route
+          <Route
               exact
               path={"/login"}
               render={(props) => <Login {...props} />}
@@ -59,7 +61,19 @@ function App() {
               exact
               path={"/2FA"}
               render={(props) => <Twofa {...props} />}
-          />   
+          />
+          
+          <Route
+              exact
+              path={"/forgotpassword"}
+              render={(props) => <ForgotPassword {...props} />}
+          />
+          
+          <Route
+              exact
+              path={"/resetpassword"}
+              render={(props) => <ResetPassword {...props} />}
+          />  
         </Switch>
         </BrowserRouter>
     </>
