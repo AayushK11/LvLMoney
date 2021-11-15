@@ -141,6 +141,7 @@ export default class FAQs extends React.Component {
   render() {
     return (
       <>
+        <div className="faq">
       <div className="faqs_main">
         <Helmet>
           <title>LvLMoney | FAQs</title>
@@ -405,9 +406,13 @@ export default class FAQs extends React.Component {
             </div>
           </div>
         </div>
-        <Footer />
-      </div>
-      
+     
+          </div>
+          <div className="footer-div">
+            <Footer />
+            </div>
+        </div>
+        
       </>
     );
   }

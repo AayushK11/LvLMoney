@@ -1,0 +1,61 @@
+.about_main {
+  background-color: #2D2D30;
+  color: #d6d7e2;
+}
+
+.about_main #about-text {
+  padding: 50px 0px 0px 0px !important;
+  display: flex;
+}
+
+.about_main #about-text .about-heading {
+  text-align: center;
+  padding: 10px 0px 10px 0px;
+}
+
+.about_main #about-text .developers-heading {
+  text-align: center;
+  padding: 20px 0px 0px 0px;
+}
+
+.about_main #about-text .about-passage {
+  display: flex;
+  justify-content: center;
+}
+
+.about_main #about-text .about-passage .row {
+  padding: 20px 65px 0px 65px;
+  width: 80%;
+}
+
+.about_main .developers > .col-lg-3 {
+  margin: 20px 0px 10px 0px;
+}
+
+@media only screen and (max-width: 1235px) and (min-width: 993px) {
+  .about_main #about-text .about-passage .row {
+    padding: 30px 50px 0px 50px;
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 769px) {
+  .about_main #about-text .about-passage .row {
+    padding: 10px 0px 0px 0px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 450px) {
+  .about_main #about-text .about-passage .row {
+    padding: 10px 0px 0px 0px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .about_main #about-text .about-passage .row {
+    padding: 0px 0px 0px 0px;
+    width: 100%;
+  }
+} ;

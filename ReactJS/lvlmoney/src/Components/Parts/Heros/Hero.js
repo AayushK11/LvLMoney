@@ -9,6 +9,8 @@ export const Hero = ({
   button_text,
   src,isVisible
 }) => {
+
+  
   return (
     <section className={`hero`}>
       <div class="container col-xxl-8 px-4 py-1 ">

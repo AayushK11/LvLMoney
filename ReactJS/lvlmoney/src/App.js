@@ -4,6 +4,11 @@ import Landing from './Components/Pages/Landing/Landing';
 import FAQs from './Components/Pages/FAQs/FAQs';
 import PrivacyPolicy from './Components/Pages/TermsOfUse/PrivacyPolicy';
 import TermsAndConditions from './Components/Pages/TermsOfUse/TermsAndConditions';
+import ContactUs from './Components/Pages/ContactUs/ContactUs';
+import About from './Components/Pages/About/About';
+import Register from './Components/Pages/Register/Register';
+import Login from './Components/Pages/Login/Login';
+import Twofa from './Components/Pages/TwoFa/Twofa';
 
 function App() {
   return (
@@ -30,7 +35,32 @@ function App() {
               path={"/termsandconditions"}
               render={(props) => <TermsAndConditions {...props} />}
           />
-           </Switch>
+           <Route
+              exact
+              path={"/contactus"}
+              render={(props) => <ContactUs {...props} />}
+          />
+           <Route
+              exact
+              path={"/about"}
+              render={(props) => <About {...props} />}
+          />
+          <Route
+              exact
+              path={"/register"}
+              render={(props) => <Register {...props} />}
+          />
+        <Route
+              exact
+              path={"/login"}
+              render={(props) => <Login {...props} />}
+          />
+           <Route
+              exact
+              path={"/2FA"}
+              render={(props) => <Twofa {...props} />}
+          />   
+        </Switch>
         </BrowserRouter>
     </>
   );
