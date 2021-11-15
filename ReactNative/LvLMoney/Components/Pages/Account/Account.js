@@ -12,13 +12,14 @@ import LvL_L from "../../Images/Icons/LvL_L.png";
 import BoxedItem from "../../Parts/BoxedItem/BoxedItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackActions } from "@react-navigation/native";
+import Server_Path from "../../Parts/Server/Server";
 
 const pixelratio = PixelRatio.get();
 
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Username: "" };
+    this.state = { Username: "", Name: "", Image: "" };
     this.handleClick = this.handleClick.bind(this);
     this.removeData = this.removeData.bind(this);
     this.readData = this.readData.bind(this);
@@ -32,9 +33,41 @@ export default class Account extends React.Component {
     try {
       const value = await AsyncStorage.getItem("@Username:key");
       this.setState({ Username: value });
+      if (value !== null) {
+        this.fetchDetails();
+      }
     } catch (e) {
       console.log(e);
     }
+  }
+
+  fetchDetails() {
+    fetch(Server_Path.concat("/dashboard/"), {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Username: this.state.Username,
+        Requirement: "UserImage",
+      }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        if (json["Image"] === "No Image") {
+          this.setState({ Name: json["Name"] });
+        } else {
+          this.setState({
+            Image: Server_Path.concat(json["Image"]).replace("/api", ""),
+            Name: json["Name"],
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async removeData() {
@@ -66,11 +99,25 @@ export default class Account extends React.Component {
                 <View style={{ flex: 3 }}>
                   <Text style={styles.AccountHeading}>Account</Text>
                   <Text style={styles.AccountName}>
-                    Aayush Kumaria ({this.state.Username})
+                    {this.state.Name} ({this.state.Username})
                   </Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Image source={LvL_L} style={styles.AccountImage} />
+                  {(() => {
+                    console.log(this.state.Image);
+                    if (this.state.Image === "") {
+                      return (
+                        <Image source={LvL_L} style={styles.AccountImage} />
+                      );
+                    } else {
+                      return (
+                        <Image
+                          source={{ uri: this.state.Image }}
+                          style={styles.AccountImage}
+                        />
+                      );
+                    }
+                  })()}
                 </View>
               </View>
             );

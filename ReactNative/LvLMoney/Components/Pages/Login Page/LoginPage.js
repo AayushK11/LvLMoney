@@ -68,7 +68,7 @@ export default class LoginPage extends React.Component {
           }
         })
         .catch((error) => {
-          alert(error.status);
+          alert("Something Went Wrong");
         });
     }
     if (this.state.TwoFA == true) {
@@ -93,7 +93,7 @@ export default class LoginPage extends React.Component {
           }
         })
         .catch((error) => {
-          alert(error.status);
+          alert("Something Went Wrong");
         });
     }
   }

@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 class AuthenticationDB(models.Model):
+    UserImage = models.ImageField(upload_to="UserImages", null=True, blank=True)
+
     Username = models.CharField("Username", max_length=64, unique=True)
     Password = models.CharField("Password", max_length=64)
 

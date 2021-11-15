@@ -22,7 +22,7 @@ def registration_email(name, email):
     htmlfile = htmlfile.read().format(fname=name, link=WEBSITE_PATH)
     message.attach(MIMEText(htmlfile, "html"))
 
-    image = open(os.path.join(BASE_PATH, "Images\\Logos\\LvLMoney.png"), "rb")
+    image = open(os.path.join(BASE_PATH, "Media\\Logos\\LvLMoney.png"), "rb")
     logo = MIMEImage(image.read(), _subtype="png")
     image.close()
     logo.add_header("Content-ID", "<image1>")
@@ -46,7 +46,7 @@ def forgot_password_email(name, email, username):
     htmlfile = htmlfile.read().format(fname=name, link=WEBSITE_PATH, username=username)
     message.attach(MIMEText(htmlfile, "html"))
 
-    image = open(os.path.join(BASE_PATH, "Images\\Logos\\LvLMoney.png"), "rb")
+    image = open(os.path.join(BASE_PATH, "Media\\Logos\\LvLMoney.png"), "rb")
     logo = MIMEImage(image.read(), _subtype="png")
     image.close()
     logo.add_header("Content-ID", "<image1>")

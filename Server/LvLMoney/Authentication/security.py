@@ -24,3 +24,4 @@ def two_factor_now(Username, Password):
     EncodedText = base64.b32encode(bytes(EncodedText, "ascii"))
     totp = pyotp.TOTP(EncodedText)
     return totp.now()
+

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 import Authentication.register
 import Authentication.login
 import Authentication.forgotpassword
+import Authentication.userdetails
 import Support.google_sheets
 
 
@@ -73,3 +74,13 @@ def contactus(request):
     This funtion takes in User Details and places it in a google form
     """
     return Response(Support.google_sheets.insert_into_spreadsheet(request.data))
+
+
+@api_view(["POST"])
+def dashboard(request):
+    if "UserImage" == request.data["Requirement"]:
+        Image, Name = Authentication.userdetails.userimage(request.data)
+        if str(Image) == "":
+            return Response({"Image": "No Image", "Name": Name})
+        else:
+            return Response({"Image": Image.url, "Name": Name})
