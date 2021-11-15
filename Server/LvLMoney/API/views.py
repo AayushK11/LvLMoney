@@ -3,6 +3,7 @@ from rest_framework.response import Response
 import Authentication.register
 import Authentication.login
 import Authentication.forgotpassword
+import Support.google_sheets
 
 
 @api_view(["POST"])
@@ -64,3 +65,11 @@ def forgotpassword(request):
         Status = Authentication.forgotpassword.forgot_password_stage_three(request.data)
         return Response({"Status": Status})
     return Response({"Status": False})
+
+
+@api_view(["POST"])
+def contactus(request):
+    """
+    This funtion takes in User Details and places it in a google form
+    """
+    return Response(Support.google_sheets.insert_into_spreadsheet(request.data))
