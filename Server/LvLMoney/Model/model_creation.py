@@ -3,38 +3,58 @@ import warnings
 
 warnings.filterwarnings("ignore")
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-from nsepy import get_history, get_index_pe_history
+from nsepy import get_history
+import tensorflow as tf
 from datetime import datetime
 from dateutil.relativedelta import *
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM
+from keras.callbacks import EarlyStopping
+from keras import callbacks
 
-# Parameters Required : Close, Prev Close Price, Volume, 50DMA, RSI14, VWAP, India Vix
+# Parameters Required : Close, Prev Close, Open, High, Low, Volume, 50DMA, RSI14, VWAP, India Vix
 scalerTable = MinMaxScaler(feature_range=(0, 1))
 scalerClose = MinMaxScaler(feature_range=(0, 1))
 pca = PCA(n_components=1)
 
 
-def get_data(symbol):
-    data = get_ohlc(symbol)
-    data = data.filter(["Date", "Prev Close", "VWAP", "Volume", "Close"])
+def get_data(symbol, timeframe):
+    data = get_ohlc(symbol, timeframe)
+    data = data.filter(
+        ["Date", "Prev Close", "Open", "High", "Low", "VWAP", "Volume", "Close"]
+    )
+    data = get_indiavix(data, timeframe)
+    data = format_timeframe(data, timeframe)
     data = calculate_dma(data)
     data = calculate_rsi(data)
-    data = get_indiavix(data)
     data = data.iloc[49:]
     data.reset_index(inplace=True, drop=True)
     return data
 
 
-def get_ohlc(symbol):
-    return get_history(
-        symbol=symbol,
-        start=(datetime.today() - relativedelta(days=415)),
-        end=datetime.today(),
-    )
+def get_ohlc(symbol, timeframe):
+    if timeframe == "Day":
+        return get_history(
+            symbol=symbol,
+            start=(datetime.today() - relativedelta(days=500)),
+            end=datetime.today(),
+        )
+    elif timeframe == "Week":
+        return get_history(
+            symbol=symbol,
+            start=(datetime.today() - relativedelta(days=1200)),
+            end=datetime.today(),
+        )
+    elif timeframe == "Month":
+        return get_history(
+            symbol=symbol,
+            start=(datetime.today() - relativedelta(days=3600)),
+            end=datetime.today(),
+        )
 
 
 def calculate_dma(data):
@@ -57,16 +77,87 @@ def calculate_rsi(data):
     return data
 
 
-def get_indiavix(data):
-    indiavix = get_history(
-        symbol="INDIAVIX",
-        start=(datetime.today() - relativedelta(days=415)),
-        end=datetime.today(),
-        index=True,
-    )
+def get_indiavix(data, timeframe):
+    if timeframe == "Day":
+        indiavix = get_history(
+            symbol="INDIAVIX",
+            start=(datetime.today() - relativedelta(days=500)),
+            end=datetime.today(),
+            index=True,
+        )
+    if timeframe == "Week":
+        indiavix = get_history(
+            symbol="INDIAVIX",
+            start=(datetime.today() - relativedelta(days=1200)),
+            end=datetime.today(),
+            index=True,
+        )
+    if timeframe == "Month":
+        indiavix = get_history(
+            symbol="INDIAVIX",
+            start=(datetime.today() - relativedelta(days=3600)),
+            end=datetime.today(),
+            index=True,
+        )
     indiavix.dropna(inplace=True)
     data["IndiaVix"] = indiavix.Close
     return data
+
+
+def format_timeframe(data, timeframe):
+    if timeframe == "Day":
+        data["Dates"] = data.index
+        return data
+    elif timeframe == "Week":
+        data_copy = pd.DataFrame(columns=data.columns)
+        data["Dates"] = data.index
+        try:
+            for i in range(0, data.shape[0] - 1, 5):
+                data_copy = data_copy.append(
+                    {
+                        "Prev Close": data.iloc[i : i + 5]["Prev Close"].values[0],
+                        "Open": data.iloc[i : i + 5]["Open"].values[0],
+                        "High": data.iloc[i : i + 5]["Prev Close"].values.max(),
+                        "Low": data.iloc[i : i + 5]["Prev Close"].values.min(),
+                        "VWAP": np.average(data.iloc[i : i + 5]["VWAP"].values),
+                        "Volume": np.average(data.iloc[i : i + 5]["Volume"].values),
+                        "Close": data.iloc[i : i + 5]["Close"].values[-1],
+                        "IndiaVix": np.average(data.iloc[i : i + 5]["IndiaVix"]),
+                        "Dates": data.iloc[i + 5]["Dates"],
+                    },
+                    ignore_index=True,
+                )
+        except:
+            pass
+
+        # Backtest
+        # data_copy = data_copy[:-1]
+        return data_copy
+    elif timeframe == "Month":
+        data_copy = pd.DataFrame(columns=data.columns)
+        data["Dates"] = data.index
+        try:
+            for i in range(0, data.shape[0] - 1, 21):
+                data_copy = data_copy.append(
+                    {
+                        "Prev Close": data.iloc[i : i + 21]["Prev Close"].values[0],
+                        "Open": data.iloc[i : i + 21]["Open"].values[0],
+                        "High": data.iloc[i : i + 21]["Prev Close"].values.max(),
+                        "Low": data.iloc[i : i + 21]["Prev Close"].values.min(),
+                        "VWAP": np.average(data.iloc[i : i + 21]["VWAP"].values),
+                        "Volume": np.average(data.iloc[i : i + 21]["Volume"].values),
+                        "Close": data.iloc[i : i + 21]["Close"].values[-1],
+                        "IndiaVix": np.average(data.iloc[i : i + 21]["IndiaVix"]),
+                        "Dates": data.iloc[i + 21]["Dates"],
+                    },
+                    ignore_index=True,
+                )
+        except:
+            pass
+
+        # Backtest
+        # data_copy = data_copy[:-1]
+        return data_copy
 
 
 def perform_pca(data):
@@ -90,49 +181,98 @@ def format_Y(data):
 
 def generate_model(X_data, Y_data):
     model = Sequential()
-    model.add(
-        LSTM(
-            units=64,
-            return_sequences=True,
-            input_shape=(X_data.shape[1], X_data.shape[2]),
-        )
-    )
-    model.add(LSTM(units=64, return_sequences=False))
+    model.add(LSTM(units=128, return_sequences=True))
+    model.add(LSTM(units=64, return_sequences=True))
+    model.add(LSTM(units=32, return_sequences=False))
     model.add(Dense(units=16))
     model.add(Dense(units=1))
 
-    model.compile(optimizer="adam", loss="mean_squared_error")
+    es = EarlyStopping(monitor="loss", mode="min", verbose=0, patience=10)
+    model.compile(optimizer="adam", loss="mean_absolute_error")
 
-    model.fit(X_data, Y_data, batch_size=32, epochs=50)
+    model.fit(X_data, Y_data, batch_size=32, epochs=500, verbose=0, callbacks=[es])
 
     return model
 
 
-def pop_and_replace(X_data, Y_data):
+def pop_and_replace(X_data, Popper):
     X_data = np.delete(X_data[-1], 0)
-    X_data = np.append(X_data, Y_data[-1])
+    X_data = np.append(X_data, Popper[0][0])
     X_data = np.array(X_data)
-    print(X_data)
     X_data = np.reshape(X_data, (1, X_data.shape[0], 1))
     return X_data
 
 
-if __name__ == "__main__":
-    symbol = "ZOMATO"
-    data = get_data(symbol)
+def reduce_range(PrevClose, PredClose):
 
-    X_data = perform_pca(
-        data.filter(["Prev Close", "VWAP", "Volume", "50DMA", "RSI14", "IndiaVix"])
-    )
-    Y_data = scalerClose.fit_transform(np.reshape(data["Close"].values, (-1, 1)))
+    UpperCircuit = round((0.05 * PrevClose) + PrevClose, 2)
+    LowerCircuit = round((-0.05 * PrevClose) + PrevClose, 2)
 
-    X_data = format_X(X_data)
-    Y_data = format_Y(Y_data)
+    if PredClose > UpperCircuit:
+        return UpperCircuit
+    elif PredClose < LowerCircuit:
+        return LowerCircuit
+    return PredClose
 
-    model = generate_model(X_data, Y_data)
-    model.save("model.h5")
 
-    X_data = pop_and_replace(X_data, Y_data)
+def popper_handle(data):
+    data = data.filter(
+        ["Close", "VWAP", "Open", "High", "Low", "Volume", "50DMA", "RSI14", "IndiaVix"]
+    ).tolist()
+    data = scalerTable.transform(np.reshape(data, (1, -1)))
+    return pca.transform(data)
 
-    Y_pred = scalerClose.inverse_transform(model.predict(X_data))
-    print("{} will be {:.2f} tomorrow".format(symbol, Y_pred[0][0]))
+
+def start_train(symbol, timeframe):
+    try:
+        data = get_data(symbol, timeframe)
+        print(
+            "{} {}s taken for {} with last date as {}".format(
+                data.shape[0], timeframe, symbol, data["Dates"].values[-1]
+            )
+        )
+        Popper = data.iloc[-1, :]
+        PrevClose = Popper["Close"]
+
+        X_data = perform_pca(
+            data.filter(
+                [
+                    "Prev Close",
+                    "Open",
+                    "High",
+                    "Low",
+                    "VWAP",
+                    "Volume",
+                    "50DMA",
+                    "RSI14",
+                    "IndiaVix",
+                ]
+            )
+        )
+        Y_data = scalerClose.fit_transform(np.reshape(data["Close"].values, (-1, 1)))
+
+        Popper = popper_handle(Popper)
+        X_data = format_X(X_data)
+        Y_data = format_Y(Y_data)
+
+        model = generate_model(X_data, Y_data)
+
+        X_data = pop_and_replace(X_data, Popper)
+        Y_pred = scalerClose.inverse_transform(model.predict(X_data))
+        Y_pred = reduce_range(PrevClose, Y_pred[0][0])
+
+        tf.keras.backend.clear_session()
+        return round(Y_pred, 2)
+    except:
+        return "Insufficient data for {}".format(symbol)
+
+
+# print(start_train("ICICIBANK", "Day"))
+# print(start_train("IEX", "Day"))
+# print(start_train("ITC", "Day"))
+# print(start_train("PFC", "Day"))
+# print(start_train("SBIN", "Day"))
+# print(start_train("TATAPOWER", "Day"))
+# print(start_train("TCS", "Day"))
+# print(start_train("WIPRO", "Day"))
+# print(start_train("ZOMATO", "Day"))
