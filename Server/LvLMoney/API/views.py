@@ -89,10 +89,11 @@ def dashboard(request):
 
 @api_view(["POST"])
 def forecast(request):
-    Day, Week, Month, PrevClose, PrevDate = Model.auto_train.auto_train(
+    Day, Week, Month, PrevClose, PrevDate, Company = Model.auto_train.auto_train(
         request.data["TickerName"]
     )
-    #
+    if Company == "":
+        Company = request.data["TickerName"]
     return Response(
         {
             "Day": (
@@ -112,5 +113,6 @@ def forecast(request):
                 else PrevClose
             ),
             "PrevDate": PrevDate,
+            "Company": Company,
         }
     )

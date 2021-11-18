@@ -172,6 +172,7 @@ def auto_train(ticker=None):
                 PredictionMonth,
                 str(PrevClose),
                 str(PrevDate),
+                str(Company),
             )
         return (
             PredictionDay,
@@ -179,4 +180,5 @@ def auto_train(ticker=None):
             PredictionMonth,
             str(PrevClose),
             str(PrevDate),
+            str(Company),
         )

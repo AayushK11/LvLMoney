@@ -10,7 +10,9 @@ const pixelratio = PixelRatio.get();
 export default class Stocks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      Username: "",
+    };
     this.handleClick = this.handleClick.bind(this);
     this.readData = this.readData.bind(this);
   }
@@ -22,15 +24,17 @@ export default class Stocks extends React.Component {
   async readData() {
     try {
       const value = await AsyncStorage.getItem("@Username:key");
-      console.log(value);
-    } catch (e) {
-      console.log(e);
-    }
+      this.setState({ Username: value });
+    } catch (e) {}
   }
 
   handleClick(ClickedItem) {
     if (ClickedItem === "Forecasting") {
-      this.props.navigation.push("Forecasting");
+      if (this.state.Username !== null) {
+        this.props.navigation.push("Forecasting");
+      } else {
+        alert("You Need to be Logged In to Forecast Stocks");
+      }
     }
     if (ClickedItem === "Market Sentiment Analysis") {
       this.props.navigation.push("Market Sentiment Analysis");
@@ -41,7 +45,6 @@ export default class Stocks extends React.Component {
     if (ClickedItem === "Trading Strategies") {
       this.props.navigation.push("Trading Strategies");
     }
-    console.log(ClickedItem);
   }
 
   render() {
