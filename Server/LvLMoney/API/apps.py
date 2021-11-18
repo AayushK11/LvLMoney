@@ -2,4 +2,9 @@ from django.apps import AppConfig
 
 
 class ApiConfig(AppConfig):
-    name = 'API'
+    name = "API"
+
+    def ready(self):
+        import API.tasks
+
+        API.tasks.start()

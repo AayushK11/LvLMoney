@@ -21,7 +21,6 @@ def login_stage_two(request):
     if (
         Authentication.security.two_factor_now(
             Username=Authentication.security.hash_details(request["Username"]),
-            Password=Authentication.security.hash_details(request["Password"]),
         )
         == request["TwoFA"]
     ):

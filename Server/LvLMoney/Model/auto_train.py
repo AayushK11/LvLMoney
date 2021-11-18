@@ -5,7 +5,7 @@ import io
 import requests
 import os
 import sqlite3
-import model_creation
+import Model.model_creation
 
 
 def get_nifty50():
@@ -61,8 +61,12 @@ def add_new_ticker(ticker, connection):
         timeout=5,
     ).content
     parser = BeautifulSoup(response, "html.parser")
-    name = list(parser.find_all(class_="D(ib) Fz(18px)")[0].stripped_strings)[0]
-    name = name.split(" (")[0]
+    name = ""
+    try:
+        name = list(parser.find_all(class_="D(ib) Fz(18px)")[0].stripped_strings)[0]
+        name = name.split(" (")[0]
+    except:
+        pass
 
     connection.execute(
         "INSERT INTO TICKERS (CODE ,COMPANY) VALUES ('{}','{}')".format(
@@ -98,10 +102,9 @@ def db_train():
     for i in rows:
         Code = i[0]
         Company = i[1]
-        PredictionDay = model_creation.start_train(Code, "Day")
-        PredictionWeek = model_creation.start_train(Code, "Week")
-        PredictionMonth = model_creation.start_train(Code, "Month")
-        print(Code, Company, PredictionDay, PredictionWeek, PredictionMonth)
+        PredictionDay = Model.model_creation.start_train(Code, "Day")
+        PredictionWeek = Model.model_creation.start_train(Code, "Week")
+        PredictionMonth = Model.model_creation.start_train(Code, "Month")
         add_prediction(Code, PredictionDay, PredictionWeek, PredictionMonth)
     con.close()
 
@@ -113,19 +116,27 @@ def auto_train(ticker=None):
         database_init()
 
     if ticker == None:
+        print("---->Starting Auto-Update")
         db_train()
     else:
         Code, Company, PredictionDay, PredictionWeek, PredictionMonth = search_and_add(
             ticker
         )[0]
-        print(Code, Company, PredictionDay, PredictionWeek, PredictionMonth)
         if PredictionDay == None:
-            PredictionDay = model_creation.start_train(Code, "Day")
-            PredictionWeek = model_creation.start_train(Code, "Week")
-            PredictionMonth = model_creation.start_train(Code, "Month")
+            PredictionDay = Model.model_creation.start_train(Code, "Day")
+            PredictionWeek = Model.model_creation.start_train(Code, "Week")
+            PredictionMonth = Model.model_creation.start_train(Code, "Month")
             add_prediction(Code, PredictionDay, PredictionWeek, PredictionMonth)
             return PredictionDay, PredictionWeek, PredictionMonth
         return PredictionDay, PredictionWeek, PredictionMonth
 
 
-auto_train()
+# auto_train("ICICIBANK")
+# auto_train("IEX")
+# auto_train("ITC")
+# auto_train("PFC")
+# auto_train("SBIN")
+# auto_train("TATAPOWER")
+# auto_train("TCS")
+# auto_train("WIPRO")
+# auto_train("ZOMATO")

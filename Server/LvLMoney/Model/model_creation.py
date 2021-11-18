@@ -226,11 +226,6 @@ def popper_handle(data):
 def start_train(symbol, timeframe):
     try:
         data = get_data(symbol, timeframe)
-        print(
-            "{} {}s taken for {} with last date as {}".format(
-                data.shape[0], timeframe, symbol, data["Dates"].values[-1]
-            )
-        )
         Popper = data.iloc[-1, :]
         PrevClose = Popper["Close"]
 
@@ -265,14 +260,3 @@ def start_train(symbol, timeframe):
         return round(Y_pred, 2)
     except:
         return "Insufficient data for {}".format(symbol)
-
-
-# print(start_train("ICICIBANK", "Day"))
-# print(start_train("IEX", "Day"))
-# print(start_train("ITC", "Day"))
-# print(start_train("PFC", "Day"))
-# print(start_train("SBIN", "Day"))
-# print(start_train("TATAPOWER", "Day"))
-# print(start_train("TCS", "Day"))
-# print(start_train("WIPRO", "Day"))
-# print(start_train("ZOMATO", "Day"))
