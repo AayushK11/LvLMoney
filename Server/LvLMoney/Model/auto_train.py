@@ -16,7 +16,14 @@ def get_nifty50():
 
 def table_create(connection):
     connection.execute(
-        "CREATE TABLE TICKERS (CODE VARCHAR(250) NOT NULL, COMPANY VARCHAR(50) NOT NULL, PREDICTIONDAY VARCHAR(50), PREDICTIONWEEK VARCHAR(50), PREDICTIONMONTH VARCHAR(50));"
+        """CREATE TABLE TICKERS (
+            CODE VARCHAR(250) NOT NULL, 
+            COMPANY VARCHAR(50) NOT NULL, 
+            PREDICTIONDAY VARCHAR(50), 
+            PREDICTIONWEEK VARCHAR(50), 
+            PREDICTIONMONTH VARCHAR(50),
+            PREVCLOSE VARCHAR(50),
+            PREVDATE VARCHAR(50));"""
     )
 
 
@@ -74,19 +81,29 @@ def add_new_ticker(ticker, connection):
         )
     )
     connection.commit()
-    return [(ticker, name, None, None, None)]
+    return [(ticker, name, None, None, None, None, None)]
 
     con.close()
 
 
-def add_prediction(Code, PredictionDay, PredictionWeek, PredictionMonth):
+def add_prediction(
+    Code, PredictionDay, PredictionWeek, PredictionMonth, PrevClose, PrevDate
+):
     con = sqlite3.connect("Databases//tickerdb.sqlite3")
     cur = con.cursor()
     cur.execute(
-        "UPDATE TICKERS SET PREDICTIONDAY='{PredictionDay}', PREDICTIONWEEK='{PredictionWeek}', PREDICTIONMONTH='{PredictionMonth}' WHERE CODE='{Code}'".format(
+        """UPDATE TICKERS SET 
+        PREDICTIONDAY='{PredictionDay}', 
+        PREDICTIONWEEK='{PredictionWeek}', 
+        PREDICTIONMONTH='{PredictionMonth}',
+        PREVCLOSE='{PrevClose}',
+        PREVDATE='{PrevDate}' 
+        WHERE CODE='{Code}'""".format(
             PredictionDay=PredictionDay,
             PredictionWeek=PredictionWeek,
             PredictionMonth=PredictionMonth,
+            PrevClose=PrevClose,
+            PrevDate=PrevDate,
             Code=Code,
         )
     )
@@ -102,10 +119,15 @@ def db_train():
     for i in rows:
         Code = i[0]
         Company = i[1]
-        PredictionDay = Model.model_creation.start_train(Code, "Day")
-        PredictionWeek = Model.model_creation.start_train(Code, "Week")
-        PredictionMonth = Model.model_creation.start_train(Code, "Month")
-        add_prediction(Code, PredictionDay, PredictionWeek, PredictionMonth)
+        print("---->Training {}".format(Code))
+        PredictionDay, PrevClose, PrevDate = Model.model_creation.start_train(
+            Code, "Day"
+        )
+        PredictionWeek, _, _ = Model.model_creation.start_train(Code, "Week")
+        PredictionMonth, _, _ = Model.model_creation.start_train(Code, "Month")
+        add_prediction(
+            Code, PredictionDay, PredictionWeek, PredictionMonth, PrevClose, PrevDate
+        )
     con.close()
 
 
@@ -118,25 +140,43 @@ def auto_train(ticker=None):
     if ticker == None:
         print("---->Starting Auto-Update")
         db_train()
+        print("---->Auto-Update Complete")
     else:
-        Code, Company, PredictionDay, PredictionWeek, PredictionMonth = search_and_add(
-            ticker
-        )[0]
+        (
+            Code,
+            Company,
+            PredictionDay,
+            PredictionWeek,
+            PredictionMonth,
+            PrevClose,
+            PrevDate,
+        ) = search_and_add(ticker)[0]
         if PredictionDay == None:
-            PredictionDay = Model.model_creation.start_train(Code, "Day")
-            PredictionWeek = Model.model_creation.start_train(Code, "Week")
-            PredictionMonth = Model.model_creation.start_train(Code, "Month")
-            add_prediction(Code, PredictionDay, PredictionWeek, PredictionMonth)
-            return PredictionDay, PredictionWeek, PredictionMonth
-        return PredictionDay, PredictionWeek, PredictionMonth
-
-
-# auto_train("ICICIBANK")
-# auto_train("IEX")
-# auto_train("ITC")
-# auto_train("PFC")
-# auto_train("SBIN")
-# auto_train("TATAPOWER")
-# auto_train("TCS")
-# auto_train("WIPRO")
-# auto_train("ZOMATO")
+            print("---->Learning New Ticker")
+            PredictionDay, PrevClose, PrevDate = Model.model_creation.start_train(
+                Code, "Day"
+            )
+            PredictionWeek, _, _ = Model.model_creation.start_train(Code, "Week")
+            PredictionMonth, _, _ = Model.model_creation.start_train(Code, "Month")
+            add_prediction(
+                Code,
+                PredictionDay,
+                PredictionWeek,
+                PredictionMonth,
+                PrevClose,
+                PrevDate,
+            )
+            return (
+                PredictionDay,
+                PredictionWeek,
+                PredictionMonth,
+                str(PrevClose),
+                str(PrevDate),
+            )
+        return (
+            PredictionDay,
+            PredictionWeek,
+            PredictionMonth,
+            str(PrevClose),
+            str(PrevDate),
+        )

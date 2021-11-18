@@ -228,6 +228,7 @@ def start_train(symbol, timeframe):
         data = get_data(symbol, timeframe)
         Popper = data.iloc[-1, :]
         PrevClose = Popper["Close"]
+        Date = Popper["Dates"]
 
         X_data = perform_pca(
             data.filter(
@@ -257,6 +258,6 @@ def start_train(symbol, timeframe):
         Y_pred = reduce_range(PrevClose, Y_pred[0][0])
 
         tf.keras.backend.clear_session()
-        return round(Y_pred, 2)
+        return str(round(Y_pred, 2)), PrevClose, Date
     except:
-        return "Insufficient data for {}".format(symbol)
+        return "Insufficient data for {}".format(symbol), 0, 0

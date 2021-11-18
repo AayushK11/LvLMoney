@@ -5,6 +5,7 @@ import Authentication.login
 import Authentication.forgotpassword
 import Authentication.userdetails
 import Support.google_sheets
+import Model.auto_train
 
 
 @api_view(["POST"])
@@ -84,3 +85,32 @@ def dashboard(request):
             return Response({"Image": "No Image", "Name": Name})
         else:
             return Response({"Image": Image.url, "Name": Name})
+
+
+@api_view(["POST"])
+def forecast(request):
+    Day, Week, Month, PrevClose, PrevDate = Model.auto_train.auto_train(
+        request.data["TickerName"]
+    )
+    #
+    return Response(
+        {
+            "Day": (
+                round(float(Day), 2) if "Insufficient data for" not in Day else Day
+            ),
+            "Week": (
+                round(float(Week), 2) if "Insufficient data for" not in Week else Week
+            ),
+            "Month": (
+                round(float(Month), 2)
+                if "Insufficient data for" not in Month
+                else Month
+            ),
+            "PrevClose": (
+                round(float(PrevClose), 2)
+                if "Insufficient data for" not in PrevClose
+                else PrevClose
+            ),
+            "PrevDate": PrevDate,
+        }
+    )
