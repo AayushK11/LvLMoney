@@ -138,9 +138,9 @@ def auto_train(ticker=None):
         database_init()
 
     if ticker == None:
-        print("---->Starting Auto-Update")
+        print("---->Starting Auto-Update -- Stocks")
         db_train()
-        print("---->Auto-Update Complete")
+        print("---->Auto-Update Stocks Complete -- Stocks")
     else:
         (
             Code,
