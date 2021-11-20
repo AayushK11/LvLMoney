@@ -37,7 +37,11 @@ export default class Stocks extends React.Component {
       }
     }
     if (ClickedItem === "Market Sentiment Analysis") {
-      this.props.navigation.push("Market Sentiment Analysis");
+      if (this.state.Username !== null) {
+        this.props.navigation.push("Market Sentiment Analysis");
+      } else {
+        alert("You Need to be Logged In to View Market Sentiments");
+      }
     }
     if (ClickedItem === "Sector Wise Ranking") {
       this.props.navigation.push("Sector Wise Ranking");

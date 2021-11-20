@@ -6,6 +6,7 @@ import Authentication.forgotpassword
 import Authentication.userdetails
 import Support.google_sheets
 import Model.auto_train
+import Model.auto_mood
 
 
 @api_view(["POST"])
@@ -116,3 +117,9 @@ def forecast(request):
             "Company": Company,
         }
     )
+
+
+@api_view(["GET"])
+def marketmood(request):
+    Index, Day = Model.auto_mood.auto_train(requirement="Fetch")
+    return Response({"Index": Index, "Day": Day})
