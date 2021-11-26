@@ -5,11 +5,12 @@ import io
 import requests
 import os
 import sqlite3
-import Model.model_creation
+
+import Model.Forecasting.model_creation
 
 
-def get_nifty50():
-    url = "https://archives.nseindia.com/content/indices/ind_nifty50list.csv"
+def get_nifty500():
+    url = "https://archives.nseindia.com/content/indices/ind_nifty500list.csv"
     response = requests.get(url).content
     return pd.read_csv(io.StringIO(response.decode("utf-8")))
 
@@ -39,7 +40,7 @@ def table_addition(connection, data):
 
 def database_init():
     open("Databases//tickerdb.sqlite3", "a").close()
-    data = get_nifty50()
+    data = get_nifty500()
 
     con = sqlite3.connect("Databases//tickerdb.sqlite3")
     table_create(con)
@@ -51,7 +52,7 @@ def database_init():
 def search_and_add(ticker):
     con = sqlite3.connect("Databases//tickerdb.sqlite3")
     cur = con.cursor()
-    cur.execute("SELECT * FROM TICKERS WHERE CODE = '{}'".format(ticker))
+    cur.execute("SELECT * FROM TICKERS WHERE CODE = '{}'".format(ticker.upper()))
     rows = cur.fetchall()
 
     if len(rows) == 0:
@@ -77,7 +78,7 @@ def add_new_ticker(ticker, connection):
 
     connection.execute(
         "INSERT INTO TICKERS (CODE ,COMPANY) VALUES ('{}','{}')".format(
-            ticker.replace("'", ""), name.replace("'", "")
+            ticker.replace("'", "").upper(), name.replace("'", "")
         )
     )
     connection.commit()
@@ -118,16 +119,16 @@ def db_train():
     rows = cur.fetchall()
     for i in rows:
         Code = i[0]
-        Company = i[1]
         print("---->Training {}".format(Code))
-        PredictionDay, PrevClose, PrevDate = Model.model_creation.start_train(
-            Code, "Day"
-        )
-        PredictionWeek, _, _ = Model.model_creation.start_train(Code, "Week")
-        PredictionMonth, _, _ = Model.model_creation.start_train(Code, "Month")
+        (
+            [PredictionDay, PredictionWeek, PredictionMonth],
+            PrevClose,
+            PrevDate,
+        ) = Model.Forecasting.model_creation.start_train(Code)
         add_prediction(
             Code, PredictionDay, PredictionWeek, PredictionMonth, PrevClose, PrevDate
         )
+        break
     con.close()
 
 
@@ -153,11 +154,11 @@ def auto_train(ticker=None):
         ) = search_and_add(ticker)[0]
         if PredictionDay == None:
             print("---->Learning New Ticker")
-            PredictionDay, PrevClose, PrevDate = Model.model_creation.start_train(
-                Code, "Day"
-            )
-            PredictionWeek, _, _ = Model.model_creation.start_train(Code, "Week")
-            PredictionMonth, _, _ = Model.model_creation.start_train(Code, "Month")
+            (
+                [PredictionDay, PredictionWeek, PredictionMonth],
+                PrevClose,
+                PrevDate,
+            ) = Model.Forecasting.model_creation.start_train(Code)
             add_prediction(
                 Code,
                 PredictionDay,

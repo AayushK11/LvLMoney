@@ -22,39 +22,31 @@ scalerClose = MinMaxScaler(feature_range=(0, 1))
 pca = PCA(n_components=1)
 
 
-def get_data(symbol, timeframe):
-    data = get_ohlc(symbol, timeframe)
-    data = data.filter(
-        ["Date", "Prev Close", "Open", "High", "Low", "VWAP", "Volume", "Close"]
-    )
+def get_data(symbol):
+    return get_ohlc(symbol)
+
+
+def format_data(data, timeframe):
     data = get_indiavix(data, timeframe)
     data = format_timeframe(data, timeframe)
     data = calculate_dma(data)
     data = calculate_rsi(data)
     data = data.iloc[49:]
     data.reset_index(inplace=True, drop=True)
+    data.dropna(inplace=True)
     return data
 
 
-def get_ohlc(symbol, timeframe):
-    if timeframe == "Day":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=500)),
-            end=datetime.today(),
-        )
-    elif timeframe == "Week":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=1200)),
-            end=datetime.today(),
-        )
-    elif timeframe == "Month":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=3600)),
-            end=datetime.today(),
-        )
+def get_ohlc(symbol):
+    data = get_history(
+        symbol=symbol,
+        start=(datetime.today() - relativedelta(days=3600)),
+        end=datetime.today(),
+    )
+    data = data.filter(
+        ["Date", "Prev Close", "Open", "High", "Low", "VWAP", "Volume", "Close"]
+    )
+    return data
 
 
 def calculate_dma(data):
@@ -223,41 +215,65 @@ def popper_handle(data):
     return pca.transform(data)
 
 
-def start_train(symbol, timeframe):
+def start_train(symbol):
+    Predictions = []
+    PrevClose = 0
+    Date = 0
+
     try:
-        data = get_data(symbol, timeframe)
-        Popper = data.iloc[-1, :]
-        PrevClose = Popper["Close"]
-        Date = Popper["Dates"]
+        master_data = get_data(symbol)
 
-        X_data = perform_pca(
-            data.filter(
-                [
-                    "Prev Close",
-                    "Open",
-                    "High",
-                    "Low",
-                    "VWAP",
-                    "Volume",
-                    "50DMA",
-                    "RSI14",
-                    "IndiaVix",
-                ]
+        for i in ["Day", "Week", "Month"]:
+            data = format_data(master_data, i)
+
+            Popper = data.iloc[-1, :]
+            PrevClose = Popper["Close"]
+            Date = Popper["Dates"]
+
+            X_data = perform_pca(
+                data.filter(
+                    [
+                        "Prev Close",
+                        "Open",
+                        "High",
+                        "Low",
+                        "VWAP",
+                        "Volume",
+                        "50DMA",
+                        "RSI14",
+                        "IndiaVix",
+                    ]
+                )
             )
+            Y_data = scalerClose.fit_transform(
+                np.reshape(data["Close"].values, (-1, 1))
+            )
+
+            Popper = popper_handle(Popper)
+            X_data = format_X(X_data)
+            Y_data = format_Y(Y_data)
+
+            model = generate_model(X_data, Y_data)
+
+            X_data = pop_and_replace(X_data, Popper)
+            Y_pred = scalerClose.inverse_transform(model.predict(X_data))
+            Y_pred = reduce_range(PrevClose, Y_pred[0][0])
+
+            tf.keras.backend.clear_session()
+
+            Predictions.append(str(round(Y_pred, 2)))
+    except Exception as e:
+        print(e)
+        Predictions.append("Insufficient data for {}".format(symbol))
+
+    if len(Predictions) == 1:
+        Predictions.extend(
+            [
+                "Insufficient data for {}".format(symbol),
+                "Insufficient data for {}".format(symbol),
+            ]
         )
-        Y_data = scalerClose.fit_transform(np.reshape(data["Close"].values, (-1, 1)))
+    if len(Predictions) == 2:
+        Predictions.append("Insufficient data for {}".format(symbol))
 
-        Popper = popper_handle(Popper)
-        X_data = format_X(X_data)
-        Y_data = format_Y(Y_data)
-
-        model = generate_model(X_data, Y_data)
-
-        X_data = pop_and_replace(X_data, Popper)
-        Y_pred = scalerClose.inverse_transform(model.predict(X_data))
-        Y_pred = reduce_range(PrevClose, Y_pred[0][0])
-
-        tf.keras.backend.clear_session()
-        return str(round(Y_pred, 2)), PrevClose, Date
-    except:
-        return "Insufficient data for {}".format(symbol), 0, 0
+    return Predictions, PrevClose, Date

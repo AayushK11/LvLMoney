@@ -37,7 +37,6 @@ export default class MarketSentiment extends React.Component {
     if (ClickedItem === "Back") {
       this.props.navigation.goBack();
     }
-    console.log(ClickedItem);
   }
 
   switchCondition() {

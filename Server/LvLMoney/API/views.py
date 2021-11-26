@@ -5,8 +5,8 @@ import Authentication.login
 import Authentication.forgotpassword
 import Authentication.userdetails
 import Support.google_sheets
-import Model.auto_train
-import Model.auto_mood
+import Model.Forecasting.auto_train
+import Model.MarketSentiment.auto_mood
 
 
 @api_view(["POST"])
@@ -90,9 +90,14 @@ def dashboard(request):
 
 @api_view(["POST"])
 def forecast(request):
-    Day, Week, Month, PrevClose, PrevDate, Company = Model.auto_train.auto_train(
-        request.data["TickerName"]
-    )
+    (
+        Day,
+        Week,
+        Month,
+        PrevClose,
+        PrevDate,
+        Company,
+    ) = Model.Forecasting.auto_train.auto_train(request.data["TickerName"])
     if Company == "":
         Company = request.data["TickerName"]
     return Response(
@@ -121,5 +126,5 @@ def forecast(request):
 
 @api_view(["GET"])
 def marketmood(request):
-    Index, Day = Model.auto_mood.auto_train(requirement="Fetch")
+    Index, Day = Model.MarketSentiment.auto_mood.auto_train(requirement="Fetch")
     return Response({"Index": Index, "Day": Day})

@@ -5,7 +5,7 @@ import io
 import requests
 import os
 import sqlite3
-import Model.market_mood
+import Model.MarketSentiment.market_mood
 
 
 def table_create(connection):
@@ -54,7 +54,7 @@ def auto_train(requirement=None):
 
     if requirement == None:
         print("---->Starting Auto-Update -- Mood")
-        MoodIndex, PrevDate = Model.market_mood.market_mood()
+        MoodIndex, PrevDate = Model.MarketSentiment.market_mood.market_mood()
         add_prediction(MoodIndex, PrevDate)
         print("---->Auto-Update Complete -- Mood")
     else:
