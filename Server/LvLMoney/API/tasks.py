@@ -3,6 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import Model.Forecasting.auto_train
 import Model.MarketSentiment.auto_mood
 import Model.SectorRanking.auto_fetch
+import Model.TradingStrategies.Sma_50_100
 
 
 def start():
@@ -27,5 +28,12 @@ def start():
         trigger="cron",
         hour="17",
         minute="35",
+    )
+    scheduler.add_job(
+        Model.TradingStrategies.Sma_50_100.find_new_stocks,
+        day_of_week="mon-fri",
+        trigger="cron",
+        hour="19",
+        minute="00",
     )
     scheduler.start()
