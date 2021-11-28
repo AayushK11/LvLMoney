@@ -5,12 +5,11 @@ import io
 import requests
 import os
 import sqlite3
-
 import Model.Forecasting.model_creation
 
 
-def get_nifty500():
-    url = "https://archives.nseindia.com/content/indices/ind_nifty500list.csv"
+def get_nifty50():
+    url = "https://archives.nseindia.com/content/indices/ind_nifty50list.csv"
     response = requests.get(url).content
     return pd.read_csv(io.StringIO(response.decode("utf-8")))
 
@@ -40,7 +39,7 @@ def table_addition(connection, data):
 
 def database_init():
     open("Databases//tickerdb.sqlite3", "a").close()
-    data = get_nifty500()
+    data = get_nifty50()
 
     con = sqlite3.connect("Databases//tickerdb.sqlite3")
     table_create(con)
@@ -128,8 +127,19 @@ def db_train():
         add_prediction(
             Code, PredictionDay, PredictionWeek, PredictionMonth, PrevClose, PrevDate
         )
-        break
     con.close()
+
+
+def clear_temp_values():
+    con = sqlite3.connect("Databases//tickerdb.sqlite3")
+    cur = con.cursor()
+    cur.execute(
+        """DELETE FROM TICKERS WHERE 
+        PREDICTIONDAY LIKE 'Insufficient data%' AND 
+        PREDICTIONWEEK LIKE 'Insufficient data%' AND 
+        PREDICTIONMONTH LIKE 'Insufficient data%';"""
+    )
+    con.commit()
 
 
 def auto_train(ticker=None):
@@ -141,6 +151,7 @@ def auto_train(ticker=None):
     if ticker == None:
         print("---->Starting Auto-Update -- Stocks")
         db_train()
+        clear_temp_values()
         print("---->Auto-Update Stocks Complete -- Stocks")
     else:
         (

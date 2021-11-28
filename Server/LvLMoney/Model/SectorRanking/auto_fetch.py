@@ -64,6 +64,14 @@ def table_insert(symbol, index):
     con.close()
 
 
+def db_values():
+    con = sqlite3.connect("Databases//sectordb.sqlite3")
+    data = pd.read_sql_query("SELECT * FROM SECTORLEADERS", con)
+    con.close()
+    data = dict(data.values)
+    return data
+
+
 def sector_leaders(requirement=None):
     if "sectordb.sqlite3" in os.listdir("Databases"):
         pass
@@ -94,3 +102,5 @@ def sector_leaders(requirement=None):
             data = data[:5]
             data.apply(lambda x: table_insert(x["Symbol"], x["Industry"]), axis=1)
         print("---->Auto-Update Complete -- Sector Leaders")
+    else:
+        print(db_values())

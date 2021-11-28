@@ -227,8 +227,10 @@ def start_train(symbol):
             data = format_data(master_data, i)
 
             Popper = data.iloc[-1, :]
-            PrevClose = Popper["Close"]
-            Date = Popper["Dates"]
+
+            if PrevClose == 0 and Date == 0:
+                PrevClose = Popper["Close"]
+                Date = Popper["Dates"]
 
             X_data = perform_pca(
                 data.filter(
@@ -263,7 +265,6 @@ def start_train(symbol):
 
             Predictions.append(str(round(Y_pred, 2)))
     except Exception as e:
-        print(e)
         Predictions.append("Insufficient data for {}".format(symbol))
 
     if len(Predictions) == 1:

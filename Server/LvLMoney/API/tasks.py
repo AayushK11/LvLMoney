@@ -10,14 +10,14 @@ def start():
         Model.Forecasting.auto_train.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="18",
-        minute="02",
+        hour="17",
+        minute="35",
     )
     scheduler.add_job(
         Model.MarketSentiment.auto_mood.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="11",
-        minute="48",
+        hour="17",
+        minute="35",
     )
     scheduler.start()
