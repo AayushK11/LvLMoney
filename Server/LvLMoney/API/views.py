@@ -7,6 +7,7 @@ import Authentication.userdetails
 import Support.google_sheets
 import Model.Forecasting.auto_train
 import Model.MarketSentiment.auto_mood
+import Model.SectorRanking.auto_fetch
 
 
 @api_view(["POST"])
@@ -128,3 +129,8 @@ def forecast(request):
 def marketmood(request):
     Index, Day = Model.MarketSentiment.auto_mood.auto_train(requirement="Fetch")
     return Response({"Index": Index, "Day": Day})
+
+
+@api_view(["GET"])
+def sectorleaders(request):
+    return Response(Model.SectorRanking.auto_fetch.sector_leaders("Fetch"))

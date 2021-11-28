@@ -67,11 +67,21 @@ export default class ListDropDown extends React.Component {
             } else {
               return (
                 <View>
-                  <StockDropdown Stock={this.props.Stocks[0]} />
-                  <StockDropdown Stock={this.props.Stocks[1]} />
-                  <StockDropdown Stock={this.props.Stocks[2]} />
-                  <StockDropdown Stock={this.props.Stocks[3]} />
-                  <StockDropdown Stock={this.props.Stocks[4]} />
+                  <StockDropdown
+                    Stock={this.props.Stocks[0].replace("&", "%26")}
+                  />
+                  <StockDropdown
+                    Stock={this.props.Stocks[1].replace("&", "%26")}
+                  />
+                  <StockDropdown
+                    Stock={this.props.Stocks[2].replace("&", "%26")}
+                  />
+                  <StockDropdown
+                    Stock={this.props.Stocks[3].replace("&", "%26")}
+                  />
+                  <StockDropdown
+                    Stock={this.props.Stocks[4].replace("&", "%26")}
+                  />
                 </View>
               );
             }

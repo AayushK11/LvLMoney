@@ -83,7 +83,6 @@ def sector_leaders(requirement=None):
         indices = [
             "auto",
             "bank",
-            "finance",
             "fmcg",
             "it",
             "media",
@@ -103,4 +102,4 @@ def sector_leaders(requirement=None):
             data.apply(lambda x: table_insert(x["Symbol"], x["Industry"]), axis=1)
         print("---->Auto-Update Complete -- Sector Leaders")
     else:
-        print(db_values())
+        return db_values()
