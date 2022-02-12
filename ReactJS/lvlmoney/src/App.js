@@ -11,6 +11,7 @@ import Login from './Components/Pages/Login/Login';
 import Twofa from './Components/Pages/TwoFa/Twofa';
 import ForgotPassword from './Components/Pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
+import Dashboard from './Components/Pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -73,6 +74,12 @@ function App() {
               exact
               path={"/resetpassword"}
               render={(props) => <ResetPassword {...props} />}
+          />  
+
+        <Route
+              exact
+              path={"/dashboard"}
+              render={(props) => <Dashboard {...props} />}
           />  
         </Switch>
         </BrowserRouter>

@@ -129,6 +129,7 @@ export default class Login extends Component {
       termsandconditions: this.state.url.concat("/termsandconditions"),
       register: this.state.url.concat("/register"),
       forgotpassword: this.state.url.concat("/forgotpassword"),
+      dashboard: this.state.url.concat("/dashboard"),
     });
   }
 

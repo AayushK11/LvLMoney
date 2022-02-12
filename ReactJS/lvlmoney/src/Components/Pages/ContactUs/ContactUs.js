@@ -3,10 +3,8 @@ import Footer from "../../Parts/Footer/Footer";
 import Navbar from "../../Parts/Navbar/Navbar";
 import { Confirmation } from "../../Parts/Confirmation/Confirmation.js";
 import "./ContactUs.css";
-
-// import axios from "axios";
-// import Server_Path from "../../Server/Server.js";
-import $ from "jquery";
+import axios from "axios";
+import Server_Path from "../../Parts/Server/Server.js";
 import { Helmet } from "react-helmet";
 
 export default class ContactUs extends React.Component {
@@ -25,13 +23,12 @@ export default class ContactUs extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.validateInput = this.validateInput.bind(this);
     this.sendData = this.sendData.bind(this);
+    
   }
 
   onClick(event) {
     event.preventDefault();
     if (this.validateInput()) {
-      $(".contactusdiv").fadeTo(500, 0.3);
-      $(".loader").fadeTo(500, 1);
       this.sendData();
     }
   }
@@ -42,33 +39,31 @@ export default class ContactUs extends React.Component {
 
   sendData() {
     console.log("sent")
-    // axios
-    //   .post(Server_Path.concat("contactus/"), {
-    //     FirstName: this.state.FirstName,
-    //     LastName: this.state.LastName,
-    //     Email: this.state.Email,
-    //     PhoneNumber: this.state.PhoneNumber,
-    //     Issue: this.state.Issue,
-    //   })
-    //   .then((res) => {
-    //     if (res.data["Status"] === "Success") {
-    //       this.setState({ ContactUsLevel: this.state.ContactUsLevel + 1 });
-    //       $(".contactusdiv").fadeTo(500, 1);
-    //       $(".loader").fadeTo(500, 0);
-    //     } else if (res.data["Status"] === "Failed") {
-    //       alert("Something Went Wrong");
-    //       $(".contactusdiv").fadeTo(500, 1);
-    //       $(".loader").fadeTo(500, 0);
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //     if (!e.Status) {
-    //       alert("Something Went Wrong");
-    //       $(".contactusdiv").fadeTo(500, 1);
-    //       $(".loader").fadeTo(500, 0);
-    //     }
-    //   });
+    axios
+      .post(Server_Path.concat("contactus/"), {
+        FirstName: this.state.FirstName,
+        LastName: this.state.LastName,
+        Email: this.state.Email,
+        PhoneNumber: this.state.PhoneNumber,
+        Issue: this.state.Issue,
+      })
+      .then((res) => {
+        if (res.data === true) {
+          this.setState({ ContactUsLevel: this.state.ContactUsLevel + 1 });
+        
+        } else {
+          alert("Something Went Wrong");
+        
+        }
+        console.log(res)
+      })
+      .catch((e) => {
+        console.log(e);
+        if (!e.Status) {
+          alert("Something Went Wrong");
+         
+        }
+      });
   }
 
   validateInput() {
@@ -183,7 +178,7 @@ export default class ContactUs extends React.Component {
                           </label>
                           <input
                             onChange={this.onChange}
-                            value={this.state.email}
+                            value={this.state.Email}
                             type="email"
                             id="Email"
                             name="Email"
@@ -196,7 +191,7 @@ export default class ContactUs extends React.Component {
                           </label>
                           <input
                             onChange={this.onChange}
-                            value={this.state.phonenumber}
+                            value={this.state.PhoneNumber}
                             type="tel"
                             maxLength="10"
                             id="PhoneNumber"
@@ -211,6 +206,7 @@ export default class ContactUs extends React.Component {
                             Your Issue<span className="required-star">*</span>
                           </label>
                           <textarea
+                            value={this.state.Issue}
                             onChange={this.onChange}
                             type="text"
                             id="Issue"
