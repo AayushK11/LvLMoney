@@ -1,7 +1,10 @@
 .dashboard_main {
     background-color: #2D2D30;
-    
 }
+.bg-lvlgreen{
+  background-color: #D6DF21;
+}
+
 .svg-inline--fa {
     display: inline-block;
     font-size: inherit;
@@ -48,6 +51,11 @@
   .card-header {
     padding: 1rem 2rem;
     /* background-color: #6292366c; */
+  }
+
+  .my-header{
+    display: flex;
+
   }
 
   .sectorShorts{

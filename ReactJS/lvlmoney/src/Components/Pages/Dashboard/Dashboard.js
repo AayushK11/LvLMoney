@@ -17,7 +17,6 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       options: {
         chart: {
           height: 350,
@@ -60,12 +59,12 @@ export default class Dashboard extends Component {
 
       url: window.location.origin,
       est_return: 179646,
-      invst_amount:600000,
+      invst_amount: 600000,
     };
     this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-  
+
   generateURLs() {
     this.setState({
       register: this.state.url.concat("/register"),
@@ -163,9 +162,7 @@ export default class Dashboard extends Component {
     var parameterName = event.target.id.split("calc-")[1];
     var input_value = event.target.value;
 
-    switch ( parameterName )
-    {
-    
+    switch (parameterName) {
       case "amount":
         document.getElementById("calc-amount_value").innerHTML = input_value;
         break;
@@ -179,34 +176,38 @@ export default class Dashboard extends Component {
         break;
     }
 
-    var calc_amount = document.getElementById( "calc-amount_value" ).innerHTML;
-    var calc_rate = document.getElementById( "calc-rate_value" ).innerHTML;
-    var calc_time = document.getElementById( "calc-time_value" ).innerHTML;
- 
-    
+    var calc_amount = document.getElementById("calc-amount_value").innerHTML;
+    var calc_rate = document.getElementById("calc-rate_value").innerHTML;
+    var calc_time = document.getElementById("calc-time_value").innerHTML;
+
     var total_investment = calc_amount * calc_time * 12;
 
     // sip calculation
-    var periodic_rate = ( calc_rate / 100 ) / 12;
+    var periodic_rate = calc_rate / 100 / 12;
     var month = calc_time * 12;
     var total_return = 0;
-    total_return = calc_amount * ((((1 + periodic_rate)**(month))-1) * (1 + periodic_rate))/periodic_rate;
-    total_return = Math.round( total_return );
-    
+    total_return =
+      (calc_amount *
+        (((1 + periodic_rate) ** month - 1) * (1 + periodic_rate))) /
+      periodic_rate;
+    total_return = Math.round(total_return);
+
     var estimated_return = total_return - total_investment;
 
     // lumpsun return calculation
     // var lumpsun_return = calc_amount*(1+calc_rate/100)**calc_time;
 
-    document.getElementById( "calc-total_investment" ).innerHTML = total_investment;
-    document.getElementById( "calc-estimated_return" ).innerHTML = estimated_return;
-    document.getElementById( "calc-total_return" ).innerHTML = total_return;
+    document.getElementById("calc-total_investment").innerHTML =
+      total_investment;
+    document.getElementById("calc-estimated_return").innerHTML =
+      estimated_return;
+    document.getElementById("calc-total_return").innerHTML = total_return;
 
-    this.setState( { est_return: estimated_return,invst_amount:total_investment } );
-    
-    
+    this.setState({
+      est_return: estimated_return,
+      invst_amount: total_investment,
+    });
   }
- 
 
   render() {
     return (
@@ -990,32 +991,6 @@ export default class Dashboard extends Component {
                               <div className=" rangec card-body">
                                 <div className="row">
                                   <div className="col-lg">
-{/* 
-                                    <div >
-                                      Monthly investment
-                                    </div>
-                                    <div >
-                                      
-                                      <div>
-                                        <span >
-                                          <span >₹</span>
-                                        </span>
-                                        <input
-                                          
-                                          id="calc-amount_value"
-                                          type="number"
-                                          maxlength="250"
-                                          min="500"
-                                          max="100000"
-                                          placeholder="0"
-                                          onChange={this.onChange}
-                                          defaultValue="5000"
-                                          autocomplete="on"
-                                          required=""
-                                        />
-                                      </div>
-                                      <div></div>
-                                    </div> */}
                                     <h6 class="mb-0 d-flex align-items-center pb-3 pt-2">
                                       Monthly Investment :
                                       <span
@@ -1097,10 +1072,50 @@ export default class Dashboard extends Component {
                                   </div>
                                 </div>
                                 <hr />
-                                <div className="row">
-                                  <label className="">Invested Amount : <span id="calc-total_investment">600000</span></label>
-                                  <label className="">Estimated returns : <span id="calc-estimated_return">179646</span></label>
-                                  <label className="">Total returns : <span id="calc-total_return">779646</span></label>
+                                <div className="row px-3">
+                                  <div class="col-lg card text-center mx-1 p-0 text-white bg-primary">
+                                    <div class="card-header">
+                                      Invested Amount
+                                    </div>
+
+                                    <div class="card-body">
+                                      <div className="row">
+                                        <h5
+                                          class="card-title m-0 "
+                                          id="calc-total_investment"
+                                        >
+                                          {" "}
+                                          600000
+                                        </h5>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg card text-center p-0 mx-1 bg-lvlgreen text-dark">
+                                    <div class="card-header">
+                                      Estimated returns
+                                    </div>
+                                    <div class="card-body">
+                                      <h5
+                                        class="card-title m-0"
+                                        id="calc-estimated_return"
+                                      >
+                                        179646
+                                      </h5>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg card text-center mx-1 p-0 text-white bg-secondary">
+                                    <div class="card-header">Total returns</div>
+                                    <div class="card-body">
+                                      <h5
+                                        class="card-title m-0"
+                                        id="calc-total_return"
+                                      >
+                                        779646
+                                      </h5>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -1109,11 +1124,13 @@ export default class Dashboard extends Component {
                         <div className="mb-4 mb-lg-0 col-lg-5">
                           <div className="h-100">
                             <div className="h-100 card">
-                              <div className="card-body">
+                              <div className="card-body pt-5 px-0 pb-0">
+                                <div className="pt-4">
                                 <DonutChart
                                   est_return={this.state.est_return}
-                                  invst_amount={ this.state.invst_amount} />
-                             
+                                  invst_amount={this.state.invst_amount}
+                                  />
+                                  </div>
                               </div>
                             </div>
                           </div>
