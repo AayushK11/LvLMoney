@@ -1,5 +1,6 @@
 import os
 import warnings
+import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore")
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -13,8 +14,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM
-from keras.callbacks import EarlyStopping
-from keras import callbacks
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras import callbacks
 
 # Parameters Required : Close, Prev Close, Open, High, Low, Volume, 50DMA, RSI14, VWAP, India Vix
 scalerTable = MinMaxScaler(feature_range=(0, 1))
@@ -22,39 +23,31 @@ scalerClose = MinMaxScaler(feature_range=(0, 1))
 pca = PCA(n_components=1)
 
 
-def get_data(symbol, timeframe):
-    data = get_ohlc(symbol, timeframe)
-    data = data.filter(
-        ["Date", "Prev Close", "Open", "High", "Low", "VWAP", "Volume", "Close"]
-    )
+def get_data(symbol):
+    return get_ohlc(symbol)
+
+
+def format_data(data, timeframe):
     data = get_indiavix(data, timeframe)
     data = format_timeframe(data, timeframe)
     data = calculate_dma(data)
     data = calculate_rsi(data)
     data = data.iloc[49:]
     data.reset_index(inplace=True, drop=True)
+    data.dropna(inplace=True)
     return data
 
 
-def get_ohlc(symbol, timeframe):
-    if timeframe == "Day":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=500)),
-            end=datetime.today(),
-        )
-    elif timeframe == "Week":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=1200)),
-            end=datetime.today(),
-        )
-    elif timeframe == "Month":
-        return get_history(
-            symbol=symbol,
-            start=(datetime.today() - relativedelta(days=3600)),
-            end=datetime.today(),
-        )
+def get_ohlc(symbol):
+    data = get_history(
+        symbol=symbol,
+        start=(datetime.today() - relativedelta(days=3600)),
+        end=datetime.today(),
+    )
+    data = data.filter(
+        ["Date", "Prev Close", "Open", "High", "Low", "VWAP", "Volume", "Close"]
+    )
+    return data
 
 
 def calculate_dma(data):
@@ -179,7 +172,7 @@ def format_Y(data):
     return np.array(data[7:])
 
 
-def generate_model(X_data, Y_data):
+def generate_model(X_data, Y_data, i, symbol):
     model = Sequential()
     model.add(LSTM(units=128, return_sequences=True))
     model.add(LSTM(units=64, return_sequences=True))
@@ -190,9 +183,21 @@ def generate_model(X_data, Y_data):
     es = EarlyStopping(monitor="loss", mode="min", verbose=0, patience=10)
     model.compile(optimizer="adam", loss="mean_absolute_error")
 
-    model.fit(X_data, Y_data, batch_size=32, epochs=500, verbose=0, callbacks=[es])
+    history = model.fit(X_data, Y_data, batch_size=32, epochs=500, verbose=0, callbacks=[es])
+
+    plot_graph(history, i, symbol)
 
     return model
+
+def plot_graph(history, i, symbol):
+    plt.plot(history.history["loss"])
+    # plt.plot(history.history["val_loss"])
+    # plt.legend(["Train", "Test"], loc="upper left")
+    plt.title("{} - {} Loss chart".format(symbol, i))
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.savefig('{} - {}.png'.format(symbol,i))
+    plt.close()
 
 
 def pop_and_replace(X_data, Popper):
@@ -223,16 +228,22 @@ def popper_handle(data):
     return pca.transform(data)
 
 
-def start_train(symbol, timeframe):
-    try:
-        data = get_data(symbol, timeframe)
-        print(
-            "{} {}s taken for {} with last date as {}".format(
-                data.shape[0], timeframe, symbol, data["Dates"].values[-1]
-            )
-        )
+def start_train(symbol):
+    Predictions = []
+    PrevClose = 0
+    Date = 0
+
+    
+    master_data = get_data(symbol)
+
+    for i in ["Day", "Week", "Month"]:
+        data = format_data(master_data, i)
+
         Popper = data.iloc[-1, :]
-        PrevClose = Popper["Close"]
+
+        if PrevClose == 0 and Date == 0:
+            PrevClose = Popper["Close"]
+            Date = Popper["Dates"]
 
         X_data = perform_pca(
             data.filter(
@@ -249,30 +260,40 @@ def start_train(symbol, timeframe):
                 ]
             )
         )
-        Y_data = scalerClose.fit_transform(np.reshape(data["Close"].values, (-1, 1)))
+        Y_data = scalerClose.fit_transform(
+            np.reshape(data["Close"].values, (-1, 1))
+        )
 
         Popper = popper_handle(Popper)
         X_data = format_X(X_data)
         Y_data = format_Y(Y_data)
 
-        model = generate_model(X_data, Y_data)
+        model = generate_model(X_data, Y_data, i, symbol)
 
         X_data = pop_and_replace(X_data, Popper)
         Y_pred = scalerClose.inverse_transform(model.predict(X_data))
         Y_pred = reduce_range(PrevClose, Y_pred[0][0])
 
         tf.keras.backend.clear_session()
-        return round(Y_pred, 2)
-    except:
-        return "Insufficient data for {}".format(symbol)
+
+        Predictions.append(str(round(Y_pred, 2)))
 
 
-# print(start_train("ICICIBANK", "Day"))
-# print(start_train("IEX", "Day"))
-# print(start_train("ITC", "Day"))
-# print(start_train("PFC", "Day"))
-# print(start_train("SBIN", "Day"))
-# print(start_train("TATAPOWER", "Day"))
-# print(start_train("TCS", "Day"))
-# print(start_train("WIPRO", "Day"))
-# print(start_train("ZOMATO", "Day"))
+    if len(Predictions) == 1:
+        Predictions.extend(
+            [
+                "Insufficient data for {}".format(symbol),
+                "Insufficient data for {}".format(symbol),
+            ]
+        )
+    if len(Predictions) == 2:
+        Predictions.append("Insufficient data for {}".format(symbol))
+
+    return Predictions, PrevClose, Date
+
+
+
+
+print(start_train("TATAMOTORS"))
+# print(start_train("TATAPOWER"))
+# print(start_train("TATAMOTORS"))

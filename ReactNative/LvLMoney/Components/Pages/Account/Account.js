@@ -55,7 +55,6 @@ export default class Account extends React.Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         if (json["Image"] === "No Image") {
           this.setState({ Name: json["Name"] });
         } else {
@@ -104,7 +103,6 @@ export default class Account extends React.Component {
                 </View>
                 <View style={{ flex: 1 }}>
                   {(() => {
-                    console.log(this.state.Image);
                     if (this.state.Image === "") {
                       return (
                         <Image source={LvL_L} style={styles.AccountImage} />

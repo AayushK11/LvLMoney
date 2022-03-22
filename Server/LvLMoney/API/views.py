@@ -5,6 +5,9 @@ import Authentication.login
 import Authentication.forgotpassword
 import Authentication.userdetails
 import Support.google_sheets
+import Model.Forecasting.auto_train
+import Model.MarketSentiment.auto_mood
+import Model.SectorRanking.auto_fetch
 
 
 @api_view(["POST"])
@@ -84,3 +87,52 @@ def dashboard(request):
             return Response({"Image": "No Image", "Name": Name})
         else:
             return Response({"Image": Image.url, "Name": Name})
+
+
+@api_view(["POST"])
+def forecast(request):
+    (
+        Day,
+        Week,
+        Month,
+        PrevClose,
+        PrevDate,
+        Company,
+    ) = Model.Forecasting.auto_train.auto_train(request.data["TickerName"])
+    if Company == "":
+        Company = request.data["TickerName"]
+    return Response(
+        {
+            "Day": (
+                round(float(Day), 2) if "Insufficient data for" not in Day else Day
+            ),
+            "Week": (
+                round(float(Week), 2) if "Insufficient data for" not in Week else Week
+            ),
+            "Month": (
+                round(float(Month), 2)
+                if "Insufficient data for" not in Month
+                else Month
+            ),
+            "PrevClose": (
+                round(float(PrevClose), 2)
+                if "Insufficient data for" not in PrevClose
+                else PrevClose
+            ),
+            "PrevDate": PrevDate,
+            "Company": Company,
+        }
+    )
+
+
+@api_view(["GET"])
+def marketmood(request):
+    Index, Day = Model.MarketSentiment.auto_mood.auto_train(requirement="Fetch")
+    return Response({"Index": Index, "Day": Day})
+
+
+@api_view(["GET"])
+def sectorleaders(request):
+    return Response(Model.SectorRanking.auto_fetch.sector_leaders("Fetch"))
+
+

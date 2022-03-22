@@ -28,9 +28,6 @@ def forgot_password_stage_two(request):
     if (
         Authentication.security.two_factor_now(
             Username=Authentication.security.hash_details(request["Username"]),
-            Password=AuthenticationDB.objects.get(
-                Username=Authentication.security.hash_details(request["Username"])
-            ).Password,
         )
         == request["TwoFA"]
     ):

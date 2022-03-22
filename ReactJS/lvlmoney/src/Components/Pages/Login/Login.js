@@ -147,18 +147,18 @@ export default class Login extends Component {
           if (this.state.LoginLevel === 0) {
             return (
               <div className="container-fuild ">
-                <div class="row min-vh-100 login d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100 login d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -167,34 +167,34 @@ export default class Login extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on your
                                   life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                                 Don't have an account?
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.register}
                                 >
                                   Get started!
                                 </a>
                               </p>
-                              <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
+                              <p className="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
                                 Read our&nbsp;
                                 <a
-                                  class="text-decoration-underline text-white"
+                                  className="text-decoration-underline text-white"
                                   href={this.state.termsandconditions}
                                 >
                                   terms
                                 </a>
                                 &nbsp;and&nbsp;
                                 <a
-                                  class="text-decoration-underline text-white"
+                                  className="text-decoration-underline text-white"
                                   href={this.state.privacypolicy}
                                 >
                                   privacy policy
@@ -202,20 +202,20 @@ export default class Login extends Component {
                               </p>
                             </div>
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
-                              <div class="row flex-between-center">
-                                <div class="col-auto">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
+                              <div className="row flex-between-center">
+                                <div className="col-auto">
                                   <h3>Account Login</h3>
                                 </div>
                               </div>
                               <form>
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-email">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-email">
                                     User Name
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.Username}
@@ -224,14 +224,14 @@ export default class Login extends Component {
                                     name="Username"
                                   />
                                 </div>
-                                <div class="mb-3">
-                                  <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="card-password">
+                                <div className="mb-3">
+                                  <div className="d-flex justify-content-between">
+                                    <label className="form-label" for="card-password">
                                       Password
                                     </label>
                                   </div>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="password"
                                     autocomplete="on"
                                     name="Password"
@@ -240,31 +240,31 @@ export default class Login extends Component {
                                     id="Password"
                                   />
                                 </div>
-                                <div class="row flex-between-center">
-                                  <div class="col-auto">
-                                    <div class="form-check mb-0">
+                                <div className="row flex-between-center">
+                                  <div className="col-auto">
+                                    <div className="form-check mb-0">
                                       <input
-                                        class="form-check-input"
+                                        className="form-check-input"
                                         type="checkbox"
                                         id="card-checkbox"
                                       />
                                       <label
-                                        class="form-check-label mb-0"
+                                        className="form-check-label mb-0"
                                         for="card-checkbox"
                                       >
                                         Remember me
                                       </label>
                                     </div>
                                   </div>
-                                  <div class="col-auto">
-                                    <a class="fs--1" href={this.state.forgotpassword}>
+                                  <div className="col-auto">
+                                    <a className="fs--1" href={this.state.forgotpassword}>
                                       Forgot Password?
                                     </a>
                                   </div>
                                 </div>
-                                <div class="mb-3">
+                                <div className="mb-3">
                                   <button
-                                    class="btn btn-primary d-block w-100 mt-3"
+                                    className="btn btn-primary d-block w-100 mt-3"
                                     type="submit"
                                     name="submit"
                                     id="next"
@@ -287,18 +287,18 @@ export default class Login extends Component {
           if (this.state.LoginLevel === 1) {
             return (
               <div className="container-fuild ">
-                <div class="row min-vh-100 login d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100 login d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -307,34 +307,34 @@ export default class Login extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on your
                                   life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                                 Don't have an account?
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.register}
                                 >
                                   Get started!
                                 </a>
                               </p>
-                              <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
+                              <p className="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">
                                 Read our&nbsp;
                                 <a
-                                  class="text-decoration-underline text-white"
+                                  className="text-decoration-underline text-white"
                                   href={this.state.termsandconditions}
                                 >
                                   terms
                                 </a>
                                 &nbsp;and&nbsp;
                                 <a
-                                  class="text-decoration-underline text-white"
+                                  className="text-decoration-underline text-white"
                                   href={this.state.privacypolicy}
                                 >
                                   privacy policy
@@ -342,21 +342,21 @@ export default class Login extends Component {
                               </p>
                             </div>
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
-                              <div class="row flex-between-center">
-                                <div class="col-auto">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
+                              <div className="row flex-between-center">
+                                <div className="col-auto">
                                   <h3>Account Login</h3>
                                 </div>
                               </div>
                               <form>
                                
-                              <div class="mb-3 ">
-                                    <label class="form-label" for="card-name">
+                              <div className="mb-3 ">
+                                    <label className="form-label" for="card-name">
                                       TOTP 
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       autocomplete="on"
                                       onChange={this.onChange}
                                       value={this.state.TwoFA}
@@ -366,9 +366,9 @@ export default class Login extends Component {
                                     />
                                   </div>
                                 
-                                <div class="mb-3">
+                                <div className="mb-3">
                                   <button
-                                    class="btn btn-primary d-block w-100 mt-3"
+                                    className="btn btn-primary d-block w-100 mt-3"
                                     type="submit"
                                     name="submit"
                                     id="next"

@@ -3,7 +3,7 @@ import "./Register.css";
 import { Helmet } from "react-helmet";
 import logo from "../../Images/lvl_dark.svg";
 import axios from "axios";
-import Server_Path from "../../Parts/Server/Server.js"
+import Server_Path from "../../Parts/Server/Server.js";
 
 export default class Register extends Component {
   constructor(props) {
@@ -42,48 +42,42 @@ export default class Register extends Component {
 
     if (event.target.id === "next") {
       if (this.validateInput()) {
-        
-          this.sendData();
-        
+        this.sendData();
       }
     }
   }
-  sendData()
-  {
+
+  sendData() {
     if (this.state.registerstate === 0) {
       axios
-        .post(Server_Path.concat("register/"), {
-         
+        .post(Server_Path + "register/", {
           EmailID: this.state.EmailID,
           PhoneNumber: this.state.PhoneNumber,
         })
         .then((res) => {
+          // console.log(res);
           if (res.data === "Valid") {
             this.setState({
               registerstate: this.state.registerstate + 1,
             });
           }
-          
         })
         .catch((e) => {
           console.log(e);
-          if (!e.Status) {
-            alert("Something Went Wrong");
-           
+          if (!e.status) {
+            alert("Something Went Wrong ");
           }
         });
     }
     if (this.state.registerstate === 1) {
       axios
-        .post(Server_Path.concat("register/"), {
-         
+        .post(Server_Path + "register/", {
           EmailID: this.state.EmailID,
           PhoneNumber: this.state.PhoneNumber,
           Username: this.state.Username,
           Password: this.state.Password,
           FirstName: this.state.FirstName,
           LastName: this.state.LastName,
-
         })
         .then((res) => {
           if (res.data === "Valid") {
@@ -91,17 +85,17 @@ export default class Register extends Component {
               registerstate: this.state.registerstate + 1,
             });
           }
-          
         })
         .catch((e) => {
           console.log(e);
-          if (!e.Status) {
-            alert("Something Went Wrong");
-           
+          if (!e.status) {
+            alert("Something Went Wrong ");
           }
         });
     }
-   }
+  }
+
+
   validateInput() {
     var flag = 1;
 
@@ -190,18 +184,18 @@ export default class Register extends Component {
           {(() => {
             if (this.state.registerstate === 0) {
               return (
-                <div class="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -210,18 +204,18 @@ export default class Register extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on
                                   your life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                                 Have an account?
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.login}
                                 >
                                   Log In
@@ -229,17 +223,17 @@ export default class Register extends Component {
                               </p>
                             </div>
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
                               <h3>Register</h3>
                               <form>
-                                <div class="row gx-2">
-                                  <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="card-name">
+                                <div className="row gx-2">
+                                  <div className="mb-3 col-sm-6">
+                                    <label className="form-label" for="card-name">
                                       First Name
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       autocomplete="on"
                                       onChange={this.onChange}
                                       value={this.state.FirstName}
@@ -248,12 +242,12 @@ export default class Register extends Component {
                                       name="FirstName"
                                     />
                                   </div>
-                                  <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="card-name">
+                                  <div className="mb-3 col-sm-6">
+                                    <label className="form-label" for="card-name">
                                       Last Name
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       autocomplete="on"
                                       onChange={this.onChange}
                                       value={this.state.LastName}
@@ -264,12 +258,12 @@ export default class Register extends Component {
                                   </div>
                                 </div>
 
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-email">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-email">
                                     Email address
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.EmailID}
@@ -278,8 +272,8 @@ export default class Register extends Component {
                                     name="EmailID"
                                   />
                                 </div>
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-name">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-name">
                                     Phone Number
                                   </label>
                                   <input
@@ -294,9 +288,9 @@ export default class Register extends Component {
                                   />
                                 </div>
 
-                                <div class="mb-3">
+                                <div className="mb-3">
                                   <button
-                                    class="btn btn-primary d-block w-100 mt-3"
+                                    className="btn btn-primary d-block w-100 mt-3"
                                     type="submit"
                                     name="submit"
                                     id="next"
@@ -318,18 +312,18 @@ export default class Register extends Component {
 
             if (this.state.registerstate === 1) {
               return (
-                <div class="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -338,18 +332,18 @@ export default class Register extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on
                                   your life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                                 Have an account?
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.login}
                                 >
                                   Log In
@@ -357,16 +351,16 @@ export default class Register extends Component {
                               </p>
                             </div>
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
                               <h3>Register</h3>
                               <form>
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-name">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-name">
                                     User Name
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.Username}
@@ -375,17 +369,17 @@ export default class Register extends Component {
                                     name="Username"
                                   />
                                 </div>
-                                
-                                <div class="row gx-2">
-                                  <div class="mb-3 col-sm-6">
+
+                                <div className="row gx-2">
+                                  <div className="mb-3 col-sm-6">
                                     <label
-                                      class="form-label"
+                                      className="form-label"
                                       for="card-password"
                                     >
                                       Password
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       type="password"
                                       autocomplete="on"
                                       name="Password"
@@ -394,15 +388,15 @@ export default class Register extends Component {
                                       id="Password"
                                     />
                                   </div>
-                                  <div class="mb-3 col-sm-6">
+                                  <div className="mb-3 col-sm-6">
                                     <label
-                                      class="form-label"
+                                      className="form-label"
                                       for="card-confirm-password"
                                     >
                                       Confirm Password
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       type="password"
                                       name="Confirmpassword"
                                       autocomplete="on"
@@ -412,14 +406,14 @@ export default class Register extends Component {
                                     />
                                   </div>
                                 </div>
-                                <div class="form-check">
+                                <div className="form-check">
                                   <input
-                                    class="form-check-input"
+                                    className="form-check-input"
                                     type="checkbox"
                                     id="tc"
                                   />
                                   <label
-                                    class="form-label"
+                                    className="form-label"
                                     for="card-register-checkbox"
                                   >
                                     I accept the{" "}
@@ -432,31 +426,30 @@ export default class Register extends Component {
                                     </a>
                                   </label>
                                 </div>
-                                <div class="row gx-2">
-                                  <div class="mb-3 col-sm-6">
-                                  <button
-                                    class="btn btn-primary d-block w-100 mt-3"
-                                    type="submit"
-                                    name="submit"
-                                    id="previous"
-                                    onClick={this.onClick}
-                                  >
-                                    Back
+                                <div className="row gx-2">
+                                  <div className="mb-3 col-sm-6">
+                                    <button
+                                      className="btn btn-primary d-block w-100 mt-3"
+                                      type="submit"
+                                      name="submit"
+                                      id="previous"
+                                      onClick={this.onClick}
+                                    >
+                                      Back
                                     </button>
                                   </div>
-                                  <div class="mb-3 col-sm-6">
-                                  <button
-                                    class="btn btn-primary d-block w-100 mt-3"
-                                    type="submit"
-                                    name="submit"
-                                    id="next"
-                                    onClick={this.onClick}
-                                  >
-                                    Next
+                                  <div className="mb-3 col-sm-6">
+                                    <button
+                                      className="btn btn-primary d-block w-100 mt-3"
+                                      type="submit"
+                                      name="submit"
+                                      id="next"
+                                      onClick={this.onClick}
+                                    >
+                                      Next
                                     </button>
-                                      </div>
+                                  </div>
                                 </div>
-                             
                               </form>
                             </div>
                           </div>
@@ -469,18 +462,18 @@ export default class Register extends Component {
             }
             if (this.state.registerstate === 2) {
               return (
-                <div class="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1 rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-12 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1 rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-12 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -489,18 +482,23 @@ export default class Register extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <h4 class="opacity-100 text-white">Congratuations</h4>
-                                <p class="opacity-75 text-white">
-                                  Your LvLMoney Account has been created. <br></br> Please check your email for confirmation and to set up two factor authentication.
+                                <h4 className="opacity-100 text-white">
+                                  Congratuations
+                                </h4>
+                                <p className="opacity-75 text-white">
+                                  Your LvLMoney Account has been created.{" "}
+                                  <br></br> Please check your email for
+                                  confirmation and to set up two factor
+                                  authentication.
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                                 Please Login to continue
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.login}
                                 >
                                   Log In
@@ -508,7 +506,6 @@ export default class Register extends Component {
                               </p>
                             </div>
                           </div>
-                          
                         </div>
                       </div>
                     </div>

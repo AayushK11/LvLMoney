@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 
 
-export default class Navbar extends Component {
+export default class Navbar extends Component  {
 
   constructor(props) {
     super(props);
@@ -68,27 +68,31 @@ export default class Navbar extends Component {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Investments
+                    Stocks
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow"
                     aria-labelledby="navbarDropdown"style={{width: "220px;"}}>
                     <li>
                       <a className="dropdown-item" href="https://www.google.com/">
-                        Stocks
+                        Forecasting
                       </a>
                     </li>
                     
                     <li>
                       <a className="dropdown-item" href="https://www.google.com/">
-                        Mutual Funds
+                        Market Sentiment Analysis
                       </a>
                     </li>
-                    
+                    <li>
+                      <a className="dropdown-item" href="https://www.google.com/">
+                      Sector Wise Ranking
+                      </a>
+                    </li>
 
                     <li>
                       <a className="dropdown-item" href="https://www.google.com/">
-                        Financial Plan
+                        Trading Strategies
                       </a>
                     </li>
                   </ul>
@@ -102,33 +106,64 @@ export default class Navbar extends Component {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Calculators
+                    Mutual Funds
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow "
                     aria-labelledby="navbarDropdown"  style={{width: "220px;"}}>
                     <li>
                       <a className="dropdown-item" href="https://www.google.com/">
-                        SIP Calculator
+                        Returns Calculator
                       </a>
                     </li>
                     
                     <li>
                       <a className="dropdown-item" href="https://www.google.com/">
-                        Tax Calculator
+                        Risk Profile Test
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="https://www.google.com/">
+                        Fund Ranking
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="https://www.google.com/">
+                        Fund Comparison
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item px-3 dropdown">
+                  <a
+                    className="nav-link active dropdown-toggle"
+                    href="https://www.google.com/"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Personal Finance
+                  </a>
+                  <ul
+                    className="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow "
+                    aria-labelledby="navbarDropdown"  style={{width: "220px;"}}>
+                    <li>
+                      <a className="dropdown-item" href="https://www.google.com/">
+                        Financial Breakdown
                       </a>
                     </li>
                     
+                    <li>
+                      <a className="dropdown-item" href="https://www.google.com/">
+                       Blogs
+                      </a>
+                    </li>
                   </ul>
-                </li>
-                <li className="nav-item px-3">
-                  <a className="nav-link active" aria-current="page" href="https://www.google.com/">
-                    Blogs
-                  </a>
                 </li>
               </ul>
             
-              <a class="btn btn-outline-info ms-3" href={this.state.login}>Log In</a>
+              <a className="btn btn-outline-info ms-3" href={this.state.login}>Log In</a>
                 
             </div>
           </div>

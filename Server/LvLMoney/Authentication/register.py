@@ -43,7 +43,6 @@ def register_stage_three(request):
     if validate_field("TwoFA", request["Username"]):
         ProvisionLink = Authentication.security.create_two_factor(
             Authentication.security.hash_details(request["Username"]),
-            Authentication.security.hash_details(request["Password"]),
             AuthenticationDB.objects.get(
                 Username=Authentication.security.hash_details(request["Username"])
             ).Email,
@@ -100,4 +99,4 @@ def validate_field(Component, Value):
         ):
             return False
         return True
-    return False
+    return True

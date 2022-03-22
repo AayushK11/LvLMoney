@@ -148,18 +148,18 @@ export default class ForgotPassword extends Component {
           {(() => {
             if (this.state.FPLevel === 0) {
               return (
-                <div class="row min-vh-100  forgotpassword d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  forgotpassword d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -168,18 +168,18 @@ export default class ForgotPassword extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on
                                   your life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
                            
                                 
                                 <br />
                                 <a
-                                  class="btn btn-outline-info  mt-2 px-4"
+                                  className="btn btn-outline-info  mt-2 px-4"
                                   href={this.state.login}
                                 >
                                   Log In
@@ -187,16 +187,16 @@ export default class ForgotPassword extends Component {
                              
                             </div>
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
                               <h3>Forgot Password</h3>
                               <form>
-                                <div class="mb-3 ">
-                                  <label class="form-label" for="card-name">
+                                <div className="mb-3 ">
+                                  <label className="form-label" for="card-name">
                                     User Name
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.Username}
@@ -206,12 +206,12 @@ export default class ForgotPassword extends Component {
                                   />
                                 </div>
 
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-email">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-email">
                                     Email address
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.EmailID}
@@ -221,9 +221,9 @@ export default class ForgotPassword extends Component {
                                   />
                                 </div>
 
-                                <div class="mb-3">
+                                <div className="mb-3">
                                   <button
-                                    class="btn btn-primary d-block w-100 mt-3"
+                                    className="btn btn-primary d-block w-100 mt-3"
                                     type="submit"
                                     name="submit"
                                     id="next"
@@ -245,18 +245,18 @@ export default class ForgotPassword extends Component {
 
             if (this.state.FPLevel === 1) {
               return (
-                <div class="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1  rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-5 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -265,7 +265,7 @@ export default class ForgotPassword extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                   With the power of AI, you can now focus on
                                   your life, while leaving investing on us!
                                 </p>
@@ -273,16 +273,16 @@ export default class ForgotPassword extends Component {
                             </div>
                             
                           </div>
-                          <div class="col-md-7 d-flex flex-center">
-                            <div class="p-4 p-md-5 flex-grow-1">
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
                               <h3>Forgot Password</h3>
                               <form>
-                                <div class="mb-3">
-                                  <label class="form-label" for="card-name">
+                                <div className="mb-3">
+                                  <label className="form-label" for="card-name">
                                     TOTP
                                   </label>
                                   <input
-                                    class="form-control"
+                                    className="form-control"
                                     autocomplete="on"
                                     onChange={this.onChange}
                                     value={this.state.TOTP}
@@ -292,10 +292,10 @@ export default class ForgotPassword extends Component {
                                   />
                                 </div>
 
-                                <div class="row gx-2">
-                                  <div class="mb-3 col-sm-6">
+                                <div className="row gx-2">
+                                  <div className="mb-3 col-sm-6">
                                     <button
-                                      class="btn btn-primary d-block w-100 mt-3"
+                                      className="btn btn-primary d-block w-100 mt-3"
                                       type="submit"
                                       name="submit"
                                       id="previous"
@@ -304,9 +304,9 @@ export default class ForgotPassword extends Component {
                                       Back
                                     </button>
                                   </div>
-                                  <div class="mb-3 col-sm-6">
+                                  <div className="mb-3 col-sm-6">
                                     <button
-                                      class="btn btn-primary d-block w-100 mt-3"
+                                      className="btn btn-primary d-block w-100 mt-3"
                                       type="submit"
                                       name="submit"
                                       id="next"
@@ -328,18 +328,18 @@ export default class ForgotPassword extends Component {
             }
             if (this.state.FPLevel === 2) {
               return (
-                <div class="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                  <div class="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                    <div class="card overflow-hidden z-index-1 rightdiv ">
-                      <div class="card-body p-0 ">
-                        <div class="row g-0 h-100 ">
-                          <div class="col-md-12 text-center bg-dark ">
-                            <div class="position-relative p-4 pt-md-5 pb-md-7 dark">
-                              <div class="bg-holder bg-auth-card-shape"></div>
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1 rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-12 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
 
-                              <div class="z-index-1 position-relative">
+                              <div className="z-index-1 position-relative">
                                 <a
-                                  class="mb-4 d-inline-block"
+                                  className="mb-4 d-inline-block"
                                   href={window.location.origin.concat("/")}
                                 >
                                   <img
@@ -348,20 +348,20 @@ export default class ForgotPassword extends Component {
                                     alt="navbarLogo"
                                   />
                                 </a>
-                                <h4 class="opacity-100 text-white">
+                                <h4 className="opacity-100 text-white">
                                 Reset your password
                                 </h4>
-                                <p class="opacity-75 text-white">
+                                <p className="opacity-75 text-white">
                                 A password reset link was sent. Click the link in the email to create a new password.
                                 </p>
                               </div>
                             </div>
-                            <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                              <p class="pt-3 text-white">
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
                               Return to Home
                                 <br />
                                 <a
-                                  class="btn btn-primary  mt-2 px-4"
+                                  className="btn btn-primary  mt-2 px-4"
                                   href={window.location.origin.concat("/")}
                                 >
                                   Home

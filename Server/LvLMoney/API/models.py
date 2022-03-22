@@ -13,3 +13,5 @@ class AuthenticationDB(models.Model):
     PhoneNumber = models.CharField("Phone Number", max_length=10)
 
     TwoFactorEnabled = models.BooleanField("Two Factor Enabled?", default=False)
+
+    Sma50100 = models.BooleanField("SMA 50 / 100 Strategy", default=False)

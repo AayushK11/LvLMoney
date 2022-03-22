@@ -10,8 +10,8 @@ def hash_details(parameter):
     return parameter
 
 
-def create_two_factor(Username, Password, Email):
-    EncodedText = Username + Password
+def create_two_factor(Username, Email):
+    EncodedText = Username + Username
     EncodedText = base64.b32encode(bytes(EncodedText, "ascii"))
     TimeOTP = pyotp.totp.TOTP(EncodedText).provisioning_uri(
         name=Email, issuer_name="LvLMoney"
@@ -19,9 +19,8 @@ def create_two_factor(Username, Password, Email):
     return TimeOTP
 
 
-def two_factor_now(Username, Password):
-    EncodedText = Username + Password
+def two_factor_now(Username):
+    EncodedText = Username + Username
     EncodedText = base64.b32encode(bytes(EncodedText, "ascii"))
     totp = pyotp.TOTP(EncodedText)
     return totp.now()
-

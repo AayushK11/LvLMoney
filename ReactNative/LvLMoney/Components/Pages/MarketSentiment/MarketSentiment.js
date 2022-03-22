@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import RNSpeedometer from "react-native-speedometer";
+import Server_Path from "../../Parts/Server/Server";
 
 const pixelratio = PixelRatio.get();
 
@@ -16,7 +17,7 @@ export default class MarketSentiment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      MMI: 65.36,
+      MMI: 0.0,
       MMIColor: "white",
       Arrows: ["▼", "▲"],
       Flex: [
@@ -25,16 +26,17 @@ export default class MarketSentiment extends React.Component {
       ],
       Display: ["none", "flex"],
       Condition: 0,
+      PrevDate: "",
     };
     this.handleClick = this.handleClick.bind(this);
     this.switchCondition = this.switchCondition.bind(this);
+    this.fetchMood = this.fetchMood.bind(this);
   }
 
   handleClick(ClickedItem) {
     if (ClickedItem === "Back") {
       this.props.navigation.goBack();
     }
-    console.log(ClickedItem);
   }
 
   switchCondition() {
@@ -46,16 +48,39 @@ export default class MarketSentiment extends React.Component {
     }
   }
 
+  fetchMood() {
+    fetch(Server_Path.concat("/marketmood/"), {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        let MMIColor = "";
+        if (json["Index"] < 17) {
+          MMIColor = "#12be57";
+        } else if (json["Index"] < 50) {
+          MMIColor = "#ffd9ac";
+        } else if (json["Index"] < 84) {
+          MMIColor = "#f57011";
+        } else {
+          MMIColor = "#d62020";
+        }
+        this.setState({
+          MMI: parseFloat(json["Index"]),
+          PrevDate: json["Day"],
+          MMIColor: MMIColor,
+        });
+      })
+      .catch((error) => {
+        alert("Something Went Wrong");
+      });
+  }
+
   componentDidMount() {
-    if (this.state.MMI < 17) {
-      this.setState({ MMIColor: "#12be57" });
-    } else if (this.state.MMI < 50) {
-      this.setState({ MMIColor: "#ffd9ac" });
-    } else if (this.state.MMI < 84) {
-      this.setState({ MMIColor: "#f57011" });
-    } else {
-      this.setState({ MMIColor: "#d62020" });
-    }
+    this.fetchMood();
   }
 
   render() {
@@ -123,6 +148,21 @@ export default class MarketSentiment extends React.Component {
               fontWeight: "normal",
             }}
           />
+          <View style={{ marginTop: 250 / pixelratio }}>
+            <Text
+              style={{
+                fontSize: 40 / pixelratio,
+                color: "white",
+                fontFamily: "Trebuchet",
+                fontStyle: "italic",
+                textAlign: "center",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              MMI Last Updated on {this.state.PrevDate}
+            </Text>
+          </View>
         </View>
         <TouchableOpacity
           style={{
@@ -136,7 +176,7 @@ export default class MarketSentiment extends React.Component {
         >
           <View>
             <Text style={styles.MarketSentimentExplanationButton}>
-              How to Interpret the Market Sentiment?{"  "}
+              How to Interpret the MMI?{"  "}
               {this.state.Arrows[this.state.Condition]}
             </Text>
             <View style={{ display: this.state.Display[this.state.Condition] }}>
