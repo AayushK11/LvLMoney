@@ -30,6 +30,10 @@
     background-color: #D6DF21;
     border-color: #D6DF21;
   }
+  #search_input{
+    text-transform: uppercase;
+    
+  }
 
   .card-widget {
     
@@ -42,7 +46,7 @@
   }
   .card-widget,
   .card-widget-body {
-    display: flex;
+    display: inline;
     align-items: center;
   }
   .card-widget-body {

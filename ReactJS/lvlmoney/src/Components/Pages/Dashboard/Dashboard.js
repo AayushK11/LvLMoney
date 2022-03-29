@@ -8,6 +8,8 @@ import { MiniCard } from "../../Parts/DashboardCards/MiniCard";
 import { MiniCardNograph } from "../../Parts/DashboardCards/MiniCard_NOgraph";
 import { DonutChart } from "../../Parts/DashboardCards/donutChart";
 import minicardimg from "../../Images/minicardimg.png";
+import axios from "axios";
+import Server_Path from "../../Parts/Server/Server.js";
 
 import Chart from "react-apexcharts";
 
@@ -60,9 +62,40 @@ export default class Dashboard extends Component {
       url: window.location.origin,
       est_return: 179646,
       invst_amount: 600000,
+      search: "",
+      ticker_link: "https://www.gateway-tt.in/trade?orderConfig=%5B%7B%22quantity%22%3A10%2C%22ticker%22%3A%22__temp__%22%7D%5D&cardsize=small&withSearch=false&withTT=false",
+      prev_search:"__temp__",
     };
     this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+  onClick (event)
+  {
+    event.preventDefault();
+    if ( event.target.id === "ticker_search" )
+    {
+      this.setState( { ticker_link: this.state.ticker_link.replace( this.state.prev_search, this.state.search ), prev_search: this.state.search } );
+    }
+    else
+    {
+      axios
+        .post( Server_Path.concat( "forecast/" ), {
+          TickerName: this.state.search,
+        } )
+        .then( ( res ) =>
+        {
+          console.log( res );
+        } )
+        .catch( ( e ) =>
+        {
+          console.log( e );
+          if ( !e.Status )
+          {
+            alert( "Something Went Wrong" );
+          }
+        } );
+    }
   }
 
   generateURLs() {
@@ -158,55 +191,60 @@ export default class Dashboard extends Component {
 
   onChange(event) {
     event.preventDefault();
+    if (event.target.id === "search_input") {
+      this.setState({
+        search: event.target.value.toUpperCase(),
+      });
+    } else {
+      var parameterName = event.target.id.split("calc-")[1];
+      var input_value = event.target.value;
 
-    var parameterName = event.target.id.split("calc-")[1];
-    var input_value = event.target.value;
+      switch (parameterName) {
+        case "amount":
+          document.getElementById("calc-amount_value").innerHTML = input_value;
+          break;
+        case "rate":
+          document.getElementById("calc-rate_value").innerHTML = input_value;
+          break;
+        case "time":
+          document.getElementById("calc-time_value").innerHTML = input_value;
+          break;
+        default:
+          break;
+      }
 
-    switch (parameterName) {
-      case "amount":
-        document.getElementById("calc-amount_value").innerHTML = input_value;
-        break;
-      case "rate":
-        document.getElementById("calc-rate_value").innerHTML = input_value;
-        break;
-      case "time":
-        document.getElementById("calc-time_value").innerHTML = input_value;
-        break;
-      default:
-        break;
+      var calc_amount = document.getElementById("calc-amount_value").innerHTML;
+      var calc_rate = document.getElementById("calc-rate_value").innerHTML;
+      var calc_time = document.getElementById("calc-time_value").innerHTML;
+
+      var total_investment = calc_amount * calc_time * 12;
+
+      // sip calculation
+      var periodic_rate = calc_rate / 100 / 12;
+      var month = calc_time * 12;
+      var total_return = 0;
+      total_return =
+        (calc_amount *
+          (((1 + periodic_rate) ** month - 1) * (1 + periodic_rate))) /
+        periodic_rate;
+      total_return = Math.round(total_return);
+
+      var estimated_return = total_return - total_investment;
+
+      // lumpsun return calculation
+      // var lumpsun_return = calc_amount*(1+calc_rate/100)**calc_time;
+
+      document.getElementById("calc-total_investment").innerHTML =
+        total_investment;
+      document.getElementById("calc-estimated_return").innerHTML =
+        estimated_return;
+      document.getElementById("calc-total_return").innerHTML = total_return;
+
+      this.setState({
+        est_return: estimated_return,
+        invst_amount: total_investment,
+      });
     }
-
-    var calc_amount = document.getElementById("calc-amount_value").innerHTML;
-    var calc_rate = document.getElementById("calc-rate_value").innerHTML;
-    var calc_time = document.getElementById("calc-time_value").innerHTML;
-
-    var total_investment = calc_amount * calc_time * 12;
-
-    // sip calculation
-    var periodic_rate = calc_rate / 100 / 12;
-    var month = calc_time * 12;
-    var total_return = 0;
-    total_return =
-      (calc_amount *
-        (((1 + periodic_rate) ** month - 1) * (1 + periodic_rate))) /
-      periodic_rate;
-    total_return = Math.round(total_return);
-
-    var estimated_return = total_return - total_investment;
-
-    // lumpsun return calculation
-    // var lumpsun_return = calc_amount*(1+calc_rate/100)**calc_time;
-
-    document.getElementById("calc-total_investment").innerHTML =
-      total_investment;
-    document.getElementById("calc-estimated_return").innerHTML =
-      estimated_return;
-    document.getElementById("calc-total_return").innerHTML = total_return;
-
-    this.setState({
-      est_return: estimated_return,
-      invst_amount: total_investment,
-    });
   }
 
   render() {
@@ -262,7 +300,7 @@ export default class Dashboard extends Component {
             <div className="tab-content" id="pills-tabContent">
               {/*  stocks section  */}
               <div
-                className="tab-pane fade "
+                className="tab-pane fade active show "
                 id="lvl-stocks"
                 role="tabpanel"
                 aria-labelledby="lvl-stocks-tab"
@@ -285,10 +323,16 @@ export default class Dashboard extends Component {
                                     placeholder="Search"
                                     aria-label="Search"
                                     aria-describedby="search-addon"
+                                    
+                                    // value={this.state.search}
+                                    onChange={this.onChange}
+                                    id="search_input"
                                   />
                                   <button
                                     type="button"
                                     className="btn btn-primary"
+                                    onClick={ this.onClick }
+                                    id="ticker_search"
                                   >
                                     <i className="fas fa-search"></i>
                                   </button>
@@ -296,11 +340,24 @@ export default class Dashboard extends Component {
                               </div>
                               <div className="d-flex card-body">
                                 <div className="w-100 ticker-div px-4 ">
-                                  <embed
-                                    src="https://www.gateway-tt.in/trade?orderConfig=%5B%7B%22quantity%22%3A10%2C%22ticker%22%3A%22TATAPOWER%22%7D%5D&cardsize=small&withSearch=false&withTT=false"
-                                    width="300"
-                                    height="390"
-                                  ></embed>
+                                  {(() => {
+                                    if (this.state.ticker_link.includes("__temp__")) {
+                                      return (
+                                        <div>
+                                          <p className="text-dark">Search Something</p>
+                                       </div>
+                                      );
+                                    }
+                                    else
+                                    {
+                                      return (<embed
+                                        src={this.state.ticker_link}
+                                        width="300"
+                                        height="390"
+                                      ></embed>);
+                                    }
+                                  }
+                                  )() }
                                 </div>
                               </div>
                             </div>
@@ -327,13 +384,13 @@ export default class Dashboard extends Component {
                                 <div className="text-center h-100 card">
                                   <div className="card-body">
                                     <div className=" p-4 justify-content-md-center align-middle">
-                                      <a
-                                        className="btn btn-success btn-lg  px-5 me-md-2 card-widget "
-                                        href="www.google.com"
-                                        role="button"
+                                      <button
+                                        className="btn btn-success btn-lg  px-5 w-100 card-widget "
+                                        
+                                        onClick={this.onClick}
                                       >
                                         Predict
-                                      </a>
+                                      </button>
                                     </div>
                                   </div>
                                 </div>
@@ -970,7 +1027,7 @@ export default class Dashboard extends Component {
               </div>
               {/*  Mutual Funds section  */}
               <div
-                className="tab-pane fade active show"
+                className="tab-pane fade "
                 id="lvl-funds"
                 role="tabpanel"
                 aria-labelledby="lvl-funds-tab"
@@ -1126,11 +1183,11 @@ export default class Dashboard extends Component {
                             <div className="h-100 card">
                               <div className="card-body pt-5 px-0 pb-0">
                                 <div className="pt-4">
-                                <DonutChart
-                                  est_return={this.state.est_return}
-                                  invst_amount={this.state.invst_amount}
+                                  <DonutChart
+                                    est_return={this.state.est_return}
+                                    invst_amount={this.state.invst_amount}
                                   />
-                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -1145,12 +1202,12 @@ export default class Dashboard extends Component {
                             <div className="card-body">
                               <div
                                 className="accordion "
-                                id="sectorWiseRanking"
-                              >
+                                id="fundWiseRanking">
+                                
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
-                                    id="automobiles"
+                                    id="EquityLargeCapFunds"
                                   >
                                     <button
                                       className="accordion-button collapsed"
@@ -1162,15 +1219,18 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Automobiles</h6>
+                                          <h6 className="m-0">
+                                            Equity Large Cap Funds
+                                          </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                          Indian Automobiles Sector including
-                                          but not limited to vechicles such as
-                                          4-wheelers, 2-wheelers, and
-                                          3-wheelers.
+                                          Equity Large Cap Funds and Funds where
+                                          a large percentage of investments are
+                                          made towards companies that have a
+                                          Large Market Capitalization, i.e. 'The
+                                          Big Safe Companies'
                                         </i>
                                       </div>
                                     </button>
@@ -1178,35 +1238,35 @@ export default class Dashboard extends Component {
                                   <div
                                     id="collapseOne"
                                     className="accordion-collapse collapse"
-                                    aria-labelledby="automobiles"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    aria-labelledby="EquityLargeCapFunds"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                          MARUTI
+                                          Canara Robeco Bluechip Equity Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          Mahindra and Mahindra
+                                          Kotak Bluechip Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          TATA MOTORS
+                                          Axis Bluechip Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          BAJAJ-AUTO
+                                          BNP Paribas Large Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          EICHERMOT
+                                          UTI Mastershare Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
+
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
-                                    id="banking"
-                                  >
+                                    id="EquityMidCapFunds">
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1217,14 +1277,12 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Banking</h6>
+                                          <h6 className="m-0">Equity Mid Cap Funds</h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                          The banking sector includes the
-                                          largest Indian Banking Stocks, both
-                                          Public and Private.
+                                        Equity Mid Cap Funds and Funds where a Mid percentage of investments are made towards companies that have a Medium Sized Market Capitalization.
                                         </i>
                                       </div>
                                     </button>
@@ -1232,25 +1290,25 @@ export default class Dashboard extends Component {
                                   <div
                                     id="collapseTwo"
                                     className="accordion-collapse collapse"
-                                    aria-labelledby="banking"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    aria-labelledby="EquityMidCapFunds"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                          HDFCBANK
+                                        PGIM India Midcap Opportunities Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          ICICIBANK
+                                        Axis Midcap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          SBIN
+                                        Edelweiss Mid Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          KOTAKBANK
+                                        Kotak Emerging Equity Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          AXISBANK
+                                        BNP Paribas Midcap Fund
                                         </li>
                                       </ol>
                                     </div>
@@ -1290,7 +1348,7 @@ export default class Dashboard extends Component {
                                     id="collapseThree"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="financialServices"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
@@ -1342,7 +1400,7 @@ export default class Dashboard extends Component {
                                     id="collapsefour"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="fmcg"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
@@ -1396,7 +1454,7 @@ export default class Dashboard extends Component {
                                     id="collapsefive"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="it"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
@@ -1447,7 +1505,7 @@ export default class Dashboard extends Component {
                                     id="collapseSix"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="media"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <ol className="list-group  list-group-numbered">
                                       <li className="list-group-item list-group-item-dark">
@@ -1496,7 +1554,7 @@ export default class Dashboard extends Component {
                                     id="collapseSeven"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="metal"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
@@ -1550,7 +1608,7 @@ export default class Dashboard extends Component {
                                     id="collapseEight"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="pharma"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
@@ -1602,7 +1660,7 @@ export default class Dashboard extends Component {
                                     id="collapseNine"
                                     className="accordion-collapse collapse"
                                     aria-labelledby="realty"
-                                    data-bs-parent="#sectorWiseRanking"
+                                    data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
