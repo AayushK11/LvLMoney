@@ -300,7 +300,7 @@ export default class Dashboard extends Component {
             <div className="tab-content" id="pills-tabContent">
               {/*  stocks section  */}
               <div
-                className="tab-pane fade active show "
+                className="tab-pane fade  active show "
                 id="lvl-stocks"
                 role="tabpanel"
                 aria-labelledby="lvl-stocks-tab"
@@ -1262,7 +1262,6 @@ export default class Dashboard extends Component {
                                     </div>
                                   </div>
                                 </div>
-
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
@@ -1317,7 +1316,7 @@ export default class Dashboard extends Component {
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
-                                    id="financialServices"
+                                    id="EquitySmallCapFunds"
                                   >
                                     <button
                                       className="accordion-button collapsed"
@@ -1330,16 +1329,13 @@ export default class Dashboard extends Component {
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
                                           <h6 className="m-0">
-                                            Financial Services
+                                          Equity Small Cap Funds
                                           </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                          Financial Services mainly cover the
-                                          Indian Financial Market Which
-                                          comprises of Banks, Insurance
-                                          Companies, and so on.
+                                        Equity Small Cap Funds and Funds where a large percentage of investments are made towards companies that have a Small Market Capitalization, i.e. 'The Companies that might Boom'
                                         </i>
                                       </div>
                                     </button>
@@ -1347,32 +1343,32 @@ export default class Dashboard extends Component {
                                   <div
                                     id="collapseThree"
                                     className="accordion-collapse collapse"
-                                    aria-labelledby="financialServices"
+                                    aria-labelledby="EquitySmallCapFunds"
                                     data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                          HDFCBANK
+                                        Kotak Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          HDFC
+                                        Axis Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          ICICIBANK
+                                        Quant Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          KOTAKBANK
+                                        Nippon India Small Cap
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          BAJAJFINANCE
+                                        ICICI Prudential Smallcap Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="accordion-item">
-                                  <div className="accordion-header" id="fmcg">
+                                  <div className="accordion-header" id="EquityFlexiCapFunds">
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1383,15 +1379,12 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">FMCG</h6>
+                                          <h6 className="m-0">Equity Flexi Cap Funds</h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                          FMCG, which stands for Fast Moving
-                                          Consumer Goods, is a group of
-                                          companies that deal in the retailing
-                                          of consumer goods.
+                                        Equity Small Cap Funds and Funds where investments are made in a spectrum of Market Capitalizations, i.e. a little bit in Large Caps, a little bit in Small Cap and a little bit in Mid Cap Funds
                                         </i>
                                       </div>
                                     </button>
@@ -1399,32 +1392,32 @@ export default class Dashboard extends Component {
                                   <div
                                     id="collapsefour"
                                     className="accordion-collapse collapse"
-                                    aria-labelledby="fmcg"
+                                    aria-labelledby="EquityFlexiCapFunds"
                                     data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                          HINDUSTAN UNILIVER
+                                        PGIM India Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          ITC
+                                        Quant Active Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          NESTLE INDIA
+                                        Parag Parikh Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          TATA CONSUMER
+                                        DSP Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          BRITANIA
+                                        UTI Flexi Cap Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="accordion-item">
-                                  <div className="accordion-header" id="it">
+                                  <div className="accordion-header" id="IndexFund">
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1436,16 +1429,13 @@ export default class Dashboard extends Component {
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
                                           <h6 className="m-0">
-                                            Information Technology
+                                          Index Funds
                                           </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                          Information Technology, often
-                                          abbreviated IT, rougly includes
-                                          companies that provide Technology
-                                          services and software.
+                                        Index funds are passively managed mutual funds that try to duplicate the performance of a financial index, like the Nifty50 or the Sensex.
                                         </i>
                                       </div>
                                     </button>
@@ -1453,255 +1443,37 @@ export default class Dashboard extends Component {
                                   <div
                                     id="collapsefive"
                                     className="accordion-collapse collapse"
-                                    aria-labelledby="it"
+                                    aria-labelledby="IndexFund"
                                     data-bs-parent="#fundWiseRanking"
                                   >
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                          INFOSYS
+                                        Nippon India Index Sensex
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          TATA CONSULTANCY SERVICES
+                                        HDFC Index Sensex Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          HCL TECH
+                                        IDFC Nifty Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          WIPRO
+                                        Tata Index Sensex Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                          TECH MAHINDRA
+                                        UTI Nifty Index Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
-                                <div className="accordion-item">
-                                  <div className="accordion-header" id="media">
-                                    <button
-                                      className="accordion-button collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#collapseSix"
-                                      aria-expanded="false"
-                                      aria-controls="collapseSix"
-                                    >
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
-                                        <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Media</h6>
-                                        </span>
-                                      </div>
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
-                                        <i className="sectorShorts">
-                                          Media sector includes companies that
-                                          provide media services such as
-                                          entertainment, advertising, and so on.
-                                        </i>
-                                      </div>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="collapseSix"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="media"
-                                    data-bs-parent="#fundWiseRanking"
-                                  >
-                                    <ol className="list-group  list-group-numbered">
-                                      <li className="list-group-item list-group-item-dark">
-                                        ZEEL
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        PVR
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        SUNTV
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        INOXLEISUR
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        DISHTV
-                                      </li>
-                                    </ol>
-                                  </div>
-                                </div>
-                                <div className="accordion-item">
-                                  <div className="accordion-header" id="metal">
-                                    <button
-                                      className="accordion-button collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#collapseSeven"
-                                      aria-expanded="false"
-                                      aria-controls="collapseSeven"
-                                    >
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
-                                        <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Metal</h6>
-                                        </span>
-                                      </div>
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
-                                        <i className="sectorShorts">
-                                          The metal setor covers companies that
-                                          provide raw materials and mining
-                                          services in India.
-                                        </i>
-                                      </div>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="collapseSeven"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="metal"
-                                    data-bs-parent="#fundWiseRanking"
-                                  >
-                                    <div className="accordion-body">
-                                      <ol className="list-group  list-group-numbered">
-                                        <li className="list-group-item list-group-item-dark">
-                                          TATASTEEL
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          HINDALCO
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          JSWSTEEL
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          ADANI ENTERPRISE
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          COALINDIA
-                                        </li>
-                                      </ol>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="accordion-item">
-                                  <h2 className="accordion-header" id="pharma">
-                                    <button
-                                      className="accordion-button collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#collapseEight"
-                                      aria-expanded="false"
-                                      aria-controls="collapseEight"
-                                    >
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
-                                        <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">
-                                            Pharmaceuticals
-                                          </h6>
-                                        </span>
-                                      </div>
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
-                                        <i className="sectorShorts">
-                                          The pharma industry discovers,
-                                          develops and manufactures drugs for
-                                          medical, health, and personal care
-                                          purposes.
-                                        </i>
-                                      </div>
-                                    </button>
-                                  </h2>
-                                  <div
-                                    id="collapseEight"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="pharma"
-                                    data-bs-parent="#fundWiseRanking"
-                                  >
-                                    <div className="accordion-body">
-                                      <ol className="list-group  list-group-numbered">
-                                        <li className="list-group-item list-group-item-dark">
-                                          SUNPHARMA
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          DIVISLAB
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          DRREDDY
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          CIPLA
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          LAURUSLABS
-                                        </li>
-                                      </ol>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="accordion-item">
-                                  <div className="accordion-header" id="realty">
-                                    <button
-                                      className="accordion-button collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#collapseNine"
-                                      aria-expanded="false"
-                                      aria-controls="collapseNine"
-                                    >
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
-                                        <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Realty</h6>
-                                        </span>
-                                      </div>
-                                      <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
-                                        <i className="sectorShorts">
-                                          The Realty sector is engaged in
-                                          construction, development and
-                                          management of residential and
-                                          industrial properties.
-                                        </i>
-                                      </div>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="collapseNine"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="realty"
-                                    data-bs-parent="#fundWiseRanking"
-                                  >
-                                    <div className="accordion-body">
-                                      <ol className="list-group  list-group-numbered">
-                                        <li className="list-group-item list-group-item-dark">
-                                          GODREJ PROPERTIES
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          DLF
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          OBEROIRLTY
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          PHEONIXLTD
-                                        </li>
-                                        <li className="list-group-item list-group-item-dark">
-                                          PRESTIGE
-                                        </li>
-                                      </ol>
-                                    </div>
-                                  </div>
-                                </div>
+                             
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <h2 className="text-white">
-                        Sample test questions There are two types of IELTS test
-                        to choose from, IELTS Academic or IELTS General
-                        Training. All test takers take the same Listening and
-                        Speaking tests but different Reading and Writing tests.
-                        Make sure that you prepare for the correct version of
-                        the test. Using IELTS official practice materials will
-                        enable you to: familiarise yourself with the test format
-                        experience the types of tasks you will be asked to
-                        undertake test yourself under timed conditions review
-                        your answers and compare them with model answers. If you
-                        are taking IELTS on Computer, click here for on Computer
-                        sample test questions.
-                      </h2>
+                    
                     </div>
                   </div>
                 </section>

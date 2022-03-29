@@ -1,5 +1,19 @@
+/* colorTheme */
+:root {
+  --lvl_yellow: #ffcd4c;
+  --lvl_green: #30B451;
+  --lvl_dark: #151321;
+  --lvl_fadeDark: #212230;
+  --lvl_light: #c0c0c0;
+}
+.bg-dark{
+  background-color: var(--lvl_fadeDark) !important;
+
+}
+
 .dashboard_main {
-    background-color: #2D2D30;
+    /* background-color: #2D2D30; */
+    background-color:var(--lvl_dark);
 }
 .bg-lvlgreen{
   background-color: #D6DF21;
