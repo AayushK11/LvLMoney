@@ -8,14 +8,17 @@
 
   .btn-primary {
   color: #fff !;
-  background-color: #2B59FF;
-  border-color: #2B59FF;
+  background-color: #2B59FF !important;
+  border-color: #2B59FF !important;
 }
+
 
 .btn-primary:hover {
   color: rgb(0, 0, 0);
-  background-color: #D6DF21;
-  border-color: #D6DF21;
+  background-color: var(--lvl_yellow) !important;
+  border-color: var(--lvl_yellow)   !important;
+  /* background-color: #D6DF21;
+  border-color: #D6DF21; */
 }
 img {
   border-radius: 5%;
@@ -23,6 +26,7 @@ img {
 }
 .lead{
   color: #95bddd !important;
+  /* color: var(--lvl_lightBlue); */
 }
 
 

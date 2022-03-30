@@ -63,38 +63,38 @@ export default class Dashboard extends Component {
       est_return: 179646,
       invst_amount: 600000,
       search: "",
-      ticker_link: "https://www.gateway-tt.in/trade?orderConfig=%5B%7B%22quantity%22%3A10%2C%22ticker%22%3A%22__temp__%22%7D%5D&cardsize=small&withSearch=false&withTT=false",
-      prev_search:"__temp__",
+      ticker_link:
+        "https://www.gateway-tt.in/trade?orderConfig=%5B%7B%22quantity%22%3A10%2C%22ticker%22%3A%22__temp__%22%7D%5D&cardsize=small&withSearch=false&withTT=false",
+      prev_search: "__temp__",
     };
     this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
-  onClick (event)
-  {
+  onClick(event) {
     event.preventDefault();
-    if ( event.target.id === "ticker_search" )
-    {
-      this.setState( { ticker_link: this.state.ticker_link.replace( this.state.prev_search, this.state.search ), prev_search: this.state.search } );
-    }
-    else
-    {
+    if (event.target.id === "ticker_search") {
+      this.setState({
+        ticker_link: this.state.ticker_link.replace(
+          this.state.prev_search,
+          this.state.search
+        ),
+        prev_search: this.state.search,
+      });
+    } else {
       axios
-        .post( Server_Path.concat( "forecast/" ), {
+        .post(Server_Path.concat("forecast/"), {
           TickerName: this.state.search,
-        } )
-        .then( ( res ) =>
-        {
-          console.log( res );
-        } )
-        .catch( ( e ) =>
-        {
-          console.log( e );
-          if ( !e.Status )
-          {
-            alert( "Something Went Wrong" );
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+          if (!e.Status) {
+            alert("Something Went Wrong");
           }
-        } );
+        });
     }
   }
 
@@ -307,31 +307,29 @@ export default class Dashboard extends Component {
               >
                 <section className="pb-4 mx-2 ">
                   <div className="container">
-                    <div className="container x-4 p-4 card bg-dark ">
-                      <h5 className="card-header section-heading-ms px-0 mb-2 mb-lg-2 text-white">
+                    <div className="bg-lvldark ">
+                      <h5 className="py-3 section-heading-ms px-0 mb-2 mb-lg-2 text-white">
                         STOCKS
                       </h5>
                       <div className="row">
-                        <div className="mb-4 mb-lg-0 col-lg-4">
+                        <div className="mb-4 mb-lg-0 col-lg-4 ">
                           <div className="h-100">
-                            <div className="h-100 card">
+                            <div className="h-100 card bg-dark">
                               <div className="card-header">
-                                <div className="input-group rounded">
+                                <div className="input-group">
                                   <input
                                     type="search"
-                                    className="form-control rounded"
+                                    className="form-control border border-2 "
                                     placeholder="Search"
                                     aria-label="Search"
                                     aria-describedby="search-addon"
-                                    
-                                    // value={this.state.search}
                                     onChange={this.onChange}
                                     id="search_input"
                                   />
                                   <button
                                     type="button"
                                     className="btn btn-primary"
-                                    onClick={ this.onClick }
+                                    onClick={this.onClick}
                                     id="ticker_search"
                                   >
                                     <i className="fas fa-search"></i>
@@ -341,30 +339,38 @@ export default class Dashboard extends Component {
                               <div className="d-flex card-body">
                                 <div className="w-100 ticker-div px-4 ">
                                   {(() => {
-                                    if (this.state.ticker_link.includes("__temp__")) {
+                                    if (
+                                      this.state.ticker_link.includes(
+                                        "__temp__"
+                                      )
+                                    ) {
                                       return (
-                                        <div>
-                                          <p className="text-dark">Search Something</p>
-                                       </div>
+                                        <div className="nothing_searched">
+                                          <p className="text-light">
+                                            Type in above search box to search
+                                            your favourite stocks!!!!
+                                          </p>
+                                        </div>
+                                      );
+                                    } else {
+                                      return (
+                                        <div className="bg-light p-1 card">
+                                          <embed
+                                            src={this.state.ticker_link}
+                                            width="100%"
+                                            height="400"
+                                          ></embed>
+                                        </div>
                                       );
                                     }
-                                    else
-                                    {
-                                      return (<embed
-                                        src={this.state.ticker_link}
-                                        width="300"
-                                        height="390"
-                                      ></embed>);
-                                    }
-                                  }
-                                  )() }
+                                  })()}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-8">
-                          <div className="h-100 card">
+                          <div className="h-100 card bg-dark">
                             <div className="card-body">
                               <div id="chart">
                                 <Chart
@@ -381,12 +387,11 @@ export default class Dashboard extends Component {
                           <div className="mb-4 mb-lg-0 card bg-transparent">
                             <div className=" row">
                               <div className="mb-1 col-md-4 col-sm-6">
-                                <div className="text-center h-100 card">
+                                <div className="text-center h-100 card bg-dark">
                                   <div className="card-body">
                                     <div className=" p-4 justify-content-md-center align-middle">
                                       <button
                                         className="btn btn-success btn-lg  px-5 w-100 card-widget "
-                                        
                                         onClick={this.onClick}
                                       >
                                         Predict
@@ -396,7 +401,7 @@ export default class Dashboard extends Component {
                                 </div>
                               </div>
                               <div className="mb-1 col-md col-sm-6">
-                                <div className="text-center h-100 card">
+                                <div className="text-center h-100 card bg-dark text-light">
                                   <h6 className="mb-1 card-header">
                                     Day Forecast
                                   </h6>
@@ -424,7 +429,7 @@ export default class Dashboard extends Component {
                                 </div>
                               </div>
                               <div className="mb-1 col-md col-sm-6">
-                                <div className="text-center h-100 card">
+                                <div className="text-center h-100 card bg-dark text-light">
                                   <h6 className="mb-1 card-header">
                                     Week Forecast
                                   </h6>
@@ -452,7 +457,7 @@ export default class Dashboard extends Component {
                                 </div>
                               </div>
                               <div className="mb-1 col-md col-sm-6">
-                                <div className="text-center h-100 card">
+                                <div className="text-center h-100 card bg-dark text-light">
                                   <h6 className="mb-1 card-header">
                                     Month Forecast
                                   </h6>
@@ -485,7 +490,7 @@ export default class Dashboard extends Component {
                       </div>
                       <div className="row pt-4">
                         <div className="mb-5 mb-lg-0 col-xl-6 col-lg-7">
-                          <div className="mb-5 mb-lg-0 card h-100">
+                          <div className="mb-5 mb-lg-0 card h-100 bg-dark text-light">
                             <div className="card-header">
                               <div className="card-heading">
                                 Trading strategies
@@ -499,7 +504,7 @@ export default class Dashboard extends Component {
                           </div>
                         </div>
                         <div className="mb-5 mb-lg-0 col-xl-6 col-lg-7">
-                          <div className="mb-5 mb-lg-0 card">
+                          <div className="mb-5 mb-lg-0 card bg-dark text-light">
                             <div className="card-header">
                               <div className="card-heading">
                                 Market Sentiment Analysis
@@ -525,22 +530,23 @@ export default class Dashboard extends Component {
                           </div>
                         </div>
                       </div>
+                      {/* sector wise ranking */}
                       <div className="row pt-4">
                         <div className="mb-5 mb-lg-0 ">
-                          <div className="card mb-5 mb-lg-0">
+                          <div className="card mb-5 mb-lg-0 bg-dark text-light ">
                             <div className="card-header">
                               <div className="card-heading">
                                 Sector Wise Ranking
                               </div>
                             </div>
-                            <div className="card-body">
+                            <div className="card-body text-light">
                               <div
                                 className="accordion "
                                 id="sectorWiseRanking"
                               >
-                                <div className="accordion-item">
+                                <div className="accordion-item ">
                                   <div
-                                    className="accordion-header"
+                                    className="accordion-header "
                                     id="automobiles"
                                   >
                                     <button
@@ -840,23 +846,25 @@ export default class Dashboard extends Component {
                                     aria-labelledby="media"
                                     data-bs-parent="#sectorWiseRanking"
                                   >
-                                    <ol className="list-group  list-group-numbered">
-                                      <li className="list-group-item list-group-item-dark">
-                                        ZEEL
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        PVR
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        SUNTV
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        INOXLEISUR
-                                      </li>
-                                      <li className="list-group-item list-group-item-dark">
-                                        DISHTV
-                                      </li>
-                                    </ol>
+                                    <div className="accordion-body">
+                                      <ol className="list-group  list-group-numbered">
+                                        <li className="list-group-item list-group-item-dark">
+                                          ZEEL
+                                        </li>
+                                        <li className="list-group-item list-group-item-dark">
+                                          PVR
+                                        </li>
+                                        <li className="list-group-item list-group-item-dark">
+                                          SUNTV
+                                        </li>
+                                        <li className="list-group-item list-group-item-dark">
+                                          INOXLEISUR
+                                        </li>
+                                        <li className="list-group-item list-group-item-dark">
+                                          DISHTV
+                                        </li>
+                                      </ol>
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="accordion-item">
@@ -1200,10 +1208,7 @@ export default class Dashboard extends Component {
                               <div className="card-heading">Fund Ranking</div>
                             </div>
                             <div className="card-body">
-                              <div
-                                className="accordion "
-                                id="fundWiseRanking">
-                                
+                              <div className="accordion " id="fundWiseRanking">
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
@@ -1265,7 +1270,8 @@ export default class Dashboard extends Component {
                                 <div className="accordion-item">
                                   <div
                                     className="accordion-header"
-                                    id="EquityMidCapFunds">
+                                    id="EquityMidCapFunds"
+                                  >
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1276,12 +1282,17 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Equity Mid Cap Funds</h6>
+                                          <h6 className="m-0">
+                                            Equity Mid Cap Funds
+                                          </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                        Equity Mid Cap Funds and Funds where a Mid percentage of investments are made towards companies that have a Medium Sized Market Capitalization.
+                                          Equity Mid Cap Funds and Funds where a
+                                          Mid percentage of investments are made
+                                          towards companies that have a Medium
+                                          Sized Market Capitalization.
                                         </i>
                                       </div>
                                     </button>
@@ -1295,19 +1306,19 @@ export default class Dashboard extends Component {
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                        PGIM India Midcap Opportunities Fund
+                                          PGIM India Midcap Opportunities Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Axis Midcap Fund
+                                          Axis Midcap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Edelweiss Mid Cap Fund
+                                          Edelweiss Mid Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Kotak Emerging Equity Fund
+                                          Kotak Emerging Equity Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        BNP Paribas Midcap Fund
+                                          BNP Paribas Midcap Fund
                                         </li>
                                       </ol>
                                     </div>
@@ -1329,13 +1340,17 @@ export default class Dashboard extends Component {
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
                                           <h6 className="m-0">
-                                          Equity Small Cap Funds
+                                            Equity Small Cap Funds
                                           </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                        Equity Small Cap Funds and Funds where a large percentage of investments are made towards companies that have a Small Market Capitalization, i.e. 'The Companies that might Boom'
+                                          Equity Small Cap Funds and Funds where
+                                          a large percentage of investments are
+                                          made towards companies that have a
+                                          Small Market Capitalization, i.e. 'The
+                                          Companies that might Boom'
                                         </i>
                                       </div>
                                     </button>
@@ -1349,26 +1364,29 @@ export default class Dashboard extends Component {
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                        Kotak Small Cap Fund
+                                          Kotak Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Axis Small Cap Fund
+                                          Axis Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Quant Small Cap Fund
+                                          Quant Small Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Nippon India Small Cap
+                                          Nippon India Small Cap
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        ICICI Prudential Smallcap Fund
+                                          ICICI Prudential Smallcap Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="accordion-item">
-                                  <div className="accordion-header" id="EquityFlexiCapFunds">
+                                  <div
+                                    className="accordion-header"
+                                    id="EquityFlexiCapFunds"
+                                  >
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1379,12 +1397,19 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">Equity Flexi Cap Funds</h6>
+                                          <h6 className="m-0">
+                                            Equity Flexi Cap Funds
+                                          </h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                        Equity Small Cap Funds and Funds where investments are made in a spectrum of Market Capitalizations, i.e. a little bit in Large Caps, a little bit in Small Cap and a little bit in Mid Cap Funds
+                                          Equity Small Cap Funds and Funds where
+                                          investments are made in a spectrum of
+                                          Market Capitalizations, i.e. a little
+                                          bit in Large Caps, a little bit in
+                                          Small Cap and a little bit in Mid Cap
+                                          Funds
                                         </i>
                                       </div>
                                     </button>
@@ -1398,26 +1423,29 @@ export default class Dashboard extends Component {
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                        PGIM India Flexi Cap Fund
+                                          PGIM India Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Quant Active Fund
+                                          Quant Active Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Parag Parikh Flexi Cap Fund
+                                          Parag Parikh Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        DSP Flexi Cap Fund
+                                          DSP Flexi Cap Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        UTI Flexi Cap Fund
+                                          UTI Flexi Cap Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="accordion-item">
-                                  <div className="accordion-header" id="IndexFund">
+                                  <div
+                                    className="accordion-header"
+                                    id="IndexFund"
+                                  >
                                     <button
                                       className="accordion-button collapsed"
                                       type="button"
@@ -1428,14 +1456,15 @@ export default class Dashboard extends Component {
                                     >
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-center text-md-left col-xl-3">
                                         <span className="badge bg-primary p-2">
-                                          <h6 className="m-0">
-                                          Index Funds
-                                          </h6>
+                                          <h6 className="m-0">Index Funds</h6>
                                         </span>
                                       </div>
                                       <div className="d-flex align-items-center flex-column flex-xl-row text-md-left col-xl">
                                         <i className="sectorShorts">
-                                        Index funds are passively managed mutual funds that try to duplicate the performance of a financial index, like the Nifty50 or the Sensex.
+                                          Index funds are passively managed
+                                          mutual funds that try to duplicate the
+                                          performance of a financial index, like
+                                          the Nifty50 or the Sensex.
                                         </i>
                                       </div>
                                     </button>
@@ -1449,31 +1478,29 @@ export default class Dashboard extends Component {
                                     <div className="accordion-body">
                                       <ol className="list-group  list-group-numbered">
                                         <li className="list-group-item list-group-item-dark">
-                                        Nippon India Index Sensex
+                                          Nippon India Index Sensex
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        HDFC Index Sensex Fund
+                                          HDFC Index Sensex Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        IDFC Nifty Fund
+                                          IDFC Nifty Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        Tata Index Sensex Fund
+                                          Tata Index Sensex Fund
                                         </li>
                                         <li className="list-group-item list-group-item-dark">
-                                        UTI Nifty Index Fund
+                                          UTI Nifty Index Fund
                                         </li>
                                       </ol>
                                     </div>
                                   </div>
                                 </div>
-                             
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    
                     </div>
                   </div>
                 </section>

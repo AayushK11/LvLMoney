@@ -4,11 +4,36 @@
   --lvl_green: #30B451;
   --lvl_dark: #151321;
   --lvl_fadeDark: #212230;
+  --lvl_fadeLight: #33354f;
   --lvl_light: #c0c0c0;
+  --lvl_blue: #2B59FF;
+  --lvl_lightBlue: #00C9FF;  
+}
+.bg-fadeLight {
+  background-color: var(--lvl_fadeLight);
 }
 .bg-dark{
   background-color: var(--lvl_fadeDark) !important;
+}
+.bg-lvldark{
+  background-color: var(--lvl_dark) !important;
+}
+.accordion-item{
+  background-color: var(--lvl_fadeDark) !important;
+}
+.accordion-button{
+  background-color: var(--lvl_fadeDark) !important;
+  color: #fff;
+}
+.list-group-item-dark{
+  background-color: var(--lvl_fadeDark) !important;
+  color: #fff !important;
+}
 
+
+.nothing_searched{
+  width: 100%;
+  height: 400px;
 }
 
 .dashboard_main {
@@ -41,8 +66,10 @@
   
   .btn-success:hover {
     color: rgb(0, 0, 0);
-    background-color: #D6DF21;
-    border-color: #D6DF21;
+    background-color: var(--lvl_yellow) !important;
+    border-color: var(--lvl_yellow) !important;
+    /* background-color: #D6DF21;
+    border-color: #D6DF21; */
   }
   #search_input{
     text-transform: uppercase;
