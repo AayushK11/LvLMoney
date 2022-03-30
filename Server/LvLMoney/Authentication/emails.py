@@ -5,7 +5,8 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import os
 import codecs
-import Security.config
+
+# import LvLMoney.config
 
 BASE_PATH = Path(__file__).parent.parent
 # WEBSITE_PATH = "http://localhost:3000/"
@@ -16,7 +17,7 @@ def registration_email(name, email):
     message = MIMEMultipart("alternative")
     message["subject"] = "Welcome to LvLMoney"
     message["to"] = email
-    message["from"] = Security.config.EMAILID
+    message["from"] = "lvlmoney2021@gmail.com"
 
     htmlfile = codecs.open(os.path.join(BASE_PATH, "Emails\\RegisterEmail.html"), "r")
     htmlfile = htmlfile.read().format(fname=name, link=WEBSITE_PATH)
@@ -29,7 +30,7 @@ def registration_email(name, email):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = Security.config.EMAILPASSWORD
+    password = "lvlmoney"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], message["to"], message.as_string())
@@ -40,7 +41,7 @@ def forgot_password_email(name, email, username):
     message = MIMEMultipart("alternative")
     message["subject"] = "Forgot Password"
     message["to"] = email
-    message["from"] = Security.config.EMAILID
+    message["from"] = "lvlmoney2021@gmail.com"
 
     htmlfile = codecs.open(os.path.join(BASE_PATH, "Emails\\ForgotPassword.html"), "r")
     htmlfile = htmlfile.read().format(fname=name, link=WEBSITE_PATH, username=username)
@@ -53,7 +54,7 @@ def forgot_password_email(name, email, username):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = Security.config.EMAILPASSWORD
+    password = "lvlmoney"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], message["to"], message.as_string())
@@ -64,7 +65,7 @@ def sma_50_100_email(buy, sell, date, emaillist):
     message = MIMEMultipart("alternative")
     message["Subject"] = "Stock Recommendations for {}".format(date)
     message["To"] = "lvlmoney2021@gmail.com"
-    message["From"] = Security.config.EMAILID
+    message["From"] = "lvlmoney2021@gmail.com"
 
     htmlfile = codecs.open(os.path.join(BASE_PATH, "Emails\\TradingStrategy.html"), "r")
     htmlfile = htmlfile.read().format(
@@ -83,7 +84,7 @@ def sma_50_100_email(buy, sell, date, emaillist):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = Security.config.EMAILPASSWORD
+    password = "lvlmoney"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], [message["to"]] + emaillist, message.as_string())

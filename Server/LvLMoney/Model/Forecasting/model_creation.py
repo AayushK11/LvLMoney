@@ -1,6 +1,7 @@
 import os
 import warnings
-import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore")
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -183,22 +184,11 @@ def generate_model(X_data, Y_data, i, symbol):
     es = EarlyStopping(monitor="loss", mode="min", verbose=0, patience=10)
     model.compile(optimizer="adam", loss="mean_absolute_error")
 
-    history = model.fit(X_data, Y_data, batch_size=32, epochs=500, verbose=0, callbacks=[es])
-
-    plot_graph(history, i, symbol)
+    history = model.fit(
+        X_data, Y_data, batch_size=32, epochs=500, verbose=0, callbacks=[es]
+    )
 
     return model
-
-def plot_graph(history, i, symbol):
-    plt.plot(history.history["loss"])
-    # plt.plot(history.history["val_loss"])
-    # plt.legend(["Train", "Test"], loc="upper left")
-    plt.title("{} - {} Loss chart".format(symbol, i))
-    plt.xlabel("Epochs")
-    plt.ylabel("Loss")
-    plt.savefig('{} - {}.png'.format(symbol,i))
-    plt.close()
-
 
 def pop_and_replace(X_data, Popper):
     X_data = np.delete(X_data[-1], 0)
@@ -233,7 +223,6 @@ def start_train(symbol):
     PrevClose = 0
     Date = 0
 
-    
     master_data = get_data(symbol)
 
     for i in ["Day", "Week", "Month"]:
@@ -260,9 +249,7 @@ def start_train(symbol):
                 ]
             )
         )
-        Y_data = scalerClose.fit_transform(
-            np.reshape(data["Close"].values, (-1, 1))
-        )
+        Y_data = scalerClose.fit_transform(np.reshape(data["Close"].values, (-1, 1)))
 
         Popper = popper_handle(Popper)
         X_data = format_X(X_data)
@@ -278,7 +265,6 @@ def start_train(symbol):
 
         Predictions.append(str(round(Y_pred, 2)))
 
-
     if len(Predictions) == 1:
         Predictions.extend(
             [
@@ -292,8 +278,6 @@ def start_train(symbol):
     return Predictions, PrevClose, Date
 
 
-
-
-print(start_train("TATAMOTORS"))
+# print(start_train("TATAMOTORS"))
 # print(start_train("TATAPOWER"))
 # print(start_train("TATAMOTORS"))

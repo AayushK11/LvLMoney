@@ -1,14 +1,25 @@
 from pathlib import Path
 import os
-import Security.config
+import LvLMoney.config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = Security.config.DJANGOSECRETKEY
+SECRET_KEY = LvLMoney.config.DJANGOSECRETKEY
 
 DEBUG = True
 
+ALLOWED_HOSTS = ["*"]
+
+# CORS_ORIGIN_WHITELIST = ["*"]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -16,15 +27,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "corsheaders",
     "API.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -50,12 +60,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "LvLMoney.wsgi.application"
-
-ALLOWED_HOSTS = ["*"]
-
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://localhost:3000"]
-
-CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
