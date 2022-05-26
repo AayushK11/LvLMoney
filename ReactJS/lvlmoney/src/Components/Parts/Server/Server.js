@@ -1,2 +1,2 @@
-const Server_Path = "http://2577-110-227-162-76.ngrok.io/api/";
+const Server_Path = "http://127.0.0.1:8000/api/";
 export default Server_Path;

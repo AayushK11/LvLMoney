@@ -9,19 +9,46 @@ export const DonutChart = ({ est_return, invst_amount }) => {
     chart: {
       type: "donut",
     },
+    dropShadow: {
+      enabled: false,
+     
+    },
+    stroke: {
+      show: true,
+      width: 3, 
+      colors: ["#212230"],
+  },
     dataLabels: {
       enabled: true,
       dropShadow: {
-        enabled: true,
+        enabled: false,
       },
+      
       style: {
-        colors: ["#fff", "#212529"],
+        fontSize: '16px',
+        fontFamily: 'Helvetica, Arial',
+        fontWeight: 'bold',
+        colors: ["#fff", "#33354f"],
       },
+    
+    
     },
     legend: {
       position: "bottom",
+      fontSize: '16px',
+      fontFamily: 'Helvetica, Arial',
+      fontWeight: 400,
+      labels: {
+        
+        useSeriesColors: true,
+      },
+      markers: {
+        width: 16,
+        height: 16,
+       
     },
-    colors: ["#0d6efd", "#D6DF21"],
+    },
+    colors: ["#0d6efd", "#ffcd4c"],
   };
 
   return (

@@ -7,58 +7,18 @@ import { Helmet } from "react-helmet";
 import { MiniCard } from "../../Parts/DashboardCards/MiniCard";
 import { MiniCardNograph } from "../../Parts/DashboardCards/MiniCard_NOgraph";
 import { DonutChart } from "../../Parts/DashboardCards/donutChart";
+import { ForecastChart } from "../../Parts/DashboardCards/forecastChart";
+import { MarketMood } from "../../Parts/DashboardCards/marketMood";
 import minicardimg from "../../Images/minicardimg.png";
 import axios from "axios";
 import Server_Path from "../../Parts/Server/Server.js";
 
-import Chart from "react-apexcharts";
 
-import { NseIndia } from "stock-nse-india";
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: {
-        chart: {
-          height: 350,
-          type: "area",
-          sparkline: {
-            enabled: true,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "smooth",
-        },
-
-        xaxis: {
-          type: "datetime",
-          categories: [
-            "2018-09-19T00:00:00.000Z",
-            "2018-09-19T01:30:00.000Z",
-            "2018-09-19T02:30:00.000Z",
-            "2018-09-19T03:30:00.000Z",
-            "2018-09-19T04:30:00.000Z",
-            "2018-09-19T05:30:00.000Z",
-            "2018-09-19T06:30:00.000Z",
-          ],
-        },
-        tooltip: {
-          x: {
-            format: "dd/MM/yy ",
-          },
-        },
-      },
-      series: [
-        {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100],
-        },
-      ],
-
       url: window.location.origin,
       est_return: 179646,
       invst_amount: 600000,
@@ -66,10 +26,25 @@ export default class Dashboard extends Component {
       ticker_link:
         "https://www.gateway-tt.in/trade?orderConfig=%5B%7B%22quantity%22%3A10%2C%22ticker%22%3A%22__temp__%22%7D%5D&cardsize=small&withSearch=false&withTT=false",
       prev_search: "__temp__",
+      stock_list: [],
+      prev_close: 0,
+      marketmood_data: 0,
+      fc_prevC: 0,
+      fc_day:0,
+      fc_midweek:0,
+      fc_week:0,
+      fc_month:0,
+      fc_m1:0,
+      fc_m2:0,
+      fc_m3:0,
+
+      
     };
     this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.get_stocks = this.get_stocks.bind( this );
+    this.getMood = this.getMood.bind( this );
   }
   onClick(event) {
     event.preventDefault();
@@ -81,13 +56,99 @@ export default class Dashboard extends Component {
         ),
         prev_search: this.state.search,
       });
-    } else {
+    } else if(event.target.id === "prediction_button"){
       axios
         .post(Server_Path.concat("forecast/"), {
           TickerName: this.state.search,
         })
-        .then((res) => {
-          console.log(res);
+        .then( ( res ) =>
+        {
+       
+          this.setState( { prev_close: res.data[ "PrevClose" ] } );
+          this.setState({ day_forecast: res.data["Day"] });
+          this.setState({ week_forecast: res.data["Week"]});
+          this.setState( { month_forecast: res.data[ "Month" ] } );
+
+          var percent_sign = "%";
+
+          // change calc
+          
+          var day_change = this.state.day_forecast - this.state.prev_close;
+          var week_change = this.state.week_forecast - this.state.prev_close;
+          var month_change = this.state.month_forecast - this.state.prev_close;
+
+          // percent change calc
+          var day_percent = ( day_change / this.state.prev_close ) * 100;
+          document.getElementById( "day_p" ).innerHTML = day_percent.toFixed( 2 ).concat( percent_sign );
+
+          var week_percent = ( week_change / this.state.prev_close ) * 100;
+          document.getElementById( "week_p" ).innerHTML = week_percent.toFixed( 2 ).concat( percent_sign );
+
+          var month_percent = ( month_change / this.state.prev_close ) * 100;
+          document.getElementById( "month_p" ).innerHTML = month_percent.toFixed( 2 ).concat( percent_sign );
+
+         
+        //  day
+          document.getElementById( "day_c" ).innerHTML = day_change.toFixed( 2 );
+          
+         
+          
+          if ( day_change > 0 )
+          {
+            document.getElementById( "day_c" ).style.color = "#198754";
+            document.getElementById( "day_p" ).style.color = "#198754";
+            document.getElementById( "day_forecast_icon" ).style.color = "#198754";
+            
+            document.getElementById( "day_icon_path" ).setAttribute( "d", "M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z" );
+          }
+          else if ( day_change < 0 )
+          {
+            
+            document.getElementById( "day_c" ).style.color = "#dc3545";
+            document.getElementById( "day_p" ).style.color = "#dc3545";
+            document.getElementById( "day_forecast_icon" ).style.color = "#dc3545";
+            
+            document.getElementById( "day_icon_path" ).setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
+            
+          }
+          // Week
+          document.getElementById( "week_c" ).innerHTML = week_change.toFixed( 2 );
+          if ( week_change > 0 )
+          {
+            document.getElementById( "week_c" ).style.color = "#198754";
+            document.getElementById( "week_p" ).style.color = "#198754";
+            document.getElementById( "week_forecast_icon" ).style.color = "#198754";
+            document.getElementById("week_icon_path").setAttribute("d","M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z")
+
+          }
+          else if ( week_change < 0 )
+          {
+            document.getElementById( "week_c" ).style.color = "#dc3545";
+            document.getElementById( "week_p" ).style.color = "#dc3545";
+            document.getElementById( "week_forecast_icon" ).style.color = "#dc3545";
+            document.getElementById("week_icon_path").setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
+          }
+          
+          // Month
+          document.getElementById( "month_c" ).innerHTML = month_change.toFixed( 2 );
+          if ( month_change > 0 )
+          { 
+            document.getElementById( "month_c" ).style.color = "#198754";
+            document.getElementById( "month_p" ).style.color = "#198754";
+            document.getElementById( "month_forecast_icon" ).style.color = "#198754";
+            document.getElementById("month_icon_path").setAttribute("d","M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z")
+          }
+          else if ( month_change < 0 )
+          { 
+            document.getElementById( "month_c" ).style.color = "#dc3545";
+            document.getElementById( "month_p" ).style.color = "#dc3545";
+            document.getElementById( "month_forecast_icon" ).style.color = "#dc3545";
+            document.getElementById("month_icon_path").setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
+          }
+         
+          
+         
+          
         })
         .catch((e) => {
           console.log(e);
@@ -106,6 +167,9 @@ export default class Dashboard extends Component {
 
   componentDidMount() {
     this.generateURLs();
+    this.get_stocks();
+    this.getMood();
+
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src =
@@ -175,20 +239,23 @@ export default class Dashboard extends Component {
 
     document.getElementById("tape").appendChild(script);
   }
-  nse() {
-    const nseIndia = new NseIndia();
-
-    // To get all symbols from NSE
-    nseIndia.getAllStockSymbols().then((symbols) => {
-      console.log(symbols);
+  getMood ()
+  {
+    axios
+    .get(Server_Path.concat("marketmood/"))
+      .then( ( res ) =>
+      {
+        var marketmood_data = res.data[ 'Index' ];
+        this.setState( { marketmood_data: marketmood_data } );
+        console.log( res.data[ "Index" ] );
+    })
+    .catch((e) => {
+      console.log(e);
+      if (!e.Status) {
+        alert("Something Went Wrong");
+      }
     });
-
-    // To get equity details for specific symbol
-    nseIndia.getEquityDetails("IRCTC").then((details) => {
-      console.log(details);
-    });
-  }
-
+   }
   onChange(event) {
     event.preventDefault();
     if (event.target.id === "search_input") {
@@ -201,21 +268,25 @@ export default class Dashboard extends Component {
 
       switch (parameterName) {
         case "amount":
-          document.getElementById("calc-amount_value").innerHTML = input_value;
+          var rupee = "₹ "
+          document.getElementById("calc-amount_value").innerHTML = rupee.concat(input_value);
           break;
         case "rate":
-          document.getElementById("calc-rate_value").innerHTML = input_value;
+          var percent=" %"
+          document.getElementById("calc-rate_value").innerHTML = input_value.concat(percent);
           break;
         case "time":
-          document.getElementById("calc-time_value").innerHTML = input_value;
+          var year=" Yr"
+          document.getElementById("calc-time_value").innerHTML = input_value.concat(year);
           break;
         default:
           break;
       }
-
-      var calc_amount = document.getElementById("calc-amount_value").innerHTML;
-      var calc_rate = document.getElementById("calc-rate_value").innerHTML;
-      var calc_time = document.getElementById("calc-time_value").innerHTML;
+      
+      
+      var calc_amount = document.getElementById( "calc-amount_value" ).innerHTML.split("₹ ")[1];
+      var calc_rate = document.getElementById("calc-rate_value").innerHTML.split(" %")[0];
+      var calc_time = document.getElementById("calc-time_value").innerHTML.split(" Yr")[0];
 
       var total_investment = calc_amount * calc_time * 12;
 
@@ -233,18 +304,32 @@ export default class Dashboard extends Component {
 
       // lumpsun return calculation
       // var lumpsun_return = calc_amount*(1+calc_rate/100)**calc_time;
-
-      document.getElementById("calc-total_investment").innerHTML =
-        total_investment;
-      document.getElementById("calc-estimated_return").innerHTML =
-        estimated_return;
+      
+     
+      document.getElementById("calc-total_investment").innerHTML = total_investment;
+      document.getElementById("calc-estimated_return").innerHTML = estimated_return;
       document.getElementById("calc-total_return").innerHTML = total_return;
 
       this.setState({
         est_return: estimated_return,
         invst_amount: total_investment,
+
       });
     }
+  }
+
+  get_stocks() {
+    axios
+      .get(Server_Path.concat("getstocks/"))
+      .then((res) => {
+        this.setState({ stock_list: res.data["data"] });
+      })
+      .catch((e) => {
+        console.log(e);
+        if (!e.Status) {
+          alert("Something Went Wrong");
+        }
+      });
   }
 
   render() {
@@ -300,7 +385,7 @@ export default class Dashboard extends Component {
             <div className="tab-content" id="pills-tabContent">
               {/*  stocks section  */}
               <div
-                className="tab-pane fade  active show "
+                className="tab-pane fade active show  "
                 id="lvl-stocks"
                 role="tabpanel"
                 aria-labelledby="lvl-stocks-tab"
@@ -325,7 +410,15 @@ export default class Dashboard extends Component {
                                     aria-describedby="search-addon"
                                     onChange={this.onChange}
                                     id="search_input"
+                                    list="stocks"
                                   />
+                                  <datalist id="stocks">
+                                    {this.state.stock_list.map(
+                                      (item, index) => (
+                                        <option key={index}>{item}</option>
+                                      )
+                                    )}
+                                  </datalist>
                                   <button
                                     type="button"
                                     className="btn btn-primary"
@@ -373,12 +466,17 @@ export default class Dashboard extends Component {
                           <div className="h-100 card bg-dark">
                             <div className="card-body">
                               <div id="chart">
-                                <Chart
-                                  options={this.state.options}
-                                  series={this.state.series}
-                                  type="area"
-                                  height={350}
+                                <ForecastChart
+                                  fc_prevC={Math.round(this.state.prev_close + 'e2')+"e-2"}
+                                  fc_day={Math.round(this.state.day_forecast + 'e2')+"e-2"}
+                                  fc_midweek={Math.round((this.state.prev_close+this.state.week_forecast)/2 + 'e2')+"e-2"}
+                                  fc_week={ Math.round( this.state.week_forecast + 'e2' ) + "e-2" }
+                                  fc_month={ Math.round( this.state.month_forecast + 'e2' ) + "e-2" }
+                                  fc_m2={ Math.round( ( this.state.prev_close + this.state.month_forecast ) / 2 + 'e2' ) + "e-2" }
+                                  fc_m1={ Math.round( ( ( ( this.state.prev_close + this.state.month_forecast ) / 2 ) + this.state.prev_close ) / 2 + 'e2' ) + "e-2" }
+                                  fc_m3={ Math.round( ( ( ( this.state.prev_close + this.state.month_forecast ) / 2 ) + this.state.month_forecast ) / 2 + 'e2' ) + "e-2" }
                                 />
+                                <h5 className="text-white"> Previous Close : { this.state.prev_close}</h5>
                               </div>
                             </div>
                           </div>
@@ -393,7 +491,7 @@ export default class Dashboard extends Component {
                                       <button
                                         className="btn btn-success btn-lg  px-5 w-100 card-widget "
                                         onClick={this.onClick}
-                                      >
+                                        id="prediction_button">
                                         Predict
                                       </button>
                                     </div>
@@ -406,25 +504,28 @@ export default class Dashboard extends Component {
                                     Day Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1">
+                                    <h5 className="mb-1" >{this.state.day_forecast}</h5>
+                                    <div>
                                       <svg
                                         aria-hidden="true"
                                         focusable="false"
                                         data-prefix="fas"
-                                        data-icon="arrow-up"
-                                        className="svg-inline--fa fa-arrow-up fa-w-14 text-success me-2"
+                                        className="svg-inline--fa fa-w-14  me-2 d-inline-block"
                                         role="img"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
+                                        id="day_forecast_icon"
                                       >
                                         <path
+                                          id="day_icon_path"
                                           fill="currentColor"
                                           d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
                                         ></path>
                                       </svg>
-                                      231.23
-                                    </h5>
-                                    <p className="card-text">1.03% increase</p>
+                                     
+                                      <h5 className="d-inline-block" id="day_c">0</h5>
+                                    </div>
+                                    <p className="card-text" id="day_p">0%</p>
                                   </div>
                                 </div>
                               </div>
@@ -434,25 +535,27 @@ export default class Dashboard extends Component {
                                     Week Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1">
+                                    <h5 className="mb-1">{this.state.week_forecast}</h5>
+                                    <div className="">
                                       <svg
                                         aria-hidden="true"
                                         focusable="false"
                                         data-prefix="fas"
-                                        data-icon="arrow-up"
-                                        className="svg-inline--fa fa-arrow-up fa-w-14 text-success me-2"
+                                        className="svg-inline--fa  fa-w-14  me-2 d-inline-block"
                                         role="img"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
+                                        id="week_forecast_icon"
                                       >
                                         <path
+                                          id="week_icon_path"
                                           fill="currentColor"
                                           d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
                                         ></path>
                                       </svg>
-                                      238.57
-                                    </h5>
-                                    <p className="card-text">3% increase</p>
+                                      <h5 className="d-inline-block" id="week_c">0</h5>
+                                    </div>
+                                    <p className="card-text" id="week_p">0%</p>
                                   </div>
                                 </div>
                               </div>
@@ -462,25 +565,27 @@ export default class Dashboard extends Component {
                                     Month Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1">
+                                    <h5 className="mb-1">{this.state.month_forecast}</h5>
+                                    <div >
                                       <svg
                                         aria-hidden="true"
                                         focusable="false"
                                         data-prefix="fas"
-                                        data-icon="arrow-down"
-                                        className="svg-inline--fa fa-arrow-down fa-w-14 text-danger me-2"
+                                        id="month_forecast_icon"
+                                        className="svg-inline--fa  fa-w-14  me-2 d-inline-block"
                                         role="img"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 448 512"
                                       >
                                         <path
+                                          id="month_icon_path"
                                           fill="currentColor"
                                           d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
                                         ></path>
                                       </svg>
-                                      215.67
-                                    </h5>
-                                    <p className="card-text">6% decrease</p>
+                                      <h5 className="d-inline-block" id="month_c">0</h5>
+                                    </div>
+                                    <p className="card-text" id="month_p">0%</p>
                                   </div>
                                 </div>
                               </div>
@@ -510,22 +615,12 @@ export default class Dashboard extends Component {
                                 Market Sentiment Analysis
                               </div>
                             </div>
-                            <div className="card-body">
-                              <div className="gauge-wrapper">
-                                <div className="gauge four rischio3">
-                                  <div className="slice-colors">
-                                    <div className="st slice-item"></div>
-                                    <div className="st slice-item"></div>
-                                    <div className="st slice-item"></div>
-                                    <div className="st slice-item"></div>
-                                  </div>
-                                  <div className="needle"></div>
-                                  <div className="gauge-center">
-                                    <div className="label">RISK</div>
-                                    <div className="number">HIGH</div>
-                                  </div>
-                                </div>
-                              </div>
+                            <div className="card-body"> 
+                              {/* <div className="card-header"></div> */}
+                              <MarketMood
+                                marketmood_data={ this.state.marketmood_data }
+                              />
+                            
                             </div>
                           </div>
                         </div>
@@ -1042,37 +1137,37 @@ export default class Dashboard extends Component {
               >
                 <section className="pb-4 mx-2 ">
                   <div className="container">
-                    <div className="container x-4 p-4 card bg-dark ">
-                      <h5 className="card-header section-heading-ms px-0 mb-2 mb-lg-2 text-white">
+                    <div className=" bg-lvldark ">
+                      <h5 className="card-header py-3 section-heading-ms px-0 mb-2 mb-lg-2 text-white">
                         Mutual Funds
                       </h5>
                       <div className="row">
                         <div className="mb-4 mb-lg-0 col-lg-7">
                           <div className="h-100">
-                            <div className="h-100 card">
+                            <div className="h-100 card bg-dark text-light">
                               <div className="card-header">
-                                <span class="fs-5">Returns Calculator</span>
+                                <span className="fs-5">Returns Calculator</span>
                               </div>
                               <div className=" rangec card-body">
-                                <div className="row">
-                                  <div className="col-lg">
-                                    <h6 class="mb-0 d-flex align-items-center pb-3 pt-2">
+                                <div className="row row-cols-auto">
+                                  <div className="col ">
+                                    <h5 className="my-2 sm-h5">
                                       Monthly Investment :
-                                      <span
-                                        class="badge bg-light text-dark"
-                                        id="calc-amount_value"
-                                      >
-                                        {" "}
-                                        5000
-                                      </span>
-                                    </h6>
+                                    </h5>
+                                  </div>
+                                  <div className="col-2 ">
+                                    <h5
+                                      className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
+                                      id="calc-amount_value">
+                                      ₹ 5000
+                                    </h5>
                                   </div>
                                 </div>
                                 <div className="row">
                                   <div className="col-lg">
                                     <input
                                       type="range"
-                                      class="form-range"
+                                      className="form-range"
                                       min="500"
                                       max="100000"
                                       step="500"
@@ -1083,21 +1178,26 @@ export default class Dashboard extends Component {
                                   </div>
                                 </div>
                                 <hr />
-                                <div className="row">
-                                  <div className="col-lg">
-                                    <h6 class="mb-0 d-flex align-items-center pb-3 pt-2">
-                                      Expected Rate Of Return :
-                                      <span class="badge bg-light text-dark">
-                                        <span id="calc-rate_value">5</span> %
-                                      </span>
-                                    </h6>
+                                <div className="row row-cols-auto">
+                                  <div className="col ">
+                                    <h5 className="my-2 sm-h5">
+                                    Expected Rate Of Return :
+                                    </h5>
+                                  </div>
+                                  <div className="col-2 ">
+                                    <h5
+                                      className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
+                                      id="calc-rate_value">
+                                      5 %
+                                    </h5>
                                   </div>
                                 </div>
+                             
                                 <div className="row">
                                   <div className="col-lg">
                                     <input
                                       type="range"
-                                      class="form-range"
+                                      className="form-range"
                                       min="1"
                                       max="30"
                                       step="0.1"
@@ -1108,25 +1208,25 @@ export default class Dashboard extends Component {
                                   </div>
                                 </div>
                                 <hr />
-                                <div className="row">
-                                  <div className="col-lg">
-                                    <h6 class="mb-0 d-flex align-items-center pb-3 pt-2">
-                                      Time Period :
-                                      <span
-                                        class="badge bg-light text-dark"
-                                        id="calc-time_value"
-                                      >
-                                        {" "}
-                                        10
-                                      </span>
-                                    </h6>
+                                <div className="row row-cols-auto">
+                                  <div className="col ">
+                                    <h5 className="my-2 sm-h5">
+                                    Time Period :
+                                    </h5>
+                                  </div>
+                                  <div className="col-2 ">
+                                    <h5
+                                      className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
+                                      id="calc-time_value">
+                                      10 Yr
+                                    </h5>
                                   </div>
                                 </div>
                                 <div className="row">
                                   <div className="col-lg">
                                     <input
                                       type="range"
-                                      class="form-range"
+                                      className="form-range"
                                       min="1"
                                       max="40"
                                       step="1"
@@ -1138,15 +1238,15 @@ export default class Dashboard extends Component {
                                 </div>
                                 <hr />
                                 <div className="row px-3">
-                                  <div class="col-lg card text-center mx-1 p-0 text-white bg-primary">
-                                    <div class="card-header">
+                                  <div className="col-lg card text-center mx-1 p-0 text-white bg-primary">
+                                    <div className="card-header sm-h5">
                                       Invested Amount
                                     </div>
 
-                                    <div class="card-body">
+                                    <div className="card-body">
                                       <div className="row">
                                         <h5
-                                          class="card-title m-0 "
+                                          className="card-title m-0 "
                                           id="calc-total_investment"
                                         >
                                           {" "}
@@ -1156,13 +1256,13 @@ export default class Dashboard extends Component {
                                     </div>
                                   </div>
 
-                                  <div class="col-lg card text-center p-0 mx-1 bg-lvlgreen text-dark">
-                                    <div class="card-header">
+                                  <div className="col-lg card text-center p-0 mx-1 bg-yellow text-dark">
+                                    <div className="card-header sm-h5">
                                       Estimated returns
                                     </div>
-                                    <div class="card-body">
+                                    <div className="card-body">
                                       <h5
-                                        class="card-title m-0"
+                                        className="card-title m-0"
                                         id="calc-estimated_return"
                                       >
                                         179646
@@ -1170,11 +1270,11 @@ export default class Dashboard extends Component {
                                     </div>
                                   </div>
 
-                                  <div class="col-lg card text-center mx-1 p-0 text-white bg-secondary">
-                                    <div class="card-header">Total returns</div>
-                                    <div class="card-body">
+                                  <div className="col-lg card text-center mx-1 p-0 text-white bg-secondary">
+                                    <div className="card-header sm-h5">Total returns</div>
+                                    <div className="card-body">
                                       <h5
-                                        class="card-title m-0"
+                                        className="card-title m-0"
                                         id="calc-total_return"
                                       >
                                         779646
@@ -1188,7 +1288,7 @@ export default class Dashboard extends Component {
                         </div>
                         <div className="mb-4 mb-lg-0 col-lg-5">
                           <div className="h-100">
-                            <div className="h-100 card">
+                            <div className="h-100 card bg-dark">
                               <div className="card-body pt-5 px-0 pb-0">
                                 <div className="pt-4">
                                   <DonutChart
@@ -1203,7 +1303,7 @@ export default class Dashboard extends Component {
                       </div>
                       <div className="row pt-4">
                         <div className="mb-5 mb-lg-0 ">
-                          <div className="card mb-5 mb-lg-0">
+                          <div className="card mb-5 mb-lg-0 bg-dark text-light">
                             <div className="card-header">
                               <div className="card-heading">Fund Ranking</div>
                             </div>

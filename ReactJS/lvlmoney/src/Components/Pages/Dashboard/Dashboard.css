@@ -12,6 +12,9 @@
 .bg-fadeLight {
   background-color: var(--lvl_fadeLight);
 }
+.bg-yellow{
+  background-color: var(--lvl_yellow);
+}
 .bg-dark{
   background-color: var(--lvl_fadeDark) !important;
 }
@@ -29,7 +32,9 @@
   background-color: var(--lvl_fadeDark) !important;
   color: #fff !important;
 }
-
+.sm-h5{
+  font-size: 1.1em;
+}
 
 .nothing_searched{
   width: 100%;

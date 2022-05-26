@@ -8,6 +8,7 @@ import Support.google_sheets
 import Model.Forecasting.auto_train
 import Model.MarketSentiment.auto_mood
 import Model.SectorRanking.auto_fetch
+import Extras.getstocks_list
 
 
 @api_view(["POST"])
@@ -135,4 +136,7 @@ def marketmood(request):
 def sectorleaders(request):
     return Response(Model.SectorRanking.auto_fetch.sector_leaders("Fetch"))
 
-
+@api_view(["GET"])
+def getstocks(request):
+    data=Extras.getstocks_list.get_stocks() 
+    return Response({'data':data})

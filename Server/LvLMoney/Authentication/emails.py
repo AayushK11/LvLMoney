@@ -9,8 +9,8 @@ import codecs
 # import LvLMoney.config
 
 BASE_PATH = Path(__file__).parent.parent
-# WEBSITE_PATH = "http://localhost:3000/"
-WEBSITE_PATH = "https://lvlmoney.netlify.app/"
+WEBSITE_PATH = "http://localhost:3000/"
+# WEBSITE_PATH = "https://lvlmoney.netlify.app/"
 
 
 def registration_email(name, email):
