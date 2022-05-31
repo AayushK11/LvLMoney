@@ -11,4 +11,5 @@ urlpatterns = [
     path("marketmood/", views.marketmood),
     path("sectorleaders/", views.sectorleaders),
     path("getstocks/", views.getstocks),
+    path("getindices/", views.getIndices),
 ]

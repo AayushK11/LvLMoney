@@ -9,6 +9,7 @@ import Model.Forecasting.auto_train
 import Model.MarketSentiment.auto_mood
 import Model.SectorRanking.auto_fetch
 import Extras.getstocks_list
+import Extras.get_indices
 
 
 @api_view(["POST"])
@@ -140,3 +141,8 @@ def sectorleaders(request):
 def getstocks(request):
     data=Extras.getstocks_list.get_stocks() 
     return Response({'data':data})
+
+@api_view(["GET"])
+def getIndices(request):
+    data=Extras.get_indices.get_major_indices() 
+    return Response(data)
