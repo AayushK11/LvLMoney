@@ -2,7 +2,9 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 
-export const MarketMood = ({ marketmood_data }) => {
+export const MarketMood = ( { marketmood_data } ) =>
+{
+ 
   const MMioptions = {
     chart: {
       height: 350,
@@ -11,8 +13,8 @@ export const MarketMood = ({ marketmood_data }) => {
     },
     plotOptions: {
       radialBar: {
-        startAngle: -135,
-        endAngle: 135,
+        startAngle: -130,
+        endAngle: 130,
         dataLabels: {
           name: {
             fontSize: "16px",
@@ -48,6 +50,7 @@ export const MarketMood = ({ marketmood_data }) => {
     <Chart
       options={MMioptions}
       series={[marketmood_data]}
+      // series={[51.82]}
       type="radialBar"
       height={ 350 }
       

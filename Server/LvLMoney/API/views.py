@@ -129,7 +129,7 @@ def forecast(request):
 @api_view(["GET"])
 def marketmood(request):
     Index, Day = Model.MarketSentiment.auto_mood.auto_train(requirement="Fetch")
-    return Response({"Index": Index, "Day": Day})
+    return Response({"Index": float(Index), "Day": Day})
 
 
 @api_view(["GET"])

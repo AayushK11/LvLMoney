@@ -58,7 +58,7 @@ def register_stage_four(request):
     """
     if request["TOTP"] == Authentication.security.two_factor_now(
         Authentication.security.hash_details(request["Username"]),
-        Authentication.security.hash_details(request["Password"]),
+       
     ):
         AuthenticationDB.objects.filter(
             Username=Authentication.security.hash_details(request["Username"])

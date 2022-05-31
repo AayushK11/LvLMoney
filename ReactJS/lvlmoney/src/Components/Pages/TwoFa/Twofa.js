@@ -10,13 +10,14 @@ export default class Twofa extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: window.location.href,
+      url: window.location.origin,
       TwoFactorLevel: 0,
       Username: "",
       Password: "",
       Link: "",
       TOTP: "",
     };
+    this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.validateInput = this.validateInput.bind(this);
@@ -106,29 +107,38 @@ export default class Twofa extends Component {
             alert("Something Went Wrong");
           }
         });
-      }
-      if (this.state.TwoFactorLevel === 2) {
-        axios
-          .post(Server_Path.concat("register/"), {
-            Username: this.state.Username,
-              Password: this.state.Password,
-                TOTP: this.state.TOTP,
-          })
-          .then((res) => {
-              if (res.data === "Valid") {
-                  this.setState({
-                      TwoFactorLevel: this.state.TwoFactorLevel + 1,
-                  });
-              }
-              else { alert("Invalid TOTP") }
-          })
-          .catch((e) => {
-            console.log(e);
-            if (!e.Status) {
-              alert("Something Went Wrong");
-            }
-          });
-      }
+    }
+    if (this.state.TwoFactorLevel === 2) {
+      axios
+        .post(Server_Path.concat("register/"), {
+          Username: this.state.Username,
+          Password: this.state.Password,
+          TOTP: this.state.TOTP,
+        })
+        .then((res) => {
+          if (res.data === "Valid") {
+            this.setState({
+              TwoFactorLevel: this.state.TwoFactorLevel + 1,
+            });
+          } else {
+            alert("Invalid TOTP");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          if (!e.Status) {
+            alert("Something Went Wrong");
+          }
+        });
+    }
+  }
+  generateURLs() {
+    this.setState({
+      login: this.state.url.concat("/login"),
+    });
+  }
+  componentDidMount() {
+    this.generateURLs();
   }
 
   render() {
@@ -312,87 +322,86 @@ export default class Twofa extends Component {
               );
             }
             if (this.state.TwoFactorLevel === 2) {
-                return (
-                  <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
-                    <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
-                      <div className="card overflow-hidden z-index-1  rightdiv ">
-                        <div className="card-body p-0 ">
-                          <div className="row g-0 h-100 ">
-                            <div className="col-md-5 text-center bg-dark ">
-                              <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
-                                <div className="bg-holder bg-auth-card-shape"></div>
-  
-                                <div className="z-index-1 position-relative">
-                                  <a
-                                    className="mb-4 d-inline-block"
-                                    href={window.location.origin.concat("/")}
-                                  >
-                                    <img
-                                      src={logo}
-                                      className="navbar-logo"
-                                      alt="navbarLogo"
-                                    />
-                                  </a>
-                                  <p className="opacity-75 text-white">
-                                    With the power of AI, you can now focus on
-                                    your life, while leaving investing on us!
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                <p className="pt-3 text-white">
-                                  Have an account?
-                                  <br />
-                                  <a
-                                    className="btn btn-outline-info  mt-2 px-4"
-                                    href={this.state.login}
-                                  >
-                                    Log In
-                                  </a>
+              return (
+                <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
+                  <div className="col-lg-8 col-xxl-5 py-3 position-relative  ">
+                    <div className="card overflow-hidden z-index-1  rightdiv ">
+                      <div className="card-body p-0 ">
+                        <div className="row g-0 h-100 ">
+                          <div className="col-md-5 text-center bg-dark ">
+                            <div className="position-relative p-4 pt-md-5 pb-md-7 dark">
+                              <div className="bg-holder bg-auth-card-shape"></div>
+
+                              <div className="z-index-1 position-relative">
+                                <a
+                                  className="mb-4 d-inline-block"
+                                  href={window.location.origin.concat("/")}
+                                >
+                                  <img
+                                    src={logo}
+                                    className="navbar-logo"
+                                    alt="navbarLogo"
+                                  />
+                                </a>
+                                <p className="opacity-75 text-white">
+                                  With the power of AI, you can now focus on
+                                  your life, while leaving investing on us!
                                 </p>
                               </div>
                             </div>
-                            <div className="col-md-7 d-flex flex-center">
-                              <div className="p-4 p-md-5 flex-grow-1">
-                                <h3>Two Factor</h3>
-                                <form>
-                                  <div className="mb-3 ">
-                                    <label className="form-label" for="card-name">
-                                      TOTP 
-                                    </label>
-                                    <input
-                                      className="form-control"
-                                      autocomplete="on"
-                                      onChange={this.onChange}
-                                      value={this.state.TOTP}
-                                      type="text"
-                                      id="TOTP"
-                                      name="TOTP"
-                                    />
-                                  </div>
-                                  
-  
-                                  <div className="mb-3">
-                                    <button
-                                      className="btn btn-primary d-block w-100 mt-3"
-                                      type="submit"
-                                      name="submit"
-                                      id="next"
-                                      onClick={this.onClick}
-                                    >
-                                      Verify
-                                    </button>
-                                  </div>
-                                </form>
-                              </div>
+                            <div className="mt-3 mb-4 mt-md-4 mb-md-5 light">
+                              <p className="pt-3 text-white">
+                                Have an account?
+                                <br />
+                                <a
+                                  className="btn btn-outline-info  mt-2 px-4"
+                                  href={this.state.login}
+                                >
+                                  Log In
+                                </a>
+                              </p>
+                            </div>
+                          </div>
+                          <div className="col-md-7 d-flex flex-center">
+                            <div className="p-4 p-md-5 flex-grow-1">
+                              <h3>Two Factor</h3>
+                              <form>
+                                <div className="mb-3 ">
+                                  <label className="form-label" for="card-name">
+                                    TOTP
+                                  </label>
+                                  <input
+                                    className="form-control"
+                                    autocomplete="on"
+                                    onChange={this.onChange}
+                                    value={this.state.TOTP}
+                                    type="text"
+                                    id="TOTP"
+                                    name="TOTP"
+                                  />
+                                </div>
+
+                                <div className="mb-3">
+                                  <button
+                                    className="btn btn-primary d-block w-100 mt-3"
+                                    type="submit"
+                                    name="submit"
+                                    id="next"
+                                    onClick={this.onClick}
+                                  >
+                                    Verify
+                                  </button>
+                                </div>
+                              </form>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                );
-              }
+                </div>
+              );
+            }
             if (this.state.TwoFactorLevel === 3) {
               return (
                 <div className="row min-vh-100  register d-flex align-items-center justify-content-center g-0 ">
@@ -419,9 +428,9 @@ export default class Twofa extends Component {
                                   Congratuations
                                 </h4>
                                 <p className="opacity-75 text-white">
-                                  Your LvLMoney Account has been created.{" "}
-                                  <br></br> Please check your email for
-                                  confirmation.
+                                  Your LvLMoney Account has been Secured.{" "}
+                                  <br></br> Two Factor Authentication has been
+                                  enabled.
                                 </p>
                               </div>
                             </div>

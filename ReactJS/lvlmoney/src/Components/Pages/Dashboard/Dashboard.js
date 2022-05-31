@@ -13,8 +13,6 @@ import minicardimg from "../../Images/minicardimg.png";
 import axios from "axios";
 import Server_Path from "../../Parts/Server/Server.js";
 
-
-
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -30,21 +28,20 @@ export default class Dashboard extends Component {
       prev_close: 0,
       marketmood_data: 0,
       fc_prevC: 0,
-      fc_day:0,
-      fc_midweek:0,
-      fc_week:0,
-      fc_month:0,
-      fc_m1:0,
-      fc_m2:0,
-      fc_m3:0,
-
-      
+      fc_day: 0,
+      fc_midweek: 0,
+      fc_week: 0,
+      fc_month: 0,
+      fc_m1: 0,
+      fc_m2: 0,
+      fc_m3: 0,
     };
     this.generateURLs = this.generateURLs.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.get_stocks = this.get_stocks.bind( this );
+    this.get_stocks = this.get_stocks.bind(this);
     this.getMood = this.getMood.bind( this );
+   
   }
   onClick(event) {
     event.preventDefault();
@@ -56,99 +53,121 @@ export default class Dashboard extends Component {
         ),
         prev_search: this.state.search,
       });
-    } else if(event.target.id === "prediction_button"){
+    } else if (event.target.id === "prediction_button") {
       axios
         .post(Server_Path.concat("forecast/"), {
           TickerName: this.state.search,
         })
-        .then( ( res ) =>
-        {
-       
-          this.setState( { prev_close: res.data[ "PrevClose" ] } );
+        .then((res) => {
+          this.setState({ prev_close: res.data["PrevClose"] });
           this.setState({ day_forecast: res.data["Day"] });
-          this.setState({ week_forecast: res.data["Week"]});
-          this.setState( { month_forecast: res.data[ "Month" ] } );
+          this.setState({ week_forecast: res.data["Week"] });
+          this.setState({ month_forecast: res.data["Month"] });
 
           var percent_sign = "%";
 
           // change calc
-          
+
           var day_change = this.state.day_forecast - this.state.prev_close;
           var week_change = this.state.week_forecast - this.state.prev_close;
           var month_change = this.state.month_forecast - this.state.prev_close;
 
           // percent change calc
-          var day_percent = ( day_change / this.state.prev_close ) * 100;
-          document.getElementById( "day_p" ).innerHTML = day_percent.toFixed( 2 ).concat( percent_sign );
+          var day_percent = (day_change / this.state.prev_close) * 100;
+          document.getElementById("day_p").innerHTML = day_percent
+            .toFixed(2)
+            .concat(percent_sign);
 
-          var week_percent = ( week_change / this.state.prev_close ) * 100;
-          document.getElementById( "week_p" ).innerHTML = week_percent.toFixed( 2 ).concat( percent_sign );
+          var week_percent = (week_change / this.state.prev_close) * 100;
+          document.getElementById("week_p").innerHTML = week_percent
+            .toFixed(2)
+            .concat(percent_sign);
 
-          var month_percent = ( month_change / this.state.prev_close ) * 100;
-          document.getElementById( "month_p" ).innerHTML = month_percent.toFixed( 2 ).concat( percent_sign );
+          var month_percent = (month_change / this.state.prev_close) * 100;
+          document.getElementById("month_p").innerHTML = month_percent
+            .toFixed(2)
+            .concat(percent_sign);
 
-         
-        //  day
-          document.getElementById( "day_c" ).innerHTML = day_change.toFixed( 2 );
-          
-         
-          
-          if ( day_change > 0 )
-          {
-            document.getElementById( "day_c" ).style.color = "#198754";
-            document.getElementById( "day_p" ).style.color = "#198754";
-            document.getElementById( "day_forecast_icon" ).style.color = "#198754";
-            
-            document.getElementById( "day_icon_path" ).setAttribute( "d", "M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z" );
-          }
-          else if ( day_change < 0 )
-          {
-            
-            document.getElementById( "day_c" ).style.color = "#dc3545";
-            document.getElementById( "day_p" ).style.color = "#dc3545";
-            document.getElementById( "day_forecast_icon" ).style.color = "#dc3545";
-            
-            document.getElementById( "day_icon_path" ).setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
-            
+          //  day
+          document.getElementById("day_c").innerHTML = day_change.toFixed(2);
+
+          if (day_change > 0) {
+            document.getElementById("day_c").style.color = "#198754";
+            document.getElementById("day_p").style.color = "#198754";
+            document.getElementById("day_forecast_icon").style.color =
+              "#198754";
+
+            document
+              .getElementById("day_icon_path")
+              .setAttribute(
+                "d",
+                "M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+              );
+          } else if (day_change < 0) {
+            document.getElementById("day_c").style.color = "#dc3545";
+            document.getElementById("day_p").style.color = "#dc3545";
+            document.getElementById("day_forecast_icon").style.color =
+              "#dc3545";
+
+            document
+              .getElementById("day_icon_path")
+              .setAttribute(
+                "d",
+                "M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              );
           }
           // Week
-          document.getElementById( "week_c" ).innerHTML = week_change.toFixed( 2 );
-          if ( week_change > 0 )
-          {
-            document.getElementById( "week_c" ).style.color = "#198754";
-            document.getElementById( "week_p" ).style.color = "#198754";
-            document.getElementById( "week_forecast_icon" ).style.color = "#198754";
-            document.getElementById("week_icon_path").setAttribute("d","M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z")
+          document.getElementById("week_c").innerHTML = week_change.toFixed(2);
+          if (week_change > 0) {
+            document.getElementById("week_c").style.color = "#198754";
+            document.getElementById("week_p").style.color = "#198754";
+            document.getElementById("week_forecast_icon").style.color =
+              "#198754";
+            document
+              .getElementById("week_icon_path")
+              .setAttribute(
+                "d",
+                "M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+              );
+          } else if (week_change < 0) {
+            document.getElementById("week_c").style.color = "#dc3545";
+            document.getElementById("week_p").style.color = "#dc3545";
+            document.getElementById("week_forecast_icon").style.color =
+              "#dc3545";
+            document
+              .getElementById("week_icon_path")
+              .setAttribute(
+                "d",
+                "M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              );
+          }
 
-          }
-          else if ( week_change < 0 )
-          {
-            document.getElementById( "week_c" ).style.color = "#dc3545";
-            document.getElementById( "week_p" ).style.color = "#dc3545";
-            document.getElementById( "week_forecast_icon" ).style.color = "#dc3545";
-            document.getElementById("week_icon_path").setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
-          }
-          
           // Month
-          document.getElementById( "month_c" ).innerHTML = month_change.toFixed( 2 );
-          if ( month_change > 0 )
-          { 
-            document.getElementById( "month_c" ).style.color = "#198754";
-            document.getElementById( "month_p" ).style.color = "#198754";
-            document.getElementById( "month_forecast_icon" ).style.color = "#198754";
-            document.getElementById("month_icon_path").setAttribute("d","M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z")
+          document.getElementById("month_c").innerHTML =
+            month_change.toFixed(2);
+          if (month_change > 0) {
+            document.getElementById("month_c").style.color = "#198754";
+            document.getElementById("month_p").style.color = "#198754";
+            document.getElementById("month_forecast_icon").style.color =
+              "#198754";
+            document
+              .getElementById("month_icon_path")
+              .setAttribute(
+                "d",
+                "M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+              );
+          } else if (month_change < 0) {
+            document.getElementById("month_c").style.color = "#dc3545";
+            document.getElementById("month_p").style.color = "#dc3545";
+            document.getElementById("month_forecast_icon").style.color =
+              "#dc3545";
+            document
+              .getElementById("month_icon_path")
+              .setAttribute(
+                "d",
+                "M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
+              );
           }
-          else if ( month_change < 0 )
-          { 
-            document.getElementById( "month_c" ).style.color = "#dc3545";
-            document.getElementById( "month_p" ).style.color = "#dc3545";
-            document.getElementById( "month_forecast_icon" ).style.color = "#dc3545";
-            document.getElementById("month_icon_path").setAttribute("d","M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z")
-          }
-         
-          
-         
-          
         })
         .catch((e) => {
           console.log(e);
@@ -162,6 +181,7 @@ export default class Dashboard extends Component {
   generateURLs() {
     this.setState({
       register: this.state.url.concat("/register"),
+      blog_1: this.state.url.concat("/blog_1"),
     });
   }
 
@@ -169,6 +189,7 @@ export default class Dashboard extends Component {
     this.generateURLs();
     this.get_stocks();
     this.getMood();
+  
 
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -239,23 +260,24 @@ export default class Dashboard extends Component {
 
     document.getElementById("tape").appendChild(script);
   }
-  getMood ()
-  {
+  getMood() {
     axios
-    .get(Server_Path.concat("marketmood/"))
-      .then( ( res ) =>
-      {
-        var marketmood_data = res.data[ 'Index' ];
-        this.setState( { marketmood_data: marketmood_data } );
-        console.log( res.data[ "Index" ] );
-    })
-    .catch((e) => {
-      console.log(e);
-      if (!e.Status) {
-        alert("Something Went Wrong");
-      }
-    });
-   }
+      .get(Server_Path.concat("marketmood/"))
+      .then((res) => {
+        if (res.data["Index"] >= 50.0 && res.data["Index"] <= 69.99) {
+          this.setState({ marketmood_data: 70 });
+        } else {
+          this.setState({ marketmood_data: res.data["Index"] });
+        }
+       
+      })
+      .catch((e) => {
+        console.log(e);
+        if (!e.Status) {
+          alert("Something Went Wrong");
+        }
+      });
+  }
   onChange(event) {
     event.preventDefault();
     if (event.target.id === "search_input") {
@@ -268,25 +290,33 @@ export default class Dashboard extends Component {
 
       switch (parameterName) {
         case "amount":
-          var rupee = "₹ "
-          document.getElementById("calc-amount_value").innerHTML = rupee.concat(input_value);
+          var rupee = "₹ ";
+          document.getElementById("calc-amount_value").innerHTML =
+            rupee.concat(input_value);
           break;
         case "rate":
-          var percent=" %"
-          document.getElementById("calc-rate_value").innerHTML = input_value.concat(percent);
+          var percent = " %";
+          document.getElementById("calc-rate_value").innerHTML =
+            input_value.concat(percent);
           break;
         case "time":
-          var year=" Yr"
-          document.getElementById("calc-time_value").innerHTML = input_value.concat(year);
+          var year = " Yr";
+          document.getElementById("calc-time_value").innerHTML =
+            input_value.concat(year);
           break;
         default:
           break;
       }
-      
-      
-      var calc_amount = document.getElementById( "calc-amount_value" ).innerHTML.split("₹ ")[1];
-      var calc_rate = document.getElementById("calc-rate_value").innerHTML.split(" %")[0];
-      var calc_time = document.getElementById("calc-time_value").innerHTML.split(" Yr")[0];
+
+      var calc_amount = document
+        .getElementById("calc-amount_value")
+        .innerHTML.split("₹ ")[1];
+      var calc_rate = document
+        .getElementById("calc-rate_value")
+        .innerHTML.split(" %")[0];
+      var calc_time = document
+        .getElementById("calc-time_value")
+        .innerHTML.split(" Yr")[0];
 
       var total_investment = calc_amount * calc_time * 12;
 
@@ -304,16 +334,16 @@ export default class Dashboard extends Component {
 
       // lumpsun return calculation
       // var lumpsun_return = calc_amount*(1+calc_rate/100)**calc_time;
-      
-     
-      document.getElementById("calc-total_investment").innerHTML = total_investment;
-      document.getElementById("calc-estimated_return").innerHTML = estimated_return;
+
+      document.getElementById("calc-total_investment").innerHTML =
+        total_investment;
+      document.getElementById("calc-estimated_return").innerHTML =
+        estimated_return;
       document.getElementById("calc-total_return").innerHTML = total_return;
 
       this.setState({
         est_return: estimated_return,
         invst_amount: total_investment,
-
       });
     }
   }
@@ -331,6 +361,9 @@ export default class Dashboard extends Component {
         }
       });
   }
+
+ 
+
 
   render() {
     return (
@@ -467,16 +500,65 @@ export default class Dashboard extends Component {
                             <div className="card-body">
                               <div id="chart">
                                 <ForecastChart
-                                  fc_prevC={Math.round(this.state.prev_close + 'e2')+"e-2"}
-                                  fc_day={Math.round(this.state.day_forecast + 'e2')+"e-2"}
-                                  fc_midweek={Math.round((this.state.prev_close+this.state.week_forecast)/2 + 'e2')+"e-2"}
-                                  fc_week={ Math.round( this.state.week_forecast + 'e2' ) + "e-2" }
-                                  fc_month={ Math.round( this.state.month_forecast + 'e2' ) + "e-2" }
-                                  fc_m2={ Math.round( ( this.state.prev_close + this.state.month_forecast ) / 2 + 'e2' ) + "e-2" }
-                                  fc_m1={ Math.round( ( ( ( this.state.prev_close + this.state.month_forecast ) / 2 ) + this.state.prev_close ) / 2 + 'e2' ) + "e-2" }
-                                  fc_m3={ Math.round( ( ( ( this.state.prev_close + this.state.month_forecast ) / 2 ) + this.state.month_forecast ) / 2 + 'e2' ) + "e-2" }
+                                  fc_prevC={
+                                    Math.round(this.state.prev_close + "e2") +
+                                    "e-2"
+                                  }
+                                  fc_day={
+                                    Math.round(this.state.day_forecast + "e2") +
+                                    "e-2"
+                                  }
+                                  fc_midweek={
+                                    Math.round(
+                                      (this.state.prev_close +
+                                        this.state.week_forecast) /
+                                        2 +
+                                        "e2"
+                                    ) + "e-2"
+                                  }
+                                  fc_week={
+                                    Math.round(
+                                      this.state.week_forecast + "e2"
+                                    ) + "e-2"
+                                  }
+                                  fc_month={
+                                    Math.round(
+                                      this.state.month_forecast + "e2"
+                                    ) + "e-2"
+                                  }
+                                  fc_m2={
+                                    Math.round(
+                                      (this.state.prev_close +
+                                        this.state.month_forecast) /
+                                        2 +
+                                        "e2"
+                                    ) + "e-2"
+                                  }
+                                  fc_m1={
+                                    Math.round(
+                                      ((this.state.prev_close +
+                                        this.state.month_forecast) /
+                                        2 +
+                                        this.state.prev_close) /
+                                        2 +
+                                        "e2"
+                                    ) + "e-2"
+                                  }
+                                  fc_m3={
+                                    Math.round(
+                                      ((this.state.prev_close +
+                                        this.state.month_forecast) /
+                                        2 +
+                                        this.state.month_forecast) /
+                                        2 +
+                                        "e2"
+                                    ) + "e-2"
+                                  }
                                 />
-                                <h5 className="text-white"> Previous Close : { this.state.prev_close}</h5>
+                                <h5 className="text-white">
+                                  {" "}
+                                  Previous Close : {this.state.prev_close}
+                                </h5>
                               </div>
                             </div>
                           </div>
@@ -491,7 +573,8 @@ export default class Dashboard extends Component {
                                       <button
                                         className="btn btn-success btn-lg  px-5 w-100 card-widget "
                                         onClick={this.onClick}
-                                        id="prediction_button">
+                                        id="prediction_button"
+                                      >
                                         Predict
                                       </button>
                                     </div>
@@ -504,7 +587,9 @@ export default class Dashboard extends Component {
                                     Day Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1" >{this.state.day_forecast}</h5>
+                                    <h5 className="mb-1">
+                                      {this.state.day_forecast}
+                                    </h5>
                                     <div>
                                       <svg
                                         aria-hidden="true"
@@ -522,10 +607,14 @@ export default class Dashboard extends Component {
                                           d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
                                         ></path>
                                       </svg>
-                                     
-                                      <h5 className="d-inline-block" id="day_c">0</h5>
+
+                                      <h5 className="d-inline-block" id="day_c">
+                                        0
+                                      </h5>
                                     </div>
-                                    <p className="card-text" id="day_p">0%</p>
+                                    <p className="card-text" id="day_p">
+                                      0%
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -535,7 +624,9 @@ export default class Dashboard extends Component {
                                     Week Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1">{this.state.week_forecast}</h5>
+                                    <h5 className="mb-1">
+                                      {this.state.week_forecast}
+                                    </h5>
                                     <div className="">
                                       <svg
                                         aria-hidden="true"
@@ -553,9 +644,16 @@ export default class Dashboard extends Component {
                                           d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
                                         ></path>
                                       </svg>
-                                      <h5 className="d-inline-block" id="week_c">0</h5>
+                                      <h5
+                                        className="d-inline-block"
+                                        id="week_c"
+                                      >
+                                        0
+                                      </h5>
                                     </div>
-                                    <p className="card-text" id="week_p">0%</p>
+                                    <p className="card-text" id="week_p">
+                                      0%
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -565,8 +663,10 @@ export default class Dashboard extends Component {
                                     Month Forecast
                                   </h6>
                                   <div className="card-body">
-                                    <h5 className="mb-1">{this.state.month_forecast}</h5>
-                                    <div >
+                                    <h5 className="mb-1">
+                                      {this.state.month_forecast}
+                                    </h5>
+                                    <div>
                                       <svg
                                         aria-hidden="true"
                                         focusable="false"
@@ -583,9 +683,16 @@ export default class Dashboard extends Component {
                                           d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"
                                         ></path>
                                       </svg>
-                                      <h5 className="d-inline-block" id="month_c">0</h5>
+                                      <h5
+                                        className="d-inline-block"
+                                        id="month_c"
+                                      >
+                                        0
+                                      </h5>
                                     </div>
-                                    <p className="card-text" id="month_p">0%</p>
+                                    <p className="card-text" id="month_p">
+                                      0%
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -602,9 +709,48 @@ export default class Dashboard extends Component {
                               </div>
                             </div>
                             <div className="card-body">
-                              <p className="text-gray-500 mb-5">
-                                In house Trading strategies
-                              </p>
+                              <div className="card bg-dark text-light">
+                                <div className="card-header">Featured</div>
+                                <div className="card-body ">
+                                  <h5 className="card-title">
+                                    50 / 100 DMA Crossover
+                                  </h5>
+                                  <p className="card-text">
+                                    The 50 DMA / 100 DMA Crossover is a trading
+                                    strategy that takes into account the closing
+                                    price for the last 50 da.....
+                                  </p>
+                                  <a
+                                    href="https://drive.google.com/file/d/1cUO8ycKYVoxyLsTG59nqUqqAH4SNKNnd/view?usp=sharing"
+                                    target="_blank"
+                                    className="btn btn-primary"
+                                    rel="noreferrer"
+                                  >
+                                    Read More
+                                  </a>
+                                </div>
+                              </div>
+                              <div className="card bg-dark text-light mt-4">
+                                <div className="card-header">Featured</div>
+                                <div className="card-body ">
+                                  <h5 className="card-title">
+                                    52W High - 10W Low
+                                  </h5>
+                                  <p className="card-text">
+                                    The 52W High - 10 Low is a trading strategy
+                                    that takes into account the highest price in
+                                    the last 52.....
+                                  </p>
+                                  <a
+                                    href="https://drive.google.com/file/d/121MPvQtNAd6taJ-Xy_bhtUGvrkC0XNW-/view?usp=sharing"
+                                    target="_blank"
+                                    className="btn btn-primary"
+                                    rel="noreferrer"
+                                  >
+                                    Read More
+                                  </a>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -615,12 +761,25 @@ export default class Dashboard extends Component {
                                 Market Sentiment Analysis
                               </div>
                             </div>
-                            <div className="card-body"> 
+                            <div className="card-body">
                               {/* <div className="card-header"></div> */}
                               <MarketMood
-                                marketmood_data={ this.state.marketmood_data }
+                                marketmood_data={this.state.marketmood_data}
                               />
-                            
+
+                              <h6>How to Interpret the MMI?</h6>
+                              <p>
+                                Extreme Fear - A Good Time to Open Fresh Positions and Hold Current Positions.
+                              </p>
+                              <p>
+                                Fear - Selling Pressure but not Oversold. A Decent time to open fresh positions.
+                              </p>
+                              <p>
+                              Greed - Markets are High, but no clear sign of a Bullish Run.
+                              </p>
+                              <p>
+                              Extreme Greed - It is advisable not to open new Positions.
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -1158,7 +1317,8 @@ export default class Dashboard extends Component {
                                   <div className="col-2 ">
                                     <h5
                                       className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
-                                      id="calc-amount_value">
+                                      id="calc-amount_value"
+                                    >
                                       ₹ 5000
                                     </h5>
                                   </div>
@@ -1181,18 +1341,19 @@ export default class Dashboard extends Component {
                                 <div className="row row-cols-auto">
                                   <div className="col ">
                                     <h5 className="my-2 sm-h5">
-                                    Expected Rate Of Return :
+                                      Expected Rate Of Return :
                                     </h5>
                                   </div>
                                   <div className="col-2 ">
                                     <h5
                                       className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
-                                      id="calc-rate_value">
+                                      id="calc-rate_value"
+                                    >
                                       5 %
                                     </h5>
                                   </div>
                                 </div>
-                             
+
                                 <div className="row">
                                   <div className="col-lg">
                                     <input
@@ -1211,13 +1372,14 @@ export default class Dashboard extends Component {
                                 <div className="row row-cols-auto">
                                   <div className="col ">
                                     <h5 className="my-2 sm-h5">
-                                    Time Period :
+                                      Time Period :
                                     </h5>
                                   </div>
                                   <div className="col-2 ">
                                     <h5
                                       className="bg-light text-dark card align-items-end my-2 mx-2 sm-h5"
-                                      id="calc-time_value">
+                                      id="calc-time_value"
+                                    >
                                       10 Yr
                                     </h5>
                                   </div>
@@ -1271,7 +1433,9 @@ export default class Dashboard extends Component {
                                   </div>
 
                                   <div className="col-lg card text-center mx-1 p-0 text-white bg-secondary">
-                                    <div className="card-header sm-h5">Total returns</div>
+                                    <div className="card-header sm-h5">
+                                      Total returns
+                                    </div>
                                     <div className="card-body">
                                       <h5
                                         className="card-title m-0"
@@ -1615,23 +1779,116 @@ export default class Dashboard extends Component {
                 <section className="pb-4 mx-2 ">
                   <div className="container">
                     <div className="container x-4 p-4 card bg-dark ">
-                      <h5 className="card-header section-heading-ms px-0 mb-2 mb-lg-2 text-white">
+                      {/* <h5 className="card-header section-heading-ms px-0 mb-2 mb-lg-2 text-white">
                         Personal Finance
-                      </h5>
-                      <h2 className="text-white">
-                        Sample test questions There are two types of IELTS test
-                        to choose from, IELTS Academic or IELTS General
-                        Training. All test takers take the same Listening and
-                        Speaking tests but different Reading and Writing tests.
-                        Make sure that you prepare for the correct version of
-                        the test. Using IELTS official practice materials will
-                        enable you to: familiarise yourself with the test format
-                        experience the types of tasks you will be asked to
-                        undertake test yourself under timed conditions review
-                        your answers and compare them with model answers. If you
-                        are taking IELTS on Computer, click here for on Computer
-                        sample test questions.
-                      </h2>
+                      </h5> */}
+                      <section className="text-white">
+                        <div className="container px-4 py-5" id="featured-3">
+                          <h3>Personal Finance </h3>{" "}
+                          <p className="pb-2 border-bottom border-primary border-2">
+                            “The best thing money can buy is financial freedom"
+                          </p>
+                          <div className="row g-4 py-2 row-cols-1 row-cols-lg-3">
+                            <div className="feature col">
+                              <div className="feature-icon bg-warning bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2>What Is Personal Finance?</h2>
+                              <p>
+                                Personal Finance revolves around planning and
+                                managing your financials today so you can have a
+                                better tomorrow.
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                            <div className="feature col">
+                              <div className="feature-icon bg-info bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2>Math in Personal Finance</h2>
+                              <p>
+                                One of the most important things to learn about
+                                personal finance is the math that surrounds it.
+                                Once you grasp the mathematics, the rest is
+                                about putting it into practise, and life becomes
+                                much easier.
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                            <div className="feature col">
+                              <div className="feature-icon bg-danger bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2>Magic of compound interest</h2>
+                              <p>
+                                "Compound interest is the eighth wonder of the
+                                world. He who understands it, earns it … he who
+                                doesn't … pays it" - Albert Einstein
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                          </div>
+                          <hr></hr>
+                          <h3>Trading Vs Investing </h3>{" "}
+                          <p className="pb-2 border-bottom border-primary border-2">
+                            "The biggest risk of all is not taking one."
+                          </p>
+                          <div className="row g-4 py-2 row-cols-1 row-cols-lg-3">
+                            <div className="feature col">
+                              <div className="feature-icon bg-warning bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2>Introduction to Stock Markets</h2>
+                              <p>
+                                Investing ensures financial security, and the
+                                Stock market plays a pivotal role in this
+                                domain, it is a place where people buy/sell
+                                shares of publicly listed companies.
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                            <div className="feature col">
+                              <div className="feature-icon bg-info bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2>Technical Analysis</h2>
+                              <p>
+                                Technical Analysis (TA) plays an important role
+                                in developing a point of view. Like every other
+                                research, TA also has its own attributes.
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                            <div className="feature col">
+                              <div className="feature-icon bg-danger bg-gradient">
+                                <hr></hr>
+                              </div>
+                              <h2> Fundamental Analysis</h2>
+                              <p>
+                                Fundamental Analysis (FA) is a comprehensive
+                                approach to researching a company, comprehending
+                                equity research, reading financial statements,
+                                etc. Determining the intrinsic value of a stock
+                                in order to identify long-term investment
+                                opportunities.
+                              </p>
+                              <a href={this.state.blog_1} className="icon-link">
+                                Read More ....
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
                     </div>
                   </div>
                 </section>

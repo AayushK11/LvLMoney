@@ -57,7 +57,7 @@ export default class Login extends Component {
             }
             if (res.data["TwoFA"] === false) {
               document.cookie = "username=".concat(this.state.Username);
-              this.props.history.push("/");
+              this.props.history.push("/dashboard");
             }
           } else if (res.data["Status"] === false) {
             alert("Invalid Details");
@@ -81,7 +81,7 @@ export default class Login extends Component {
         .then((res) => {
           if (res.data["Status"] === true) {
             document.cookie = "username=".concat(this.state.Username);
-            this.props.history.push("/");
+            this.props.history.push("/dashboard");
           } else if (res.data["Status"] === false) {
             alert("Invalid Details");
           }
