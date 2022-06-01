@@ -15,3 +15,12 @@ class AuthenticationDB(models.Model):
     TwoFactorEnabled = models.BooleanField("Two Factor Enabled?", default=False)
 
     Sma50100 = models.BooleanField("SMA 50 / 100 Strategy", default=False)
+
+    PortfolioValue = models.FloatField("Portfolio Value", default=0.0)
+    InvestedValue = models.FloatField("Invested Value", default=0.0)
+
+    DayProjectedValue = models.FloatField("Day Projected Value", default=0.0)
+    WeekProjectedValue = models.FloatField("Week Projected Value", default=0.0)
+    MonthProjectedValue = models.FloatField("Month Projected Value", default=0.0)
+
+    Portfolio = models.TextField("Portfolio", default="")

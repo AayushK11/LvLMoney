@@ -26,3 +26,12 @@ def login_stage_two(request):
     ):
         return True
     return False
+
+
+def login_folio(email, password):
+    if AuthenticationDB.objects.filter(
+        Email=email,
+        Password=Authentication.security.hash_details(password),
+    ).exists():
+        return True
+    return False

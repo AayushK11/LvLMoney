@@ -14,3 +14,7 @@ def userimage(request):
     ).LastName
 
     return UserImage, (str(FirstName) + " " + str(LastName))
+
+
+def userportfolio(email):
+    return AuthenticationDB.objects.get(Email=email)
