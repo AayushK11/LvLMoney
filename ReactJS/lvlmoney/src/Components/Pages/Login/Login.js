@@ -136,7 +136,7 @@ export default class Login extends Component {
   componentDidMount() {
     this.generateURLs();
   }
-
+  
   render() {
     return (
       <>

@@ -3,12 +3,13 @@ import "./MiniCard.css";
 
 import Chart from "react-apexcharts";
 
-export const MiniCard = ({ minititle, price, pricechange, percentchange, imgsrc }) => {
+export const MiniCard = ( { minititle, price, pricechange, percentchange, imgsrc } ) =>
+{
+  
   const series = [
     {
-      name: "series1",
-      data: [31, 40, 10, 51, 42,69,80],
-    },
+      data: minititle === "SENSEX"?(percentchange <0 ? [86,90,65,54,34,56,40] : [15,41,45,73,69,50,61]): minititle ==="BANKNIFTY" ? (percentchange <0 ? [80,69,42,46,10,27,35] : [40,30,45,65,69,42,75]) : (percentchange <0 ? [83,63,37,51,20,44,31] : [10,40,31,70,69,42,51])
+    }
   ]
   const options = {
     chart: {
@@ -42,7 +43,7 @@ export const MiniCard = ({ minititle, price, pricechange, percentchange, imgsrc 
         format: "dd/MM/yy ",
       },
     },
-    colors: ['#198754'],
+    colors: [(percentchange  >0 ?'#198754':'#EA412D')],
     
   }
   
@@ -56,8 +57,8 @@ export const MiniCard = ({ minititle, price, pricechange, percentchange, imgsrc 
                 <h4 className="mb-2">{minititle}</h4>
                 <p className="mb-2">{price}</p>
                 <div className="mb-0">
-                  <span className="badge text-success">{pricechange}</span>
-                  <span className="badge "> {percentchange} </span>
+                  <span className={percentchange > 0? "badge text-success":"badge text-danger" }>{pricechange}</span>
+                  <span className={percentchange > 0? "badge text-success":"badge text-danger" }> {percentchange} </span>
                 </div>
               </div>
               <div className="col-6 align-self-end text-end">

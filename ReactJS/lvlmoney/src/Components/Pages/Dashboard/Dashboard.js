@@ -27,6 +27,12 @@ export default class Dashboard extends Component {
       stock_list: [],
       prev_close: 0,
       marketmood_data: 0,
+      nifty50: 0,
+      nifty50_prevClose: 0,
+      niftybank: 0,
+      niftybank_prevClose: 0,
+      sensex: 0,
+      sensex_prevClose: 0,
       fc_prevC: 0,
       fc_day: 0,
       fc_midweek: 0,
@@ -40,8 +46,8 @@ export default class Dashboard extends Component {
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.get_stocks = this.get_stocks.bind(this);
-    this.getMood = this.getMood.bind( this );
-   
+    this.getMood = this.getMood.bind(this);
+    this.get_indices = this.get_indices.bind(this);
   }
   onClick(event) {
     event.preventDefault();
@@ -186,80 +192,86 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.generateURLs();
-    this.get_stocks();
-    this.getMood();
-  
+    let x = document.cookie;
+    if (x === "") {
+      this.props.history.push("/login");
+    } else {
+      this.generateURLs();
+      this.get_stocks();
+      this.getMood();
+      this.get_indices();
 
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      symbols: [
-        {
-          description: "HINDALCO",
-          proName: "BSE:HINDALCO",
-        },
-        {
-          description: "HDFC",
-          proName: "BSE:HDFC",
-        },
-        {
-          description: "TATASTEEL",
-          proName: "BSE:TATASTEEL",
-        },
-        {
-          description: "ITC",
-          proName: "BSE:ITC",
-        },
-        {
-          description: "TCS",
-          proName: "BSE:TCS",
-        },
-        {
-          description: "WIPRO",
-          proName: "BSE:WIPRO",
-        },
-        {
-          description: "LT",
-          proName: "BSE:LT",
-        },
-        {
-          description: "TITAN",
-          proName: "BSE:TITAN",
-        },
-        {
-          description: "INFY",
-          proName: "BSE:INFY",
-        },
-        {
-          description: "AXISBANK",
-          proName: "BSE:LT",
-        },
-        {
-          description: "NESTLEIND",
-          proName: "BSE:NESTLEIND",
-        },
-        {
-          description: "BAJFINANCE",
-          proName: "BSE:BAJFINANCE",
-        },
-        {
-          description: "HDFCBANK",
-          proName: "BSE:HDFCBANK",
-        },
-      ],
-      showSymbolLogo: true,
-      colorTheme: "dark",
-      isTransparent: true,
-      displayMode: "adaptive",
-      locale: "in",
-    });
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src =
+        "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        symbols: [
+          {
+            description: "HINDALCO",
+            proName: "BSE:HINDALCO",
+          },
+          {
+            description: "HDFC",
+            proName: "BSE:HDFC",
+          },
+          {
+            description: "TATASTEEL",
+            proName: "BSE:TATASTEEL",
+          },
+          {
+            description: "ITC",
+            proName: "BSE:ITC",
+          },
+          {
+            description: "TCS",
+            proName: "BSE:TCS",
+          },
+          {
+            description: "WIPRO",
+            proName: "BSE:WIPRO",
+          },
+          {
+            description: "LT",
+            proName: "BSE:LT",
+          },
+          {
+            description: "TITAN",
+            proName: "BSE:TITAN",
+          },
+          {
+            description: "INFY",
+            proName: "BSE:INFY",
+          },
+          {
+            description: "AXISBANK",
+            proName: "BSE:LT",
+          },
+          {
+            description: "NESTLEIND",
+            proName: "BSE:NESTLEIND",
+          },
+          {
+            description: "BAJFINANCE",
+            proName: "BSE:BAJFINANCE",
+          },
+          {
+            description: "HDFCBANK",
+            proName: "BSE:HDFCBANK",
+          },
+        ],
+        showSymbolLogo: true,
+        colorTheme: "dark",
+        isTransparent: true,
+        displayMode: "adaptive",
+        locale: "in",
+      });
 
-    document.getElementById("tape").appendChild(script);
+      document.getElementById("tape").appendChild(script);
+    }
   }
+
   getMood() {
     axios
       .get(Server_Path.concat("marketmood/"))
@@ -269,7 +281,6 @@ export default class Dashboard extends Component {
         } else {
           this.setState({ marketmood_data: res.data["Index"] });
         }
-       
       })
       .catch((e) => {
         console.log(e);
@@ -278,6 +289,7 @@ export default class Dashboard extends Component {
         }
       });
   }
+
   onChange(event) {
     event.preventDefault();
     if (event.target.id === "search_input") {
@@ -361,9 +373,64 @@ export default class Dashboard extends Component {
         }
       });
   }
+  get_indices() {
+    axios
+      .get(Server_Path.concat("getindices/"))
+      .then((res) => {
+        var percent = " %";
 
- 
+        this.setState({ nifty50: res.data["NIFTY50"] });
+        this.setState({ nifty50_prevClose: res.data["NIFTY50_prev"] });
+        this.setState({ niftybank: res.data["NIFTYBANK"] });
+        this.setState({ niftybank_prevClose: res.data["NIFTYBANK_prev"] });
+        this.setState({ sensex: res.data["SENSEX"] });
+        this.setState({ sensex_prevClose: res.data["SENSEX_prev"] });
 
+        var nifty50_change = this.state.nifty50 - this.state.nifty50_prevClose;
+        nifty50_change = nifty50_change.toFixed(2);
+        var niftybank_change =
+          this.state.niftybank - this.state.niftybank_prevClose;
+        niftybank_change = niftybank_change.toFixed(2);
+        var sensex_change = this.state.sensex - this.state.sensex_prevClose;
+        sensex_change = sensex_change.toFixed(2);
+
+        var percent_nifty50 =
+          (nifty50_change / this.state.nifty50_prevClose) * 100;
+        percent_nifty50 = percent_nifty50.toFixed(2);
+        percent_nifty50 = percent_nifty50.concat(percent);
+        var percent_niftybank =
+          (niftybank_change / this.state.niftybank_prevClose) * 100;
+        percent_niftybank = percent_niftybank.toFixed(2);
+        percent_niftybank = percent_niftybank.concat(percent);
+        var percent_sensex =
+          (sensex_change / this.state.sensex_prevClose) * 100;
+        percent_sensex = percent_sensex.toFixed(2);
+        percent_sensex = percent_sensex.concat(percent);
+
+        this.setState({ nifty50_change: nifty50_change });
+        this.setState({ niftybank_change: niftybank_change });
+        this.setState({ sensex_change: sensex_change });
+        this.setState({ percent_nifty50: percent_nifty50 });
+        this.setState({ percent_niftybank: percent_niftybank });
+        this.setState({ percent_sensex: percent_sensex });
+        // console.log(res.data);
+        // console.log( percent_nifty50 );
+        // console.log( percent_niftybank );
+        // console.log( percent_sensex );
+        // console.log( typeof this.state.nifty50 );
+        // console.log( this.state.nifty50_prevClose );
+        // console.log( this.state.niftybank );
+        // console.log( this.state.niftybank_prevClose );
+        // console.log( this.state.sensex );
+        // console.log( this.state.sensex_prevClose );
+      })
+      .catch((e) => {
+        console.log(e);
+        if (!e.Status) {
+          alert("Something Went Wrong");
+        }
+      });
+  }
 
   render() {
     return (
@@ -388,29 +455,29 @@ export default class Dashboard extends Component {
 
                 <div className="row ">
                   <MiniCardNograph
-                    minititle="Welcome Back Aayush!"
+                    minititle="Welcome Back!!"
                     imgsrc={minicardimg}
                     percentchange="Lets Finance With Ai"
                   />
                   <MiniCard
                     minititle="NIFTY 50"
-                    price="17895"
-                    pricechange="+1.2%"
-                    percentchange="124"
+                    price={this.state.nifty50}
+                    pricechange={this.state.percent_nifty50}
+                    percentchange={this.state.nifty50_change}
                   />
 
                   <MiniCard
                     minititle="BANKNIFTY"
-                    price="37894"
-                    pricechange="-1.2%"
-                    percentchange="201"
+                    price={this.state.niftybank}
+                    pricechange={this.state.percent_niftybank}
+                    percentchange={this.state.niftybank_change}
                   />
 
                   <MiniCard
                     minititle="SENSEX"
-                    price="50115"
-                    pricechange="+1.2%"
-                    percentchange="213"
+                    price={this.state.sensex}
+                    pricechange={this.state.percent_sensex}
+                    percentchange={this.state.sensex_change}
                   />
                 </div>
               </div>
@@ -769,16 +836,20 @@ export default class Dashboard extends Component {
 
                               <h6>How to Interpret the MMI?</h6>
                               <p>
-                                Extreme Fear - A Good Time to Open Fresh Positions and Hold Current Positions.
+                                Extreme Fear - A Good Time to Open Fresh
+                                Positions and Hold Current Positions.
                               </p>
                               <p>
-                                Fear - Selling Pressure but not Oversold. A Decent time to open fresh positions.
+                                Fear - Selling Pressure but not Oversold. A
+                                Decent time to open fresh positions.
                               </p>
                               <p>
-                              Greed - Markets are High, but no clear sign of a Bullish Run.
+                                Greed - Markets are High, but no clear sign of a
+                                Bullish Run.
                               </p>
                               <p>
-                              Extreme Greed - It is advisable not to open new Positions.
+                                Extreme Greed - It is advisable not to open new
+                                Positions.
                               </p>
                             </div>
                           </div>

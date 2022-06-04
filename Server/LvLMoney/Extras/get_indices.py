@@ -15,13 +15,23 @@ def get_major_indices():
         r = requests.get(i)
         t = r.text
         x = re.search("class=\"YMlKec fxKbKc\".*[0-9]+,[0-9]*\\.[0-9]+", t)
+        prev=re.search('class=\"P6K39c\".*[0-9]+,[0-9]*\\.[0-9]+', t)
+
         y=re.findall('[0-9]+,[0-9]*\.[0-9]+',str(x))
+        indice_value=re.sub("[^\d\.]", "", y[0])
+
+        prevC=re.findall('[0-9]+,[0-9]*\.[0-9]+',str(prev))
+        prev_close=re.sub("[^\d\.]", "", prevC[0])
+
         # values.append(y[0])
         if "NIFTY_50" in i:
-            values["NIFTY50"] = y[0]
+            values["NIFTY50"] = float(indice_value)
+            values["NIFTY50_prev"] = float(prev_close)
         elif "NIFTY_BANK" in i:
-            values["NIFTYBANK"] = y[0]
+            values["NIFTYBANK"] = float(indice_value)
+            values["NIFTYBANK_prev"] = float(prev_close)
         elif "SENSEX" in i:
-            values["SENSEX"] = y[0]
+            values["SENSEX"] = float(indice_value)
+            values["SENSEX_prev"] = float(prev_close)
 
     return values
