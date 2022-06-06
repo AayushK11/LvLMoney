@@ -7,8 +7,8 @@ export const MiniCardNograph = ({ minititle, price, pricechange, percentchange, 
   
   return (
   
-      <div className="col col-sm-6 col-xxl-3 d-flex text-white">
-        <div className="card flex-fill bg-dark">
+      <div className="col col-sm-6 col-lg-3 col-xl-3 col-xxl-3 d-flex text-white">
+        <div className="card flex-fill bg-dark mt-2">
           <div className="card-body py-4">
             <div className="d-flex align-items-start">
               <div className="flex-grow-1">

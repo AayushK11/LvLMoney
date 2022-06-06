@@ -8,7 +8,7 @@ export const MiniCard = ( { minititle, price, pricechange, percentchange, imgsrc
   
   const series = [
     {
-      data: minititle === "SENSEX"?(percentchange <0 ? [86,90,65,54,34,56,40] : [15,41,45,73,69,50,61]): minititle ==="BANKNIFTY" ? (percentchange <0 ? [80,69,42,46,10,27,35] : [40,30,45,65,69,42,75]) : (percentchange <0 ? [83,63,37,51,20,44,31] : [10,40,31,70,69,42,51])
+      data: minititle === "SENSEX"?(percentchange <0 ? [86,90,65,54,34,56] : [15,41,45,73,69,50]): minititle ==="BANKNIFTY" ? (percentchange <0 ? [80,69,42,46,10,27] : [40,30,45,65,69,42]) : (percentchange <0 ? [83,63,37,51,20,44] : [10,40,31,70,69,42])
     }
   ]
   const options = {
@@ -49,8 +49,8 @@ export const MiniCard = ( { minititle, price, pricechange, percentchange, imgsrc
   
   return (
   
-      <div className="col col-sm-6 col-xxl-3 d-flex text-white">
-        <div className="card flex-fill bg-dark">
+      <div className="col col-sm-6 col-lg-3 col-xl-3 col-xxl-3 d-flex text-white">
+        <div className="card flex-fill bg-dark mt-2">
           <div className="card-body py-4">
             <div className="d-flex align-items-start">
               <div className="flex-grow-1">

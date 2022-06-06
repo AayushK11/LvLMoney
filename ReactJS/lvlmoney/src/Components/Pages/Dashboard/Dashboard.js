@@ -443,8 +443,8 @@ export default class Dashboard extends Component {
         <div className="dashboard_main">
           <div className="px-lg-4 px-xl-5 container-fluid">
             <section className="dashboard_top_section">
-              <div className="container x-4 py-4 ">
-                <div className="pb-4 ">
+              <div className="container x-4 py-3 ">
+                <div className="pb-2 ">
                   <div
                     className="tradingview-widget-container bg-dark"
                     id="tape"
@@ -493,7 +493,7 @@ export default class Dashboard extends Component {
                 <section className="pb-4 mx-2 ">
                   <div className="container">
                     <div className="bg-lvldark ">
-                      <h5 className="py-3 section-heading-ms px-0 mb-2 mb-lg-2 text-white">
+                      <h5 className="py-2 section-heading-ms px-0 mb-2 mb-lg-2 text-white">
                         STOCKS
                       </h5>
                       <div className="row">
@@ -563,7 +563,7 @@ export default class Dashboard extends Component {
                           </div>
                         </div>
                         <div className="col-lg-8">
-                          <div className="h-100 card bg-dark">
+                          <div className=" d-flex card bg-dark">
                             <div className="card-body">
                               <div id="chart">
                                 <ForecastChart

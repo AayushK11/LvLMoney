@@ -12,22 +12,22 @@ def start():
         Model.Forecasting.auto_train.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="11",
-        minute="05",
+        hour="13",
+        minute="30",
     )
     scheduler.add_job(
         Model.MarketSentiment.auto_mood.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="12",
-        minute="21",
+        hour="13",
+        minute="30",
     )
     scheduler.add_job(
         Model.SectorRanking.auto_fetch.sector_leaders,
         day_of_week="sun",
         trigger="cron",
-        hour="11",
-        minute="05",
+        hour="13",
+        minute="30",
     )
     # scheduler.add_job(
     #     Model.TradingStrategies.Sma_50_100.find_new_stocks,
