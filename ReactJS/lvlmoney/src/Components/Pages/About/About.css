@@ -1,5 +1,5 @@
 .about_main {
-  background-color: #2D2D30;
+  background-color:var(--lvl_dark);
   color: #d6d7e2;
 }
 

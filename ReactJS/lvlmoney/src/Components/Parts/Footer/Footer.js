@@ -18,7 +18,8 @@ export default class Footer extends Component {
       privacypolicy: this.state.url.concat("/privacypolicy"),
       termsandconditions: this.state.url.concat("/termsandconditions"),
       about: this.state.url.concat("/about"),
-      register: this.state.url.concat("/register"),
+      register: this.state.url.concat( "/register" ),
+      login: this.state.url.concat( "/login" ),
   
     });
   }
@@ -76,7 +77,7 @@ export default class Footer extends Component {
               </li>
               <li className="nav-item">
                 <a
-                  href="https://www.google.com/"
+                  href={this.state.login }
                   className="nav-link px-2 text-muted"
                 >
                   Login
