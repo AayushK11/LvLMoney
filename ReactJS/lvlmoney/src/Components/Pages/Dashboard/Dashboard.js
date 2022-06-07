@@ -188,6 +188,8 @@ export default class Dashboard extends Component {
     this.setState({
       register: this.state.url.concat("/register"),
       blog_1: this.state.url.concat("/blog_1"),
+      blog_2: this.state.url.concat("/blog_2"),
+      blog_3: this.state.url.concat("/blog_3"),
     });
   }
 
@@ -1870,7 +1872,7 @@ export default class Dashboard extends Component {
                                 managing your financials today so you can have a
                                 better tomorrow.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_1} className="icon-link" target="_blank" rel="noreferrer" >
                                 Read More ....
                               </a>
                             </div>
@@ -1886,7 +1888,7 @@ export default class Dashboard extends Component {
                                 about putting it into practise, and life becomes
                                 much easier.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_2} className="icon-link" target="_blank" rel="noreferrer" >
                                 Read More ....
                               </a>
                             </div>
@@ -1900,7 +1902,7 @@ export default class Dashboard extends Component {
                                 world. He who understands it, earns it … he who
                                 doesn't … pays it" - Albert Einstein
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_3} className="icon-link" target="_blank" rel="noreferrer" >
                                 Read More ....
                               </a>
                             </div>
