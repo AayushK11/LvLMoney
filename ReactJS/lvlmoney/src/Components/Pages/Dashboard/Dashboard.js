@@ -188,6 +188,8 @@ export default class Dashboard extends Component {
     this.setState({
       register: this.state.url.concat("/register"),
       blog_1: this.state.url.concat("/blog_1"),
+      blog_2: this.state.url.concat("/blog_2"),
+      blog_3: this.state.url.concat("/blog_3"),
     });
   }
 
@@ -1870,7 +1872,7 @@ export default class Dashboard extends Component {
                                 managing your financials today so you can have a
                                 better tomorrow.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_1} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>
@@ -1886,7 +1888,7 @@ export default class Dashboard extends Component {
                                 about putting it into practise, and life becomes
                                 much easier.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_2} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>
@@ -1900,7 +1902,7 @@ export default class Dashboard extends Component {
                                 world. He who understands it, earns it … he who
                                 doesn't … pays it" - Albert Einstein
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_3} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>
@@ -1922,7 +1924,7 @@ export default class Dashboard extends Component {
                                 domain, it is a place where people buy/sell
                                 shares of publicly listed companies.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_1} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>
@@ -1936,7 +1938,7 @@ export default class Dashboard extends Component {
                                 in developing a point of view. Like every other
                                 research, TA also has its own attributes.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_1} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>
@@ -1953,7 +1955,7 @@ export default class Dashboard extends Component {
                                 in order to identify long-term investment
                                 opportunities.
                               </p>
-                              <a href={this.state.blog_1} className="icon-link">
+                              <a href={this.state.blog_1} className="icon-link" target="_blank"  rel="noreferrer">
                                 Read More ....
                               </a>
                             </div>

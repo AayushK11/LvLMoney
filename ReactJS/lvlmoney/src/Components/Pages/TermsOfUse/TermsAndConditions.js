@@ -17,7 +17,7 @@ export default class TermsAndContitions extends React.Component {
       <>
         <div className="termsofuse_main">
           <Helmet>
-            <title>LvLMoney | Privacy Policy</title>
+            <title>LvLMoney | Terms and Conditions</title>
           </Helmet>
           <Navbar />
           <div className="container px-4 py-4">

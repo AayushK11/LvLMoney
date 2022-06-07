@@ -2,417 +2,147 @@ import React from "react";
 import Footer from "../../Parts/Footer/Footer";
 import Navbar from "../../Parts/Navbar/Navbar";
 import "./blog_1.css";
-import $ from "jquery";
 import { Helmet } from "react-helmet";
 
-export default class FAQs extends React.Component {
+export default class Blog_1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       url: window.location.href,
     };
-    this.handleDropdown = this.handleDropdown.bind(this);
-  }
-
-  componentDidMount() {
-    document
-      .getElementsByClassName("faq_account_query")[0]
-      .getElementsByClassName("faq_query_list")[0].style.display = "block";
-    document
-      .getElementsByClassName("faq_account_query")[0]
-      .getElementsByClassName("fas")[0].style.transform = "rotate(180deg)";
-
-    this.handleDropdown();
-  }
-
-  handleDropdown() {
-    $(".faq_account_query .faq_query_heading").on("click", function () {
-      if ($(".faq_account_query .faq_query_list").css("display") === "none") {
-        $(".faq_query_list").hide("slow");
-        $(".fas").css("transform", "rotate(0deg)");
-        $(".faq_account_query .faq_query_list").show("slow");
-        $(".faq_account_query .fas").animate(
-          { deg: 180 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      } else {
-        $(".faq_account_query .faq_query_list").hide("slow");
-        $(".faq_account_query .fas").animate(
-          { deg: 0 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      }
-    });
-    $(".faq_privacy_query .faq_query_heading").on("click", function () {
-      if ($(".faq_privacy_query .faq_query_list").css("display") === "none") {
-        $(".faq_query_list").hide("slow");
-        $(".fas").css("transform", "rotate(0deg)");
-        $(".faq_privacy_query .faq_query_list").show("slow");
-        $(".faq_privacy_query .fas").animate(
-          { deg: 180 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      } else {
-        $(".faq_privacy_query .faq_query_list").hide("slow");
-        $(".faq_privacy_query .fas").animate(
-          { deg: 0 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      }
-    });
-    $(".faq_data_query .faq_query_heading").on("click", function () {
-      if ($(".faq_data_query .faq_query_list").css("display") === "none") {
-        $(".faq_query_list").hide("slow");
-        $(".fas").css("transform", "rotate(0deg)");
-        $(".faq_data_query .faq_query_list").show("slow");
-        $(".faq_data_query .fas").animate(
-          { deg: 180 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      } else {
-        $(".faq_data_query .faq_query_list").hide("slow");
-        $(".faq_data_query .fas").animate(
-          { deg: 0 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      }
-    });
-    $(".faq_organization_query .faq_query_heading").on("click", function () {
-      if (
-        $(".faq_organization_query .faq_query_list").css("display") === "none"
-      ) {
-        $(".faq_query_list").hide("slow");
-        $(".fas").css("transform", "rotate(0deg)");
-        $(".faq_organization_query .faq_query_list").show("slow");
-        $(".faq_organization_query .fas").animate(
-          { deg: 180 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      } else {
-        $(".faq_organization_query .faq_query_list").hide("slow");
-        $(".faq_organization_query .fas").animate(
-          { deg: 0 },
-          {
-            duration: 500,
-            step: function (now) {
-              $(this).css({ transform: "rotate(" + now + "deg)" });
-            },
-          }
-        );
-      }
-    });
   }
 
   render() {
     return (
       <>
-        <div className="faq">
-      <div className="faqs_main">
-        <Helmet>
-          <title>LvLMoney | FAQs</title>
-        </Helmet>
-        <Navbar />
-        <div className="container px-4 py-5"> 
-          <div className="row">
-            <div className="col-lg-9 col-12 faq_query_section">
-              <section className="faq_account_query">
-                <div className="faq_query_heading">
-                  <h4>
-                    <strong>
-                      Account Related&nbsp;
-                      <i className="fas fa-chevron-up"></i>
-                    </strong>
-                  </h4>
-                </div>
-                <div className="faq_query_list row">
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        I got locked out of my account, and now I am not able to
-                        log in again.
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      Getting locked out of your own happens more often than you
-                      would imagine. No worry though, all you need to do is
-                      navigate to{" "}
-                      <span>
-                        <a
-                          href={window.location.origin.concat(
-                            "/forgotpassword"
-                          )}
-                        >
-                          The Forgot Password
-                        </a>{" "}
-                        page and fill out your details. You would receive a
-                        confirmation email with which you can reset your
-                        password. As simple as that.
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        It says my account has been blocked due to security
-                        reasons. What should I do?
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      Now, this is a tricky case. This usually happens when
-                      you've there are more than 3 invalid attempts to log into
-                      your account. To prevent a data breach, and others from
-                      using the account you paid for, we lock the account
-                      automatically. Your account can be unlocked by filling a
-                      ticket on the{" "}
-                      <span>
-                        <a href={window.location.origin.concat("/contactus")}>
-                          Support Form
-                        </a>{" "}
-                        and someone from our team would assist you in resuming
-                        services.
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        I've lost access to my registered email, and now I have
-                        trouble logging in.
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      This can be easily resolved within a few days but for
-                      this, you would need to contact the support team by filing
-                      a{" "}
-                      <span>
-                        <a href={window.location.origin.concat("/contactus")}>
-                          Support Form
-                        </a>{" "}
-                        and provide your "new" email you would like to migrate
-                        the account to
-                      </span>
-                    </h5>
-                  </div>
-                </div>
-              </section>
-              <section className="faq_privacy_query">
-                <div className="faq_query_heading">
-                  <h4>
-                    <strong>
-                      Privacy Related&nbsp;
-                      <i className="fas fa-chevron-up"></i>
-                    </strong>
-                  </h4>
-                </div>
-                <div className="faq_query_list row">
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        Why do we ask for your Card Details / Bank Account
-                        Details?
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      Our Plans are monthly plans which mean we deduct a certain
-                      amount from your account each month to provide you with
-                      services. To prevent the hassle and preventing account
-                      blocking, we automatically deduct the plan amount from
-                      your account. For this, we require either the card details
-                      or the bank account details. And yes, we do inform before
-                      deduction
-                    </h5>
-                  </div>
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        How safe is the data that we have provided?
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      Pretty safe XD. But in all seriousness, we hash every
-                      single data item you provide from your Username, all the
-                      way to your bank account details with a Hashing algorithm
-                      along with a unique salt which shall not be mentioned for
-                      security reasons. Long story short, it is safe.
-                    </h5>
-                  </div>
-                </div>
-              </section>
-              <section className="faq_data_query">
-                <div className="faq_query_heading">
-                  <h4>
-                    <strong>
-                      Data Related&nbsp;
-                      <i className="fas fa-chevron-up"></i>
-                    </strong>
-                  </h4>
-                </div>
-                <div className="faq_query_list row">
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        How do we predict/forecast weather-related attributes?
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      To accurately predict the weather and its related
-                      attributes, we use a State of the Art, a self-made Machine
-                      Learning algorithm, that takes a two-year rolling period
-                      for that particular attribute and learns it. This way, not
-                      only does the model understand the season, it understands
-                      the development of the climate around that area.
-                    </h5>
-                  </div>
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        Where do we get the news and live data from?
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      Live data tends to be tricky. Either we have a source that
-                      specifically sends data to us, or we use open-source data.
-                      We use the latter by scraping the web for live
-                      weather-related news and values continuously hence the
-                      maximum delay between their source sending data and you
-                      reading it would be less than a few minutes.
-                    </h5>
-                  </div>
-                </div>
-              </section>
-              <section className="faq_organization_query">
-                <div className="faq_query_heading">
-                  <h4>
-                    <strong>
-                      Organization Related&nbsp;
-                      <i className="fas fa-chevron-up"></i>
-                    </strong>
-                  </h4>
-                </div>
-                <div className="faq_query_list row">
-                  <div className="question_single">
-                    <h5>
-                      <strong>
-                        How do I apply for an Organizational Account and what
-                        are its benefits
-                      </strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      We provide a special plan with different features and
-                      periods depending on your organization's needs. Along with
-                      that, we provide a bucket strategy where the organization
-                      can choose the features they require and get billed for
-                      them accordingly. To apply for an organizational account,
-                      visit{" "}
-                      <span>
-                        <a
-                          href={window.location.origin.concat(
-                            "/organizationalaccount"
-                          )}
-                        >
-                          Organizational Account
-                        </a>{" "}
-                        and fill out the form. Someone from our sales team will
-                        get in touch with you by the end of the day.
-                      </span>
-                    </h5>
-                  </div>
-                  <div className="question_single">
-                    <h5>
-                      <strong>What is the Bucket Strategy?</strong>
-                    </h5>
-                  </div>
-                  <div className="answer_single">
-                    <h5>
-                      As the name suggests, the organization can choose only the
-                      features they are interested in and get billed for it,
-                      hence "putting your desired features in a basket". <br />{" "}
-                      Let's assume a company QAZWSX is interested in weather and
-                      precipitation but not in the rest, instead of paying for
-                      all 6, that company can pay only for the 2 which can be
-                      modified anytime.
-                    </h5>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div className="col-lg-3 col-12 faq_link_contact_section">
-              <div className="row">
-                <h5>
-                  <strong>Can't Find Your Answer?</strong>
-                </h5>
+        <div className="blog_1_main">
+          <Helmet>
+            <title>LvLMoney | Personal Finance</title>
+          </Helmet>
+          <Navbar />
+          <div className="container px-4 py-5">
+            <div className="row">
+              <div className="col-lg-9 col-12 ">
+                <h2>
+                  <strong>What Is Personal Finance?</strong>
+                </h2>
+
                 <p>
-                  Fill Out a Request on the Support Form, and we'll get back to
-                  you ASAP
+                  Personal finance is a word that encompasses all aspects of
+                  money management, including saving and investing. Budgeting,
+                  banking, insurance, mortgages, investments, retirement
+                  planning, and tax and estate planning are all included under
+                  one umbrella. The phrase is frequently used to describe the
+                  whole industry that offers financial services to people and
+                  families, as well as providing financial and investment
+                  advice.
                 </p>
-                <a
-                  className="faq_link_contact_button"
-                  href={window.location.origin.concat("/contactus")}
-                >
-                  Support Form
-                </a>
+                <p>
+                  Personal finance is concerned with achieving personal
+                  financial objectives, such as having enough money to satisfy
+                  immediate financial demands, planning for retirement, or
+                  investing for your child's college education. It all relies on
+                  your income, costs, living needs, and personal objectives and
+                  desires—as well as devising a strategy to meet those needs
+                  while staying within your financial restrictions. It's
+                  critical to become financially literate in order to discern
+                  between good and bad advise and make informed decisions with
+                  your money and savings.
+                </p>
+                <h3>Ten Personal Finance Strategies</h3>
+                <p>
+                  The sooner you begin financial planning, the better, but it's
+                  never too late to set financial goals that will provide
+                  financial security and independence for you and your family.
+                  Here are some personal finance best practises and advice.
+                </p>
+                <ol>
+                  <li>
+                    <h5> Devise a Budget</h5>
+                    <p>
+                      Living within your means and saving enough to fulfil your
+                      long-term goals require a budget. The 50/30/20 budgeting
+                      strategy is an excellent starting point. This is how it's
+                      broken down: Rent, utilities, groceries, and
+                      transportation use 50% of your take-home pay or net income
+                      (after taxes). Discretionary expenses, such as eating out
+                      and shopping for clothes, receive 30% of the budget.
+                      Donations to charity can also be made here. Twenty percent
+                      is set aside for the future, such as debt repayment and
+                      emergency savings.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Limit Debt</h5>
+                    <p>
+                    It seems simple enough: don't spend more than you make to avoid going into debt. Of all, most people must borrow from time to time, and going into debt can be beneficial in some cases—for example, if it leads to the acquisition of an asset. Taking out a mortgage to purchase a home is one example. Even so, whether you're renting a residence, leasing a car, or even acquiring a subscription to computer software, leasing can sometimes be more cost-effective than owning altogether.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Use Credit Cards Wisely</h5>
+                    <p>
+                    Credit cards can be significant debt traps, yet in today's environment, it's impossible not to have one. They can also be used for purposes other than purchasing goods. They're not only important for building your credit score, but they're also a wonderful method to keep track of your spending, which can help you stick to a budget.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Monitor Your Credit Score</h5>
+                    <p>
+                    Credit cards are the primary means by which your credit score is established and maintained, thus keeping track of your credit spending goes hand in hand with keeping track of your credit score. You'll need a good credit report if you ever want to get a lease, a mortgage, or any other sort of financing..
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Consider Your Family</h5>
+                    <p>
+                    Make a will and, depending on your needs, set up one or more trusts to secure your assets and ensure that your desires are carried out when you pass away. You should also consider auto, house, life, disability, and long-term care insurance (LTC). Review your policy on a regular basis to ensure that it continues to fit your family's needs as life's significant milestones pass.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Pay Off Student Loans</h5>
+                    <p>
+                    Graduates can choose from a variety of loan repayment schemes and payment reduction strategies. Paying off the debt faster if you're stuck with a high interest rate makes sense. Minimizing repayments (to interest alone, for example) can free up cash to invest elsewhere or put into retirement savings while you're still young, when compound interest will benefit your nest egg the most (see tip eight). If a borrower enrols in auto pay, several private and government loans may be eligible for a rate decrease.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Plan and Save for Retirement</h5>
+                    <p>
+                    Retirement may appear to be a long way off, yet it comes far sooner than you think. According to experts, most people will require roughly 80% of their present wage in retirement. 14 The earlier you begin, the more you profit from what financial planners refer to as the "magic of compounding interest," which describes how tiny amounts compound over time.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Maximize Tax Breaks</h5>
+                    <p>
+                    Many people lose hundreds or even thousands of dollars each year as a result of an unnecessarily complicated tax code. By maximising your tax savings, you'll have more money to go toward paying off debts from the past, enjoying the present, and making plans for the future.
+                    </p>
+                  </li>
+                  <li>
+                    <h5> Give Yourself a Break</h5>
+                    <p>
+                    Budgeting and planning can appear to be full of sacrifices. Make sure you treat yourself once in a while. You need to appreciate the results of your labour, whether it's a vacation, a purchase, or a once-in-a-while night out on the town. This provides you a taste of the financial independence you've been striving for.
+                    </p>
+                  </li>
+                </ol>
+              </div>
+              <div className="col-lg-3 col-12 faq_link_contact_section">
+                <div className="row">
+                  <h5>
+                    <strong>Can't Find Your Answer?</strong>
+                  </h5>
+                  <p>
+                    Fill Out a Request on the Support Form, and we'll get back
+                    to you ASAP
+                  </p>
+                  <a
+                    className="faq_link_contact_button"
+                    href={window.location.origin.concat("/contactus")}
+                  >
+                    Support Form
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+          <Footer />
         </div>
-     
-          </div>
-          <div className="footer-div">
-            <Footer />
-            </div>
-        </div>
-        
       </>
     );
   }

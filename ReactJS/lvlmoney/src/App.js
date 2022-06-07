@@ -13,6 +13,8 @@ import ForgotPassword from './Components/Pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
 import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import Blog1 from './Components/Pages/blogs/blog_1';
+import Blog2 from './Components/Pages/blogs/blog_2';
+import Blog3 from './Components/Pages/blogs/blog_3';
 
 function App() {
   return (
@@ -87,6 +89,16 @@ function App() {
               path={"/blog_1"}
               render={(props) => <  Blog1 {...props} />}
           />  
+           <Route
+              exact
+              path={"/blog_2"}
+              render={(props) => <  Blog2 {...props} />}
+          />  
+           <Route
+              exact
+              path={"/blog_3"}
+              render={(props) => <  Blog3 {...props} />}
+          /> 
         </Switch>
         </BrowserRouter>
     </>
