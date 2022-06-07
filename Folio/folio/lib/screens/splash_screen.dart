@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final _email = await myStorage.getItem('Email');
     final _password = await myStorage.getItem('Password');
 
-    const baseURL = 'https://2bc7-171-79-57-138.ngrok.io/api';
+    const baseURL = 'https://6000-171-79-57-138.ngrok.io/api';
     final url = Uri.parse('$baseURL/loginFolio/');
 
     Response response = await post(url, body: {
