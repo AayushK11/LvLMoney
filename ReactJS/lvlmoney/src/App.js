@@ -19,88 +19,88 @@ import Blog3 from './Components/Pages/blogs/blog_3';
 function App() {
   return (
     <>
-     <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path={"/"}
-              render={(props) => <Landing {...props} />}
-          />
-            <Route
-              exact
-              path={"/faq"}
-              render={(props) => <FAQs {...props} />}
-          />
-            <Route
-              exact
-              path={"/privacypolicy"}
-              render={(props) => <PrivacyPolicy {...props} />}
-          />
-            <Route
-              exact
-              path={"/termsandconditions"}
-              render={(props) => <TermsAndConditions {...props} />}
-          />
-           <Route
-              exact
-              path={"/contactus"}
-              render={(props) => <ContactUs {...props} />}
-          />
-           <Route
-              exact
-              path={"/about"}
-              render={(props) => <About {...props} />}
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path={"/"}
+            render={(props) => <Landing {...props} />}
           />
           <Route
-              exact
-              path={"/register"}
-              render={(props) => <Register {...props} />}
+            exact
+            path={"/faq"}
+            render={(props) => <FAQs {...props} />}
           />
           <Route
-              exact
-              path={"/login"}
-              render={(props) => <Login {...props} />}
+            exact
+            path={"/privacypolicy"}
+            render={(props) => <PrivacyPolicy {...props} />}
           />
-           <Route
-              exact
-              path={"/2FA"}
-              render={(props) => <Twofa {...props} />}
-          />
-          
           <Route
-              exact
-              path={"/forgotpassword"}
-              render={(props) => <ForgotPassword {...props} />}
+            exact
+            path={"/termsandconditions"}
+            render={(props) => <TermsAndConditions {...props} />}
           />
-          
           <Route
-              exact
-              path={"/resetpassword"}
-              render={(props) => <ResetPassword {...props} />}
-          />  
+            exact
+            path={"/contactus"}
+            render={(props) => <ContactUs {...props} />}
+          />
+          <Route
+            exact
+            path={"/about"}
+            render={(props) => <About {...props} />}
+          />
+          <Route
+            exact
+            path={"/register"}
+            render={(props) => <Register {...props} />}
+          />
+          <Route
+            exact
+            path={"/login"}
+            render={(props) => <Login {...props} />}
+          />
+          <Route
+            exact
+            path={"/2FA"}
+            render={(props) => <Twofa {...props} />}
+          />
 
-        <Route
-              exact
-              path={"/dashboard"}
-              render={(props) => <Dashboard {...props} />}
-          />  
           <Route
-              exact
-              path={"/blog_1"}
-              render={(props) => <  Blog1 {...props} />}
-          />  
-           <Route
-              exact
-              path={"/blog_2"}
-              render={(props) => <  Blog2 {...props} />}
-          />  
-           <Route
-              exact
-              path={"/blog_3"}
-              render={(props) => <  Blog3 {...props} />}
-          /> 
+            exact
+            path={"/forgotpassword"}
+            render={(props) => <ForgotPassword {...props} />}
+          />
+
+          <Route
+            exact
+            path={"/resetpassword"}
+            render={(props) => <ResetPassword {...props} />}
+          />
+
+          <Route
+            exact
+            path={"/dashboard"}
+            render={(props) => <Dashboard {...props} />}
+          />
+          <Route
+            exact
+            path={"/blog_1"}
+            render={(props) => <  Blog1 {...props} />}
+          />
+          <Route
+            exact
+            path={"/blog_2"}
+            render={(props) => <  Blog2 {...props} />}
+          />
+          <Route
+            exact
+            path={"/blog_3"}
+            render={(props) => <  Blog3{...props} />}
+          />
         </Switch>
-        </BrowserRouter>
+      </BrowserRouter>
     </>
   );
 }

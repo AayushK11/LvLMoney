@@ -73,51 +73,59 @@ export default class Blog_1 extends React.Component {
                     </p>
                   </li>
                   <li>
+                    <h5>  Create an Emergency Fund</h5>
+                    <p>
+                      It’s important to “pay yourself first” to ensure money is set aside for unexpected expenses, such as medical bills, a big car repair, day-to-day expenses if you get laid off, and more. Three to six months’ worth of living expenses is the ideal safety net. Financial experts generally recommend putting away 20% of each paycheck every month. Once you’ve filled up your emergency fund, don’t stop. Continue funneling the monthly 20% toward other financial goals, such as a retirement fund or a down payment on a home.
+
+
+                    </p>
+                  </li>
+                  <li>
                     <h5> Limit Debt</h5>
                     <p>
-                    It seems simple enough: don't spend more than you make to avoid going into debt. Of all, most people must borrow from time to time, and going into debt can be beneficial in some cases—for example, if it leads to the acquisition of an asset. Taking out a mortgage to purchase a home is one example. Even so, whether you're renting a residence, leasing a car, or even acquiring a subscription to computer software, leasing can sometimes be more cost-effective than owning altogether.
+                      It seems simple enough: don't spend more than you make to avoid going into debt. Of all, most people must borrow from time to time, and going into debt can be beneficial in some cases—for example, if it leads to the acquisition of an asset. Taking out a mortgage to purchase a home is one example. Even so, whether you're renting a residence, leasing a car, or even acquiring a subscription to computer software, leasing can sometimes be more cost-effective than owning altogether.
                     </p>
                   </li>
                   <li>
                     <h5> Use Credit Cards Wisely</h5>
                     <p>
-                    Credit cards can be significant debt traps, yet in today's environment, it's impossible not to have one. They can also be used for purposes other than purchasing goods. They're not only important for building your credit score, but they're also a wonderful method to keep track of your spending, which can help you stick to a budget.
+                      Credit cards can be significant debt traps, yet in today's environment, it's impossible not to have one. They can also be used for purposes other than purchasing goods. They're not only important for building your credit score, but they're also a wonderful method to keep track of your spending, which can help you stick to a budget.
                     </p>
                   </li>
                   <li>
                     <h5> Monitor Your Credit Score</h5>
                     <p>
-                    Credit cards are the primary means by which your credit score is established and maintained, thus keeping track of your credit spending goes hand in hand with keeping track of your credit score. You'll need a good credit report if you ever want to get a lease, a mortgage, or any other sort of financing..
+                      Credit cards are the primary means by which your credit score is established and maintained, thus keeping track of your credit spending goes hand in hand with keeping track of your credit score. You'll need a good credit report if you ever want to get a lease, a mortgage, or any other sort of financing..
                     </p>
                   </li>
                   <li>
                     <h5> Consider Your Family</h5>
                     <p>
-                    Make a will and, depending on your needs, set up one or more trusts to secure your assets and ensure that your desires are carried out when you pass away. You should also consider auto, house, life, disability, and long-term care insurance (LTC). Review your policy on a regular basis to ensure that it continues to fit your family's needs as life's significant milestones pass.
+                      Make a will and, depending on your needs, set up one or more trusts to secure your assets and ensure that your desires are carried out when you pass away. You should also consider auto, house, life, disability, and long-term care insurance (LTC). Review your policy on a regular basis to ensure that it continues to fit your family's needs as life's significant milestones pass.
                     </p>
                   </li>
                   <li>
                     <h5> Pay Off Student Loans</h5>
                     <p>
-                    Graduates can choose from a variety of loan repayment schemes and payment reduction strategies. Paying off the debt faster if you're stuck with a high interest rate makes sense. Minimizing repayments (to interest alone, for example) can free up cash to invest elsewhere or put into retirement savings while you're still young, when compound interest will benefit your nest egg the most (see tip eight). If a borrower enrols in auto pay, several private and government loans may be eligible for a rate decrease.
+                      Graduates can choose from a variety of loan repayment schemes and payment reduction strategies. Paying off the debt faster if you're stuck with a high interest rate makes sense. Minimizing repayments (to interest alone, for example) can free up cash to invest elsewhere or put into retirement savings while you're still young, when compound interest will benefit your nest egg the most (see tip eight). If a borrower enrols in auto pay, several private and government loans may be eligible for a rate decrease.
                     </p>
                   </li>
                   <li>
                     <h5> Plan and Save for Retirement</h5>
                     <p>
-                    Retirement may appear to be a long way off, yet it comes far sooner than you think. According to experts, most people will require roughly 80% of their present wage in retirement. 14 The earlier you begin, the more you profit from what financial planners refer to as the "magic of compounding interest," which describes how tiny amounts compound over time.
+                      Retirement may appear to be a long way off, yet it comes far sooner than you think. According to experts, most people will require roughly 80% of their present wage in retirement. 14 The earlier you begin, the more you profit from what financial planners refer to as the "magic of compounding interest," which describes how tiny amounts compound over time.
                     </p>
                   </li>
                   <li>
                     <h5> Maximize Tax Breaks</h5>
                     <p>
-                    Many people lose hundreds or even thousands of dollars each year as a result of an unnecessarily complicated tax code. By maximising your tax savings, you'll have more money to go toward paying off debts from the past, enjoying the present, and making plans for the future.
+                      Many people lose hundreds or even thousands of dollars each year as a result of an unnecessarily complicated tax code. By maximising your tax savings, you'll have more money to go toward paying off debts from the past, enjoying the present, and making plans for the future.
                     </p>
                   </li>
                   <li>
                     <h5> Give Yourself a Break</h5>
                     <p>
-                    Budgeting and planning can appear to be full of sacrifices. Make sure you treat yourself once in a while. You need to appreciate the results of your labour, whether it's a vacation, a purchase, or a once-in-a-while night out on the town. This provides you a taste of the financial independence you've been striving for.
+                      Budgeting and planning can appear to be full of sacrifices. Make sure you treat yourself once in a while. You need to appreciate the results of your labour, whether it's a vacation, a purchase, or a once-in-a-while night out on the town. This provides you a taste of the financial independence you've been striving for.
                     </p>
                   </li>
                 </ol>
