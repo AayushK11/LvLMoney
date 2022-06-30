@@ -13,13 +13,13 @@ def forgot_password_stage_one(request):
         ).TwoFactorEnabled:
             return "2FA"
         else:
-            Authentication.emails.forgot_password_email(
-                AuthenticationDB.objects.get(
-                    Username=Authentication.security.hash_details(request["Username"])
-                ).FirstName,
-                request["Email"],
-                request["Username"],
-            )
+            # Authentication.emails.forgot_password_email(
+            #     AuthenticationDB.objects.get(
+            #         Username=Authentication.security.hash_details(request["Username"])
+            #     ).FirstName,
+            #     request["Email"],
+            #     request["Username"],
+            # )
             return "Email"
     return False
 
@@ -31,13 +31,13 @@ def forgot_password_stage_two(request):
         )
         == request["TwoFA"]
     ):
-        Authentication.emails.forgot_password_email(
-            AuthenticationDB.objects.get(
-                Username=Authentication.security.hash_details(request["Username"])
-            ).FirstName,
-            request["Email"],
-            request["Username"],
-        )
+        # Authentication.emails.forgot_password_email(
+        #     AuthenticationDB.objects.get(
+        #         Username=Authentication.security.hash_details(request["Username"])
+        #     ).FirstName,
+        #     request["Email"],
+        #     request["Username"],
+        # )
         return True
     return False
 

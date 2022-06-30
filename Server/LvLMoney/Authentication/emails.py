@@ -30,7 +30,7 @@ def registration_email(name, email):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = "lvlmoney"
+    password = "1qaz@2wsx"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], message["to"], message.as_string())
@@ -54,7 +54,7 @@ def forgot_password_email(name, email, username):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = "lvlmoney"
+    password = "1qaz@2wsx"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], message["to"], message.as_string())
@@ -84,7 +84,7 @@ def sma_50_100_email(buy, sell, date, emaillist):
     message.attach(logo)
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
-    password = "lvlmoney"
+    password = "1qaz@2wsx"
     server.starttls()
     server.login(message["from"], password)
     server.sendmail(message["from"], [message["to"]] + emaillist, message.as_string())

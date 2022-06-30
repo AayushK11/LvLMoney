@@ -11,7 +11,10 @@ import Model.Forecasting.model_creation
 def get_nifty50():
     url = "https://archives.nseindia.com/content/indices/ind_nifty50list.csv"
     response = requests.get(url).content
-    return pd.read_csv(io.StringIO(response.decode("utf-8")))
+    df = pd.read_csv(io.StringIO(response.decode("utf-8")))
+    removeElements = ["HDFCLIFE", "SBILIFE"]
+    df = df[~df["Symbol"].isin(removeElements)]
+    return df
 
 
 def table_create(connection):

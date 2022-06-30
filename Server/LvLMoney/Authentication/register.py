@@ -28,9 +28,9 @@ def register_stage_two(request):
             Email=request["EmailID"],
             PhoneNumber=request["PhoneNumber"],
         )
-        Authentication.emails.registration_email(
-            request["FirstName"], request["EmailID"]
-        )
+        # Authentication.emails.registration_email(
+        #     request["FirstName"], request["EmailID"]
+        # )
         return True
     return False
 
@@ -58,7 +58,6 @@ def register_stage_four(request):
     """
     if request["TOTP"] == Authentication.security.two_factor_now(
         Authentication.security.hash_details(request["Username"]),
-       
     ):
         AuthenticationDB.objects.filter(
             Username=Authentication.security.hash_details(request["Username"])
