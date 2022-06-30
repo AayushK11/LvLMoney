@@ -12,15 +12,15 @@ def start():
         Model.Forecasting.auto_train.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="10",
-        minute="50",
+        hour="18",
+        minute="12",
     )
     scheduler.add_job(
         Model.MarketSentiment.auto_mood.auto_train,
         day_of_week="mon-fri",
         trigger="cron",
-        hour="9",
-        minute="20",
+        hour="18",
+        minute="12",
     )
     scheduler.add_job(
         Model.SectorRanking.auto_fetch.sector_leaders,
