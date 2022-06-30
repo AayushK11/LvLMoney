@@ -25,7 +25,7 @@ class _AddStockState extends State<AddStock> {
   _login() async {
     await myStorage.ready;
 
-    const baseURL = 'https://6000-171-79-57-138.ngrok.io/api';
+    const baseURL = 'https://2d01-110-226-199-61.ngrok.io/api';
     final url = Uri.parse('$baseURL/loginFolio/');
 
     Response response = await post(url, body: {
@@ -60,7 +60,7 @@ class _AddStockState extends State<AddStock> {
 
       _email = myStorage.getItem('Email').toString();
 
-      const baseURL = 'https://6000-171-79-57-138.ngrok.io/api';
+      const baseURL = 'https://2d01-110-226-199-61.ngrok.io/api';
       final url = Uri.parse('$baseURL/addstock/');
 
       Response response = await post(url, body: {
