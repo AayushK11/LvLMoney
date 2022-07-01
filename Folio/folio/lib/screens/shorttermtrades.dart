@@ -26,7 +26,7 @@ class _ShortTermTradesState extends State<ShortTermTrades> {
   _sendDetails() async {
     await myStorage.ready;
 
-    const baseURL = 'https://a20e-136-232-46-202.ngrok.io /api';
+    const baseURL = 'https://81c9-136-232-46-202.ngrok.io/api';
     final url = Uri.parse('$baseURL/search/');
 
     Response response = await post(url, body: {
