@@ -26,7 +26,7 @@ class _DividendStarsState extends State<DividendStars> {
   _sendDetails() async {
     await myStorage.ready;
 
-    const baseURL = 'http://c030-152-57-192-4.ngrok.io/api';
+    const baseURL = 'https://a20e-136-232-46-202.ngrok.io /api';
     final url = Uri.parse('$baseURL/search/');
 
     Response response = await post(url, body: {
